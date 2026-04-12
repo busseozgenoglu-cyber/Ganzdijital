@@ -105,7 +105,7 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;ov
 #cursor{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;display:none;}
 #cursor-ring{width:40px;height:40px;border:1px solid rgba(0,245,255,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s;display:none;}
 
-body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,245,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.015) 1px,transparent 1px);background-size:60px 60px;}
+
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(2,4,8,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:3px;text-decoration:none;color:var(--white);display:flex;align-items:center;gap:10px;}
 .nav-logo-bracket{color:var(--cyan);}
@@ -497,6 +497,11 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 @media(max-width:1100px){.pricing-panel.sm-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:900px){#fiyatlar{padding:80px 20px;}.pricing-panel.sm-grid,.pricing-panel.tri-grid,.pricing-panel.duo-grid{grid-template-columns:1fr;}}
 @media(max-width:600px){.price-num{font-size:36px;}}
+
+/* Hero elementleri direkt görünür */
+.hero-ticker,.hl-normal,.hl-stroke,.hl-grad,
+.hero-sub,.btn-p,.btn-g,.hero-title,
+.hero-bottom,.hs{opacity:1!important;transform:none!important;}
 </style>
 
 <script type="application/ld+json">
@@ -573,29 +578,29 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-ticker rv">
+  <div class="hero-ticker">
     <div class="tdot"></div>
     <span id="ttext">15+ YILLIK DENEYİM | 280+ FİRMA ORTAKLIĞI</span>
   </div>
 
   <h1 class="hero-title">
-    <span class="hl-normal rv">DİJİTAL</span>
-    <span class="hl-stroke rv" data-t="DÖNÜŞÜM">DÖNÜŞÜM</span>
-    <span class="hl-grad rv">AJANSI</span>
+    <span class="hl-normal">DİJİTAL</span>
+    <span class="hl-stroke" data-t="DÖNÜŞÜM">DÖNÜŞÜM</span>
+    <span class="hl-grad">AJANSI</span>
   </h1>
 
-  <p class="hero-sub rv">
+  <p class="hero-sub">
     <strong style="color:var(--cyan)">15+ yıllık deneyim</strong> ile markanızı dijital dünyada zirveye taşıyoruz. Reklam yönetiminden yazılıma, SEO'dan sosyal medyaya — tam entegre 360° çözümler.
   </p>
 
   <div class="hero-bottom">
-    <a href="#hizmetler" class="btn-p rv">Hizmetlerimiz →</a>
-    <a href="#blog" class="btn-g rv">Sektörel Blog</a>
+    <a href="#hizmetler" class="btn-p">Hizmetlerimiz →</a>
+    <a href="#blog" class="btn-g">Sektörel Blog</a>
     <div class="hero-stats">
-      <div class="hs rv"><div class="hs-n">15+</div><div class="hs-l">Yıllık Deneyim</div></div>
-      <div class="hs rv d1"><div class="hs-n">280+</div><div class="hs-l">Firma Ortaklığı</div></div>
-      <div class="hs rv d2"><div class="hs-n">80+</div><div class="hs-l">Güzellik Merkezi</div></div>
-      <div class="hs rv d3"><div class="hs-n">%94</div><div class="hs-l">Memnuniyet</div></div>
+      <div class="hs"><div class="hs-n">15+</div><div class="hs-l">Yıllık Deneyim</div></div>
+      <div class="hs"><div class="hs-n">280+</div><div class="hs-l">Firma Ortaklığı</div></div>
+      <div class="hs"><div class="hs-n">80+</div><div class="hs-l">Güzellik Merkezi</div></div>
+      <div class="hs"><div class="hs-n">%94</div><div class="hs-l">Memnuniyet</div></div>
     </div>
   </div>
 </section>
@@ -1722,7 +1727,7 @@ document.querySelectorAll('a,button,.svc-card,.ref-card,.why-card,.num-block,.pr
 });
 
 // REVEAL
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('up');});},{threshold:.1});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('up');});},{threshold:0,rootMargin:"0px 0px -50px 0px"});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 
 // REFS FILTER
