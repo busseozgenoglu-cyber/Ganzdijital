@@ -1,12 +1,19 @@
-from flask import Flask, render_template_string
+import os
+from flask import Flask, abort
 
 app = Flask(__name__)
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 @app.route('/')
 def home():
-    with open('../ganz-dijital-FINAL.html', 'r', encoding='utf-8') as f:
-        html_content = f.read()
+    html_path = os.path.join(BASE_DIR, 'ganz-dijital-FINAL.html')
+    try:
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+    except FileNotFoundError:
+        abort(404)
     return html_content
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
