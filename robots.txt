@@ -1,6 +1,18 @@
 User-agent: *
 Allow: /
 Disallow: /private/
-Disallow: /admin/
 
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemap
 Sitemap: https://ganzz.digital/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
