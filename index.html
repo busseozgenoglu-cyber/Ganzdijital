@@ -104,8 +104,8 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
 #cursor{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;display:none;}
 #cursor-ring{width:40px;height:40px;border:1px solid rgba(0,245,255,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s;display:none;}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,255,0.006) 2px,rgba(0,245,255,0.006) 4px);}
-body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);background-size:60px 60px;}
+
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,245,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.015) 1px,transparent 1px);background-size:60px 60px;}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(2,4,8,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:3px;text-decoration:none;color:var(--white);display:flex;align-items:center;gap:10px;}
 .nav-logo-bracket{color:var(--cyan);}
@@ -121,12 +121,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .nav-cta:hover{color:var(--bg);}
 .nav-cta:hover::before{transform:translateX(0);}
 .nav-cta span{position:relative;z-index:1;}
-.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;z-index:1;}
-.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(100px);opacity:0.6;}
-.orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(123,47,255,.45) 0%,transparent 70%);top:-15%;right:-8%;animation:of1 14s ease-in-out infinite;}
-.orb2{width:550px;height:550px;background:radial-gradient(circle,rgba(0,245,255,.28) 0%,transparent 70%);bottom:-18%;left:-6%;animation:of1 17s ease-in-out infinite reverse;}
-.orb3{width:350px;height:350px;background:radial-gradient(circle,rgba(255,0,110,.32) 0%,transparent 70%);top:35%;left:38%;animation:of1 11s ease-in-out infinite 4s;}
-@keyframes of1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(35px,-50px) scale(1.06)}66%{transform:translate(-25px,25px) scale(.94)}}
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;z-index:1;background:radial-gradient(ellipse 80% 60% at 70% 20%,rgba(123,47,255,0.18) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 20% 80%,rgba(0,245,255,0.1) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(255,0,110,0.07) 0%,transparent 50%),#020408;}
+
+
+
+
+66%{transform:translate(-25px,25px) scale(.94)}}
 .hero-ticker{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(0,245,255,.3);padding:8px 16px;margin-bottom:40px;width:fit-content;background:rgba(0,245,255,.04);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--cyan);position:relative;z-index:1;}
 .tdot{width:6px;height:6px;background:#00ff88;border-radius:50%;box-shadow:0 0 8px #00ff88;animation:npulse 1.5s infinite;}
 .hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(42px,9.5vw,152px);line-height:.92;letter-spacing:-1px;position:relative;z-index:1;margin-bottom:8px;}
@@ -424,7 +424,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   /* Hero */
   .hero-stats{display:none;}
   .hero-bottom{flex-direction:column;align-items:flex-start;gap:14px;}
-  .orb1,.orb2,.orb3{width:200px;height:200px;}
+  
 
   /* CTA */
   .cta-in{grid-template-columns:1fr;}
@@ -573,10 +573,6 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 
 <!-- HERO -->
 <section class="hero">
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-
   <div class="hero-ticker rv">
     <div class="tdot"></div>
     <span id="ttext">15+ YILLIK DENEYİM | 280+ FİRMA ORTAKLIĞI</span>
