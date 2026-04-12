@@ -1,8 +1,0 @@
-static:
-  enabled: true
-  directories:
-    /:
-      headers:
-        Access-Control-Allow-Origin: "*"
-      root: "."
-      index: "ganz-dijital-FINAL.html"
