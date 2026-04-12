@@ -5,4 +5,4 @@ static:
       headers:
         Access-Control-Allow-Origin: "*"
       root: "."
-      index: "ganzdijital-FINAL.html"
+      index: "ganz-dijital-FINAL.html"
