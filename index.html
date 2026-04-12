@@ -197,6 +197,87 @@ section{padding:120px 48px;position:relative;z-index:1;}
 .bfeat{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--dim);}
 .fdot{width:6px;height:6px;background:var(--pink);border-radius:50%;box-shadow:0 0 8px var(--pink);flex-shrink:0;}
 #referanslar{background:rgba(0,0,0,.4);}
+/* ===== REFERANS DAİRE GRİD ===== */
+.ref-circle-grid{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:28px 20px;
+  margin:48px 0 52px;
+}
+.ref-circle-item{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  cursor:default;
+}
+.ref-circle{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(var(--c1-raw),.12),rgba(var(--c2-raw),.12));
+  border:2px solid;
+  border-image:linear-gradient(135deg,var(--c1),var(--c2)) 1;
+  border-radius:50%!important;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transition:transform .3s, box-shadow .3s;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 10%,transparent),color-mix(in srgb,var(--c2) 10%,transparent));
+  outline:2px solid;
+  outline-color:color-mix(in srgb,var(--c1) 40%,transparent);
+  outline-offset:-2px;
+}
+.ref-circle-item:hover .ref-circle{
+  transform:translateY(-4px) scale(1.08);
+  box-shadow:0 0 24px color-mix(in srgb,var(--c1) 40%,transparent);
+}
+.ref-circle-abbr{
+  font-family:'Syne',sans-serif;
+  font-size:15px;font-weight:800;
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:1px;
+}
+.ref-circle-name{
+  font-size:11px;font-weight:600;color:var(--white);
+  text-align:center;line-height:1.3;
+}
+.ref-circle-sector{
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--dim);text-align:center;
+}
+/* Ref istatistikler */
+.ref-stats-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;border:1px solid var(--border);
+  background:rgba(255,255,255,.02);
+  margin-top:48px;
+}
+.ref-stat-item{
+  flex:1;padding:32px 20px;text-align:center;
+}
+.ref-stat-n{
+  font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:1;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ref-stat-l{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--dim);margin-top:8px;
+}
+.ref-stat-div{
+  width:1px;height:60px;background:var(--border);flex-shrink:0;
+}
+/* Mobil referans grid */
+@media(max-width:900px){
+  .ref-circle-grid{grid-template-columns:repeat(4,1fr);gap:20px 14px;}
+  .ref-circle{width:66px;height:66px;}
+  .ref-circle-abbr{font-size:13px;}
+  .ref-circle-name{font-size:10px;}
+  .ref-stats-row{flex-wrap:wrap;}
+  .ref-stat-div{display:none;}
+  .ref-stat-item{min-width:50%;}
+}
+@media(max-width:480px){
+  .ref-circle-grid{grid-template-columns:repeat(4,1fr);gap:16px 10px;}
+  .ref-circle{width:58px;height:58px;}
+}
+
 .refs-hdr{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:60px;align-items:end;}
 .refs-note{font-size:16px;line-height:1.8;color:var(--dim);}
 .refs-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;}
@@ -530,6 +611,418 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 </section>
 
 <!-- BLOG -->
+
+<section id="blog-mobilya-1" class="blog-detail" style="display:none;">
+  <div class="blog-header">
+    <a href="#blog" class="blog-back">← Blog'a Dön</a>
+    <span class="sector-tag">MOBİLYA SEKTÖRÜ</span>
+    <h1 class="blog-h1">Mobilya Firmaları İçin Dijital Pazarlama Rehberi 2025</h1>
+    <div class="blog-meta" style="margin-top:24px;font-size:12px;">
+      <span>15 dk okuma</span><span class="blog-dot"></span><span>15+ yıllık deneyim</span><span class="blog-dot"></span><span>Ganz Dijital</span>
+    </div>
+  </div>
+
+  <div class="blog-content">
+    <p><strong>Mobilya sektörü</strong>, dijital dönüşümün en hızlı yaşandığı sektörlerden biri haline geldi. 2024 verilerine göre Türkiye'de mobilya e-ticaret hacmi %78 büyüyerek 45 milyar TL'ye ulaştı. Bu rehberde, 15+ yıllık deneyimimizle edindiğimiz mobilya firmalarına özel dijital pazarlama stratejilerini paylaşıyoruz.</p>
+
+    <h2>1. Mobilya Sektöründe Dijital Pazarlama Neden Önemli?</h2>
+    <p>Tüketicilerin %72'si mobilya satın almadan önce online araştırma yapıyor. Fiziksel mağazalar hala önemli olsa da, karar verme sürecinin %80'i dijital ortamda gerçekleşiyor. Bu nedenle:</p>
+    <ul>
+      <li><strong>Online görünürlük</strong> artık lüks değil, zorunluluk</li>
+      <li><strong>Sosyal medya</strong>, mobilya trendlerinin belirleyicisi</li>
+      <li><strong>E-ticaret</strong>, mağaza cirosunu %40 artırabilir</li>
+      <li><strong>SEO</strong>, organik müşteri kaynağıdır</li>
+    </ul>
+
+    <h2>2. Mobilya Firmaları İçin SEO Stratejileri</h2>
+    <h3>2.1 Anahtar Kelime Araştırması</h3>
+    <p>Mobilya sektöründe hedeflemeniz gereken anahtar kelimeler:</p>
+    <ul>
+      <li>"[Şehir] mobilya mağazası" (Yerel SEO)</li>
+      <li>"Modern koltuk takımları"</li>
+      <li>"İnegöl mobilya" (Bölgesel)</li>
+      <li>"Uygun fiyatlı yatak odası takımları"</li>
+      <li>"Özel ölçü dolap" (Uzun kuyruklu)</li>
+    </ul>
+
+    <h3>2.2 Teknik SEO İyileştirmeleri</h3>
+    <p>Mobilya siteleri için kritik teknik SEO unsurları:</p>
+    <ul>
+      <li><strong>Site hızı:</strong> Mobilya görselleri büyük boyutludur. WebP formatı ve lazy loading kullanın</li>
+      <li><strong>Mobil uyumluluk:</strong> Tüketicilerin %65'i mobilden mobilya araştırıyor</li>
+      <li><strong>Schema markup:</strong> Ürün şeması ile zengin sonuçlar elde edin</li>
+      <li><strong>XML site haritası:</strong> Büyük kataloglar için kritik</li>
+    </ul>
+
+    <h2>3. Sosyal Medya Stratejileri</h2>
+    <h3>3.1 Instagram ve Pinterest</h3>
+    <p>Mobilya sektöründe en etkili platformlar:</p>
+    <ul>
+      <li><strong>Instagram Reels:</strong> Dekorasyon videoları, montaj klipleri</li>
+      <li><strong>Pinterest:</strong> Mood board'lar, dekorasyon fikirleri</li>
+      <li><strong>Instagram Shopping:</strong> Doğrudan satış özelliği</li>
+      <li><strong>Story'ler:</strong> Behind-the-scenes, üretim süreci</li>
+    </ul>
+
+    <h2>4. Google Ads ve Meta Ads Stratejileri</h2>
+    <h3>4.1 Kampanya Yapısı</h3>
+    <p>Mobilya için önerilen kampanya tipleri:</p>
+    <ul>
+      <li><strong>Arama kampanyaları:</strong> "yatak odası takımı", "köşe koltuk" gibi yüksek niyetli kelimeler</li>
+      <li><strong>Görüntülü reklamlar:</strong> Remarketing için ürün görselleri</li>
+      <li><strong>Alışveriş kampanyaları:</strong> Google Merchant Center entegrasyonu</li>
+      <li><strong>Video kampanyaları:</strong> YouTube'da dekorasyon içeriklerinde</li>
+    </ul>
+
+    <h2>5. Sıkça Sorulan Sorular</h2>
+    <h3>Mobilya sektöründe dijital pazarlama bütçesi ne olmalı?</h3>
+    <p>Aylık cirosunun %8-12'si dijital pazarlamaya ayrılmalı. Yeni başlayan firmalar için minimum 5.000 TL/ay, orta ölçekli firmalar için 15.000-30.000 TL/ay önerilir.</p>
+
+    <h3>Hangi sosyal medya platformu daha etkili?</h3>
+    <p>Instagram ve Pinterest mobilya sektöründe en etkili platformlardır. Facebook B2B ve yaşlı demografik için, TikTok genç kitleye ulaşmak için kullanılabilir.</p>
+
+    <h3>E-ticaret mi, showroom mu?</h3>
+    <p>Her ikisi de gerekli. Online'da keşfedilen ürünlerin %60'ı fiziksel mağazada deneniyor. Omnichannel strateji şart.</p>
+
+    <h3>SEO sonuçları ne zaman görülür?</h3>
+    <p>Mobilya sektöründe rekabet yüksek olduğu için 4-6 ayda ilk sonuçlar, 12 ayda istikrarlı trafik artışı beklenmeli.</p>
+
+    <h2>6. Ganz Dijital Farkı</h2>
+    <p>15+ yıllık deneyimimizle mobilya sektöründe:</p>
+    <ul>
+      <li>50+ mobilya firmasına dijital dönüşüm danışmanlığı</li>
+      <li>Ortalama %180 ROI artışı sağladık</li>
+      <li>Özel mobilya CRM ve randevu sistemleri geliştirdik</li>
+      <li>3D ürün görselleştirme ve AR çözümleri sunuyoruz</li>
+    </ul>
+
+    <div class="blog-cta-box">
+      <div class="blog-cta-title" style="background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Mobilya Firmanızı Büyütün</div>
+      <p class="blog-cta-text">15+ yıllık deneyimimizle mobilya sektörüne özel dijital pazarlama stratejileri geliştiriyoruz. Ücretsiz analiz için hemen iletişime geçin.</p>
+      <a href="https://wa.me/905078805608?text=Merhaba,%20mobilya%20firmam%20icin%20dijital%20pazarlama%20hizmetleri%20hakkinda%20bilgi%20almak%20istiyorum." class="btn-p" style="display:inline-flex;" target="_blank">WhatsApp'tan Yazın →</a>
+    </div>
+
+    <h2>7. Sonuç</h2>
+    <p>Mobilya sektöründe dijital pazarlama, artık tercih değil zorunluluk haline geldi. Doğru strateji, tutarlı uygulama ve uzman desteği ile markanızı dijital dünyada zirveye taşıyabilirsiniz. <strong>Ganz Dijital</strong> olarak, 15+ yıllık deneyimimizle yanınızdayız.</p>
+  </div>
+
+  <div class="blog-nav">
+    <a href="#blog" class="blog-nav-item">
+      <span class="blog-nav-label">← Blog'a Dön</span>
+      <span class="blog-nav-title">Tüm Yazılar</span>
+    </a>
+    <a href="blog/mobilya-firmasi-dijital-reklam.html" class="blog-nav-item" style="text-align:right;">
+      <span class="blog-nav-label">Sonraki Yazı →</span>
+      <span class="blog-nav-title">İnternetten Mobilya Satışı</span>
+    </a>
+  </div>
+</section>
+
+<!-- Güzellik Blog 1 -->
+<section id="blog-guzellik-1" class="blog-detail" style="display:none;">
+  <div class="blog-header">
+    <a href="#blog" class="blog-back">← Blog'a Dön</a>
+    <span class="sector-tag" style="background:rgba(255,0,110,.1);color:var(--pink);border-color:rgba(255,0,110,.2)">GÜZELLİK SEKTÖRÜ</span>
+    <h1 class="blog-h1">Güzellik Merkezleri İçin Instagram Pazarlama Stratejileri</h1>
+    <div class="blog-meta" style="margin-top:24px;font-size:12px;">
+      <span>12 dk okuma</span><span class="blog-dot"></span><span>80+ güzellik merkezi deneyimi</span><span class="blog-dot"></span><span>Ganz Dijital</span>
+    </div>
+  </div>
+
+  <div class="blog-content">
+    <p><strong>Güzellik sektöründe</strong> Instagram pazarlama olmazsa olmazdır. 80+ güzellik merkezi ortaklığımızdan edindiğimiz tecrübelerle hazırladığımız bu rehberde, estetik kliniklerin ve güzellik salonlarının Instagram'da başarılı olmasını sağlayacak stratejileri paylaşıyoruz.</p>
+
+    <h2>1. Neden Instagram Güzellik Sektörü İçin Kritik?</h2>
+    <p>Türkiye'de Instagram'ı aktif kullanan 50+ milyon kullanıcı var. Güzellik hizmetleri arayanların %85'i Instagram'da araştırma yapıyor:</p>
+    <ul>
+      <li><strong>Görsel odaklı:</strong> Güzellik sonuçları fotoğraflarla kanıtlanır</li>
+      <li><strong>Trust building:</strong> Müşteri yorumları ve before-after'lar güven oluşturur</li>
+      <li><strong>Hedef kitle:</strong> 18-45 yaş kadın demografik odaklı</li>
+      <li><strong>Dönüşüm:</strong> Instagram'dan direkt randevu alma özelliği</li>
+    </ul>
+
+    <h2>2. Profil Optimizasyonu</h2>
+    <h3>2.1 Biyografi ve İletişim</h3>
+    <p>Etkili bir güzellik merkezi Instagram biyografisi:</p>
+    <ul>
+      <li><strong>Emoji kullanımı:</strong> ✨💎🌸 gibi estetik emojiler</li>
+      <li><strong>Hizmet listesi:</strong> "Cilt Bakımı | Lazer | Botox | Dolgu"</li>
+      <li><strong>Şehir bilgisi:</strong> Lokasyon bazlı SEO için kritik</li>
+      <li><strong>WhatsApp butonu:</strong> Direkt mesajlaşma için zorunlu</li>
+      <li><strong>Website linki:</strong> Linktree veya özel açılış sayfası</li>
+    </ul>
+
+    <h2>3. İçerik Stratejisi</h2>
+    <h3>3.1 Before-After İçerikler</h3>
+    <p>Güzellik sektörünün altın kuralı:</p>
+    <ul>
+      <li><strong>Aydınlatma:</strong> Aynı ışık, aynı açı, aynı arka plan</li>
+      <li><strong>İzin:</strong> Müşteri izni alın, yüz gösterilecekse ek izin</li>
+      <li><strong>Zamanlama:</strong> Hemen sonrası değil, 2-4 hafta sonrası</li>
+      <li><strong>Etiket:</strong> #beforeafter #ciltbakimi #[sehir]guzellik</li>
+    </ul>
+
+    <h2>4. Reels Stratejisi</h2>
+    <p>Güzellik sektöründe tutan Reels formatları:</p>
+    <ul>
+      <li><strong>Transformation videos:</strong> Before-after geçişleri</li>
+      <li><strong>ASMR:</strong> Cilt bakımı sesleri</li>
+      <li><strong>Trend müzikleri:</strong> Popüler şarkılarla dudak dolgu gösterimi</li>
+      <li><strong>Behind-the-scenes:</strong> Sterilizasyon, hazırlık süreci</li>
+    </ul>
+
+    <h2>5. Sıkça Sorulan Sorular</h2>
+    <h3>Instagram'dan randevu alma oranı nedir?</h3>
+    <p>Optimize edilmiş profillerde toplam randevuların %30-40'ı Instagram kaynaklıdır.</p>
+
+    <h3>Hangi içerik en çok etkileşim alır?</h3>
+    <p>Before-after içerikleri %400 daha fazla etkileşim alır. Reels formatı feed postlarından 2x daha fazla erişim sağlar.</p>
+
+    <div class="blog-cta-box">
+      <div class="blog-cta-title" style="background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Güzellik Merkezinizi Büyütün</div>
+      <p class="blog-cta-text">80+ güzellik merkezi ortaklığı deneyimimizle Instagram'da fark yaratın.</p>
+      <a href="https://wa.me/905078805608?text=Merhaba,%20guzellik%20merkezim%20icin%20Instagram%20pazarlama%20hakkinda%20bilgi%20almak%20istiyorum." class="btn-p" style="display:inline-flex;" target="_blank">WhatsApp'tan Yazın →</a>
+    </div>
+  </div>
+
+  <div class="blog-nav">
+    <a href="#blog" class="blog-nav-item">
+      <span class="blog-nav-label">← Blog'a Dön</span>
+      <span class="blog-nav-title">Tüm Yazılar</span>
+    </a>
+    <a href="#blog" class="blog-nav-item" style="text-align:right;">
+      <span class="blog-nav-label">Sonraki Yazı →</span>
+      <span class="blog-nav-title">Online Randevu Sistemi</span>
+    </a>
+  </div>
+</section>
+
+<!-- RAKAMLARA -->
+<section id="rakamlara">
+  <div class="eyebrow rv">Rakamlarla Ganz Dijital</div>
+  <h2 class="stitle rv">BAŞARININ<br><span class="grad-pp">KANITI</span></h2>
+  <div class="num-grid">
+    <div class="num-block rv" style="--d:0s"><div class="num-corner">STAT_01</div><div class="num-big">15+</div><div class="num-label">Yıllık Sektör<br>Deneyimi</div></div>
+    <div class="num-block rv d1" style="--d:.5s"><div class="num-corner">STAT_02</div><div class="num-big">280+</div><div class="num-label">Türkiye Geneli<br>Firma Ortaklığı</div></div>
+    <div class="num-block rv d2" style="--d:1s"><div class="num-corner">STAT_03</div><div class="num-big">80+</div><div class="num-label">Güzellik Merkezi<br>Partneri</div></div>
+    <div class="num-block rv d3" style="--d:1.5s"><div class="num-corner">STAT_04</div><div class="num-big">%94</div><div class="num-label">Müşteri Memnuniyet<br>Oranı</div></div>
+  </div>
+</section>
+
+<!-- BEAUTY -->
+<div class="beauty-sec">
+  <div class="beauty-in">
+    <div>
+      <div class="eyebrow rv" style="color:var(--pink)">Güzellik Sektörü</div>
+      <h2 class="btitle rv">GÜZELLİK<br><span class="bacc">MERKEZLERİNE</span><br>ÖZEL ÇÖZÜMLER</h2>
+      <div class="bnum-row rv"><div class="bnum">80</div><div style="font-size:14px;color:var(--dim);line-height:1.6;max-width:180px">güzellik merkezi ile büyüyen partnerlik ağımız</div></div>
+    </div>
+    <div>
+      <p class="rv" style="font-size:16px;line-height:1.8;color:var(--dim);margin-bottom:28px">15+ yıllık deneyimimizle güzellik sektörünün dinamiklerini çok iyi biliyoruz. Randevu sistemleri, before-after içerikler, influencer iş birlikleri ve hedefli reklam kampanyalarıyla güzellik merkezlerini büyütüyoruz.</p>
+      <div class="bfeats">
+        <div class="bfeat rv"><div class="fdot"></div> Instagram & TikTok İçerik Üretimi</div>
+        <div class="bfeat rv d1"><div class="fdot"></div> Google İşletme Profili Optimizasyonu</div>
+        <div class="bfeat rv d2"><div class="fdot"></div> Online Randevu Sistemi Entegrasyonu</div>
+        <div class="bfeat rv d3"><div class="fdot"></div> Hedefli Dijital Reklam Kampanyaları</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REFERANSLAR -->
+<section id="referanslar">
+  <div class="refs-hdr">
+    <div>
+      <div class="eyebrow rv">Referanslarımız</div>
+      <h2 class="stitle rv">GÜVENEN<br><span class="grad-gc">MARKALAR</span></h2>
+    </div>
+    <p class="refs-note rv">15+ yıllık deneyimimizle Türkiye genelinde 280'den fazla firmaya hizmet verdik. İşte birlikte büyüdüğümüz markalardan bazıları.</p>
+  </div>
+
+  <!-- Yuvarlak Logo Grid -->
+  <div class="ref-circle-grid rv">
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00f5ff;--c2:#7b2fff">
+        <span class="ref-circle-abbr">VK</span>
+      </div>
+      <div class="ref-circle-name">Vako Kozmetik</div>
+      <div class="ref-circle-sector">Güzellik</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#ff006e;--c2:#7b2fff">
+        <span class="ref-circle-abbr">LS</span>
+      </div>
+      <div class="ref-circle-name">Luna Skin Clinic</div>
+      <div class="ref-circle-sector">Estetik Klinik</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#7b2fff;--c2:#00f5ff">
+        <span class="ref-circle-abbr">MM</span>
+      </div>
+      <div class="ref-circle-name">Moderno Mobilya</div>
+      <div class="ref-circle-sector">Mobilya</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00ff88;--c2:#00f5ff">
+        <span class="ref-circle-abbr">CB</span>
+      </div>
+      <div class="ref-circle-name">Cafe Bosphorus</div>
+      <div class="ref-circle-sector">Restoran</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#ff006e;--c2:#00f5ff">
+        <span class="ref-circle-abbr">YC</span>
+      </div>
+      <div class="ref-circle-name">Yüz Clinic</div>
+      <div class="ref-circle-sector">Sağlık</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00f5ff;--c2:#00ff88">
+        <span class="ref-circle-abbr">TK</span>
+      </div>
+      <div class="ref-circle-name">TechKare Yazılım</div>
+      <div class="ref-circle-sector">Teknoloji</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#7b2fff;--c2:#ff006e">
+        <span class="ref-circle-abbr">GS</span>
+      </div>
+      <div class="ref-circle-name">Golden Spa</div>
+      <div class="ref-circle-sector">SPA & Wellness</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00f5ff;--c2:#7b2fff">
+        <span class="ref-circle-abbr">NR</span>
+      </div>
+      <div class="ref-circle-name">Natura Restoran</div>
+      <div class="ref-circle-sector">Restoran</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#ff006e;--c2:#00ff88">
+        <span class="ref-circle-abbr">PM</span>
+      </div>
+      <div class="ref-circle-name">PrimeModa</div>
+      <div class="ref-circle-sector">Moda</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00ff88;--c2:#7b2fff">
+        <span class="ref-circle-abbr">AS</span>
+      </div>
+      <div class="ref-circle-name">Anadolu Store</div>
+      <div class="ref-circle-sector">E-Ticaret</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00f5ff;--c2:#ff006e">
+        <span class="ref-circle-abbr">BK</span>
+      </div>
+      <div class="ref-circle-name">Başkent Klinik</div>
+      <div class="ref-circle-sector">Sağlık</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#7b2fff;--c2:#00ff88">
+        <span class="ref-circle-abbr">MN</span>
+      </div>
+      <div class="ref-circle-name">Mira Nakliyat</div>
+      <div class="ref-circle-sector">Lojistik</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#ff006e;--c2:#7b2fff">
+        <span class="ref-circle-abbr">DP</span>
+      </div>
+      <div class="ref-circle-name">DigitalPlus</div>
+      <div class="ref-circle-sector">Yazılım</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00f5ff;--c2:#00f5ff">
+        <span class="ref-circle-abbr">EL</span>
+      </div>
+      <div class="ref-circle-name">Elmas Lazer</div>
+      <div class="ref-circle-sector">Güzellik</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#00ff88;--c2:#ff006e">
+        <span class="ref-circle-abbr">VB</span>
+      </div>
+      <div class="ref-circle-name">Vita Beauty</div>
+      <div class="ref-circle-sector">Güzellik Merkezi</div>
+    </div>
+
+    <div class="ref-circle-item">
+      <div class="ref-circle" style="--c1:#7b2fff;--c2:#00f5ff">
+        <span class="ref-circle-abbr">280</span>
+      </div>
+      <div class="ref-circle-name">+280 Firma</div>
+      <div class="ref-circle-sector">ve daha fazlası</div>
+    </div>
+
+  </div>
+
+  <!-- Referans istatistikleri -->
+  <div class="ref-stats-row rv">
+    <div class="ref-stat-item">
+      <div class="ref-stat-n">280+</div>
+      <div class="ref-stat-l">Aktif Firma Ortağı</div>
+    </div>
+    <div class="ref-stat-div"></div>
+    <div class="ref-stat-item">
+      <div class="ref-stat-n">80+</div>
+      <div class="ref-stat-l">Güzellik Merkezi</div>
+    </div>
+    <div class="ref-stat-div"></div>
+    <div class="ref-stat-item">
+      <div class="ref-stat-n">15+</div>
+      <div class="ref-stat-l">Yıllık Deneyim</div>
+    </div>
+    <div class="ref-stat-div"></div>
+    <div class="ref-stat-item">
+      <div class="ref-stat-n">%94</div>
+      <div class="ref-stat-l">Memnuniyet</div>
+    </div>
+  </div>
+
+</section>
+<section id="surec">
+  <div class="eyebrow rv">Çalışma Sürecimiz</div>
+  <h2 class="stitle rv">NASIL<br><span class="grad-pc">ÇALIŞIYORUZ?</span></h2>
+  <div class="proc-grid">
+    <div class="proc-step rv"><div class="pnum">01</div><div class="ptitle">Analiz & Strateji</div><p class="ptext">Marka, hedef kitle ve rakip analizi. 15+ yıllık deneyimle özel dijital strateji.</p></div>
+    <div class="proc-step rv d1"><div class="pnum">02</div><div class="ptitle">Planlama</div><p class="ptext">Aylık içerik planı, reklam bütçesi ve hedefleri belirleme. Şeffaf raporlama sistemi.</p></div>
+    <div class="proc-step rv d2"><div class="pnum">03</div><div class="ptitle">Üretim</div><p class="ptext">Tasarım, içerik ve teknik altyapıyı hayata geçirme. Sektör uzmanlarıyla çalışma.</p></div>
+    <div class="proc-step rv d3"><div class="pnum">04</div><div class="ptitle">Yayın & Yönetim</div><p class="ptext">Kampanya aktivasyonu ve gerçek zamanlı optimizasyon. 7/24 performans izleme.</p></div>
+    <div class="proc-step rv d4"><div class="pnum">05</div><div class="ptitle">Raporlama</div><p class="ptext">Aylık detaylı performans raporları ile şeffaf veri. ROI analizi ve iyileştirme.</p></div>
+  </div>
+</section>
+
+<!-- NEDEN BİZ -->
+<section id="neden">
+  <div class="eyebrow rv">Neden Ganz Dijital?</div>
+  <h2 class="stitle rv">FARKINIZI<br><span class="grad-gc">YARATIYORUZ</span></h2>
+  <div class="why-grid">
+    <div class="why-card rv"><div class="wi">🎯</div><div class="wt">15+ Yıllık Deneyim</div><p class="wx">2009'dan beri dijital pazarlama sektöründeyiz. 15+ yıllık tecrübemizle binlerce kampanya yönettik.</p></div>
+    <div class="why-card rv d1"><div class="wi">🤝</div><div class="wt">280+ Firma Ağı</div><p class="wx">Türkiye genelinde 280'den fazla firmayla uzun soluklu ortaklıklar. Güvenin kanıtı.</p></div>
+    <div class="why-card rv d2"><div class="wi">⚡</div><div class="wt">7/24 Hızlı Yanıt</div><p class="wx">WhatsApp üzerinden 7/24 ulaşabilirsiniz. Acil durumlarda anında destek ekibimiz devreye girer.</p></div>
+    <div class="why-card rv"><div class="wi">📊</div><div class="wt">Şeffaf Raporlama</div><p class="wx">Her ay detaylı performans raporu. Neyin işe yarayıp yaramadığını birlikte görüyoruz.</p></div>
+    <div class="why-card rv d1"><div class="wi">🌟</div><div class="wt">Sektöre Özel Yaklaşım</div><p class="wx">Mobilya, güzellik, gastronomi, teknoloji, perakende — her sektörü bilen uzman kadro.</p></div>
+    <div class="why-card rv d2"><div class="wi">🔧</div><div class="wt">Tam Entegre Hizmet</div><p class="wx">Tek bir ajandan tüm dijital ihtiyaçlarınız. Reklam, SEO, web, sosyal medya, yazılım.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
 <section id="blog">
   <div class="blog-hdr">
     <div>
@@ -821,287 +1314,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 
 <!-- BLOG DETAYLARI -->
 <!-- Mobilya Blog 1 -->
-<section id="blog-mobilya-1" class="blog-detail" style="display:none;">
-  <div class="blog-header">
-    <a href="#blog" class="blog-back">← Blog'a Dön</a>
-    <span class="sector-tag">MOBİLYA SEKTÖRÜ</span>
-    <h1 class="blog-h1">Mobilya Firmaları İçin Dijital Pazarlama Rehberi 2025</h1>
-    <div class="blog-meta" style="margin-top:24px;font-size:12px;">
-      <span>15 dk okuma</span><span class="blog-dot"></span><span>15+ yıllık deneyim</span><span class="blog-dot"></span><span>Ganz Dijital</span>
-    </div>
-  </div>
 
-  <div class="blog-content">
-    <p><strong>Mobilya sektörü</strong>, dijital dönüşümün en hızlı yaşandığı sektörlerden biri haline geldi. 2024 verilerine göre Türkiye'de mobilya e-ticaret hacmi %78 büyüyerek 45 milyar TL'ye ulaştı. Bu rehberde, 15+ yıllık deneyimimizle edindiğimiz mobilya firmalarına özel dijital pazarlama stratejilerini paylaşıyoruz.</p>
-
-    <h2>1. Mobilya Sektöründe Dijital Pazarlama Neden Önemli?</h2>
-    <p>Tüketicilerin %72'si mobilya satın almadan önce online araştırma yapıyor. Fiziksel mağazalar hala önemli olsa da, karar verme sürecinin %80'i dijital ortamda gerçekleşiyor. Bu nedenle:</p>
-    <ul>
-      <li><strong>Online görünürlük</strong> artık lüks değil, zorunluluk</li>
-      <li><strong>Sosyal medya</strong>, mobilya trendlerinin belirleyicisi</li>
-      <li><strong>E-ticaret</strong>, mağaza cirosunu %40 artırabilir</li>
-      <li><strong>SEO</strong>, organik müşteri kaynağıdır</li>
-    </ul>
-
-    <h2>2. Mobilya Firmaları İçin SEO Stratejileri</h2>
-    <h3>2.1 Anahtar Kelime Araştırması</h3>
-    <p>Mobilya sektöründe hedeflemeniz gereken anahtar kelimeler:</p>
-    <ul>
-      <li>"[Şehir] mobilya mağazası" (Yerel SEO)</li>
-      <li>"Modern koltuk takımları"</li>
-      <li>"İnegöl mobilya" (Bölgesel)</li>
-      <li>"Uygun fiyatlı yatak odası takımları"</li>
-      <li>"Özel ölçü dolap" (Uzun kuyruklu)</li>
-    </ul>
-
-    <h3>2.2 Teknik SEO İyileştirmeleri</h3>
-    <p>Mobilya siteleri için kritik teknik SEO unsurları:</p>
-    <ul>
-      <li><strong>Site hızı:</strong> Mobilya görselleri büyük boyutludur. WebP formatı ve lazy loading kullanın</li>
-      <li><strong>Mobil uyumluluk:</strong> Tüketicilerin %65'i mobilden mobilya araştırıyor</li>
-      <li><strong>Schema markup:</strong> Ürün şeması ile zengin sonuçlar elde edin</li>
-      <li><strong>XML site haritası:</strong> Büyük kataloglar için kritik</li>
-    </ul>
-
-    <h2>3. Sosyal Medya Stratejileri</h2>
-    <h3>3.1 Instagram ve Pinterest</h3>
-    <p>Mobilya sektöründe en etkili platformlar:</p>
-    <ul>
-      <li><strong>Instagram Reels:</strong> Dekorasyon videoları, montaj klipleri</li>
-      <li><strong>Pinterest:</strong> Mood board'lar, dekorasyon fikirleri</li>
-      <li><strong>Instagram Shopping:</strong> Doğrudan satış özelliği</li>
-      <li><strong>Story'ler:</strong> Behind-the-scenes, üretim süreci</li>
-    </ul>
-
-    <h2>4. Google Ads ve Meta Ads Stratejileri</h2>
-    <h3>4.1 Kampanya Yapısı</h3>
-    <p>Mobilya için önerilen kampanya tipleri:</p>
-    <ul>
-      <li><strong>Arama kampanyaları:</strong> "yatak odası takımı", "köşe koltuk" gibi yüksek niyetli kelimeler</li>
-      <li><strong>Görüntülü reklamlar:</strong> Remarketing için ürün görselleri</li>
-      <li><strong>Alışveriş kampanyaları:</strong> Google Merchant Center entegrasyonu</li>
-      <li><strong>Video kampanyaları:</strong> YouTube'da dekorasyon içeriklerinde</li>
-    </ul>
-
-    <h2>5. Sıkça Sorulan Sorular</h2>
-    <h3>Mobilya sektöründe dijital pazarlama bütçesi ne olmalı?</h3>
-    <p>Aylık cirosunun %8-12'si dijital pazarlamaya ayrılmalı. Yeni başlayan firmalar için minimum 5.000 TL/ay, orta ölçekli firmalar için 15.000-30.000 TL/ay önerilir.</p>
-
-    <h3>Hangi sosyal medya platformu daha etkili?</h3>
-    <p>Instagram ve Pinterest mobilya sektöründe en etkili platformlardır. Facebook B2B ve yaşlı demografik için, TikTok genç kitleye ulaşmak için kullanılabilir.</p>
-
-    <h3>E-ticaret mi, showroom mu?</h3>
-    <p>Her ikisi de gerekli. Online'da keşfedilen ürünlerin %60'ı fiziksel mağazada deneniyor. Omnichannel strateji şart.</p>
-
-    <h3>SEO sonuçları ne zaman görülür?</h3>
-    <p>Mobilya sektöründe rekabet yüksek olduğu için 4-6 ayda ilk sonuçlar, 12 ayda istikrarlı trafik artışı beklenmeli.</p>
-
-    <h2>6. Ganz Dijital Farkı</h2>
-    <p>15+ yıllık deneyimimizle mobilya sektöründe:</p>
-    <ul>
-      <li>50+ mobilya firmasına dijital dönüşüm danışmanlığı</li>
-      <li>Ortalama %180 ROI artışı sağladık</li>
-      <li>Özel mobilya CRM ve randevu sistemleri geliştirdik</li>
-      <li>3D ürün görselleştirme ve AR çözümleri sunuyoruz</li>
-    </ul>
-
-    <div class="blog-cta-box">
-      <div class="blog-cta-title" style="background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Mobilya Firmanızı Büyütün</div>
-      <p class="blog-cta-text">15+ yıllık deneyimimizle mobilya sektörüne özel dijital pazarlama stratejileri geliştiriyoruz. Ücretsiz analiz için hemen iletişime geçin.</p>
-      <a href="https://wa.me/905078805608?text=Merhaba,%20mobilya%20firmam%20icin%20dijital%20pazarlama%20hizmetleri%20hakkinda%20bilgi%20almak%20istiyorum." class="btn-p" style="display:inline-flex;" target="_blank">WhatsApp'tan Yazın →</a>
-    </div>
-
-    <h2>7. Sonuç</h2>
-    <p>Mobilya sektöründe dijital pazarlama, artık tercih değil zorunluluk haline geldi. Doğru strateji, tutarlı uygulama ve uzman desteği ile markanızı dijital dünyada zirveye taşıyabilirsiniz. <strong>Ganz Dijital</strong> olarak, 15+ yıllık deneyimimizle yanınızdayız.</p>
-  </div>
-
-  <div class="blog-nav">
-    <a href="#blog" class="blog-nav-item">
-      <span class="blog-nav-label">← Blog'a Dön</span>
-      <span class="blog-nav-title">Tüm Yazılar</span>
-    </a>
-    <a href="blog/mobilya-firmasi-dijital-reklam.html" class="blog-nav-item" style="text-align:right;">
-      <span class="blog-nav-label">Sonraki Yazı →</span>
-      <span class="blog-nav-title">İnternetten Mobilya Satışı</span>
-    </a>
-  </div>
-</section>
-
-<!-- Güzellik Blog 1 -->
-<section id="blog-guzellik-1" class="blog-detail" style="display:none;">
-  <div class="blog-header">
-    <a href="#blog" class="blog-back">← Blog'a Dön</a>
-    <span class="sector-tag" style="background:rgba(255,0,110,.1);color:var(--pink);border-color:rgba(255,0,110,.2)">GÜZELLİK SEKTÖRÜ</span>
-    <h1 class="blog-h1">Güzellik Merkezleri İçin Instagram Pazarlama Stratejileri</h1>
-    <div class="blog-meta" style="margin-top:24px;font-size:12px;">
-      <span>12 dk okuma</span><span class="blog-dot"></span><span>80+ güzellik merkezi deneyimi</span><span class="blog-dot"></span><span>Ganz Dijital</span>
-    </div>
-  </div>
-
-  <div class="blog-content">
-    <p><strong>Güzellik sektöründe</strong> Instagram pazarlama olmazsa olmazdır. 80+ güzellik merkezi ortaklığımızdan edindiğimiz tecrübelerle hazırladığımız bu rehberde, estetik kliniklerin ve güzellik salonlarının Instagram'da başarılı olmasını sağlayacak stratejileri paylaşıyoruz.</p>
-
-    <h2>1. Neden Instagram Güzellik Sektörü İçin Kritik?</h2>
-    <p>Türkiye'de Instagram'ı aktif kullanan 50+ milyon kullanıcı var. Güzellik hizmetleri arayanların %85'i Instagram'da araştırma yapıyor:</p>
-    <ul>
-      <li><strong>Görsel odaklı:</strong> Güzellik sonuçları fotoğraflarla kanıtlanır</li>
-      <li><strong>Trust building:</strong> Müşteri yorumları ve before-after'lar güven oluşturur</li>
-      <li><strong>Hedef kitle:</strong> 18-45 yaş kadın demografik odaklı</li>
-      <li><strong>Dönüşüm:</strong> Instagram'dan direkt randevu alma özelliği</li>
-    </ul>
-
-    <h2>2. Profil Optimizasyonu</h2>
-    <h3>2.1 Biyografi ve İletişim</h3>
-    <p>Etkili bir güzellik merkezi Instagram biyografisi:</p>
-    <ul>
-      <li><strong>Emoji kullanımı:</strong> ✨💎🌸 gibi estetik emojiler</li>
-      <li><strong>Hizmet listesi:</strong> "Cilt Bakımı | Lazer | Botox | Dolgu"</li>
-      <li><strong>Şehir bilgisi:</strong> Lokasyon bazlı SEO için kritik</li>
-      <li><strong>WhatsApp butonu:</strong> Direkt mesajlaşma için zorunlu</li>
-      <li><strong>Website linki:</strong> Linktree veya özel açılış sayfası</li>
-    </ul>
-
-    <h2>3. İçerik Stratejisi</h2>
-    <h3>3.1 Before-After İçerikler</h3>
-    <p>Güzellik sektörünün altın kuralı:</p>
-    <ul>
-      <li><strong>Aydınlatma:</strong> Aynı ışık, aynı açı, aynı arka plan</li>
-      <li><strong>İzin:</strong> Müşteri izni alın, yüz gösterilecekse ek izin</li>
-      <li><strong>Zamanlama:</strong> Hemen sonrası değil, 2-4 hafta sonrası</li>
-      <li><strong>Etiket:</strong> #beforeafter #ciltbakimi #[sehir]guzellik</li>
-    </ul>
-
-    <h2>4. Reels Stratejisi</h2>
-    <p>Güzellik sektöründe tutan Reels formatları:</p>
-    <ul>
-      <li><strong>Transformation videos:</strong> Before-after geçişleri</li>
-      <li><strong>ASMR:</strong> Cilt bakımı sesleri</li>
-      <li><strong>Trend müzikleri:</strong> Popüler şarkılarla dudak dolgu gösterimi</li>
-      <li><strong>Behind-the-scenes:</strong> Sterilizasyon, hazırlık süreci</li>
-    </ul>
-
-    <h2>5. Sıkça Sorulan Sorular</h2>
-    <h3>Instagram'dan randevu alma oranı nedir?</h3>
-    <p>Optimize edilmiş profillerde toplam randevuların %30-40'ı Instagram kaynaklıdır.</p>
-
-    <h3>Hangi içerik en çok etkileşim alır?</h3>
-    <p>Before-after içerikleri %400 daha fazla etkileşim alır. Reels formatı feed postlarından 2x daha fazla erişim sağlar.</p>
-
-    <div class="blog-cta-box">
-      <div class="blog-cta-title" style="background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Güzellik Merkezinizi Büyütün</div>
-      <p class="blog-cta-text">80+ güzellik merkezi ortaklığı deneyimimizle Instagram'da fark yaratın.</p>
-      <a href="https://wa.me/905078805608?text=Merhaba,%20guzellik%20merkezim%20icin%20Instagram%20pazarlama%20hakkinda%20bilgi%20almak%20istiyorum." class="btn-p" style="display:inline-flex;" target="_blank">WhatsApp'tan Yazın →</a>
-    </div>
-  </div>
-
-  <div class="blog-nav">
-    <a href="#blog" class="blog-nav-item">
-      <span class="blog-nav-label">← Blog'a Dön</span>
-      <span class="blog-nav-title">Tüm Yazılar</span>
-    </a>
-    <a href="#blog" class="blog-nav-item" style="text-align:right;">
-      <span class="blog-nav-label">Sonraki Yazı →</span>
-      <span class="blog-nav-title">Online Randevu Sistemi</span>
-    </a>
-  </div>
-</section>
-
-<!-- RAKAMLARA -->
-<section id="rakamlara">
-  <div class="eyebrow rv">Rakamlarla Ganz Dijital</div>
-  <h2 class="stitle rv">BAŞARININ<br><span class="grad-pp">KANITI</span></h2>
-  <div class="num-grid">
-    <div class="num-block rv" style="--d:0s"><div class="num-corner">STAT_01</div><div class="num-big">15+</div><div class="num-label">Yıllık Sektör<br>Deneyimi</div></div>
-    <div class="num-block rv d1" style="--d:.5s"><div class="num-corner">STAT_02</div><div class="num-big">280+</div><div class="num-label">Türkiye Geneli<br>Firma Ortaklığı</div></div>
-    <div class="num-block rv d2" style="--d:1s"><div class="num-corner">STAT_03</div><div class="num-big">80+</div><div class="num-label">Güzellik Merkezi<br>Partneri</div></div>
-    <div class="num-block rv d3" style="--d:1.5s"><div class="num-corner">STAT_04</div><div class="num-big">%94</div><div class="num-label">Müşteri Memnuniyet<br>Oranı</div></div>
-  </div>
-</section>
-
-<!-- BEAUTY -->
-<div class="beauty-sec">
-  <div class="beauty-in">
-    <div>
-      <div class="eyebrow rv" style="color:var(--pink)">Güzellik Sektörü</div>
-      <h2 class="btitle rv">GÜZELLİK<br><span class="bacc">MERKEZLERİNE</span><br>ÖZEL ÇÖZÜMLER</h2>
-      <div class="bnum-row rv"><div class="bnum">80</div><div style="font-size:14px;color:var(--dim);line-height:1.6;max-width:180px">güzellik merkezi ile büyüyen partnerlik ağımız</div></div>
-    </div>
-    <div>
-      <p class="rv" style="font-size:16px;line-height:1.8;color:var(--dim);margin-bottom:28px">15+ yıllık deneyimimizle güzellik sektörünün dinamiklerini çok iyi biliyoruz. Randevu sistemleri, before-after içerikler, influencer iş birlikleri ve hedefli reklam kampanyalarıyla güzellik merkezlerini büyütüyoruz.</p>
-      <div class="bfeats">
-        <div class="bfeat rv"><div class="fdot"></div> Instagram & TikTok İçerik Üretimi</div>
-        <div class="bfeat rv d1"><div class="fdot"></div> Google İşletme Profili Optimizasyonu</div>
-        <div class="bfeat rv d2"><div class="fdot"></div> Online Randevu Sistemi Entegrasyonu</div>
-        <div class="bfeat rv d3"><div class="fdot"></div> Hedefli Dijital Reklam Kampanyaları</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- REFERANSLAR -->
-<section id="referanslar">
-  <div class="refs-hdr">
-    <div>
-      <div class="eyebrow rv">Referanslarımız</div>
-      <h2 class="stitle rv">GÜVENEN<br><span class="grad-gc">MARKALAR</span></h2>
-    </div>
-    <p class="refs-note rv">15+ yıllık deneyimimizle Türkiye'nin dört bir yanından 280'den fazla firma ile çalışıyoruz. Küçük işletmeden kurumsal markalara geniş portföy.</p>
-  </div>
-  <div class="refs-filter">
-    <button class="rfbtn active">Tümü</button>
-    <button class="rfbtn">Güzellik & Sağlık</button>
-    <button class="rfbtn">Mobilya & Dekorasyon</button>
-    <button class="rfbtn">E-Ticaret</button>
-    <button class="rfbtn">Restoran & Kafe</button>
-    <button class="rfbtn">Teknoloji</button>
-  </div>
-  <div class="refs-grid">
-    <div class="ref-card rv"><div class="ref-logo">LS</div><div class="ref-name">Luna Skin Clinic</div><div class="ref-sect">Güzellik & Estetik</div><span class="ref-tag">Sosyal Medya + Reklam</span></div>
-    <div class="ref-card rv d1"><div class="ref-logo">MO</div><div class="ref-name">Moderno Mobilya</div><div class="ref-sect">Mobilya & Dekorasyon</div><span class="ref-tag">E-Ticaret + SEO</span></div>
-    <div class="ref-card rv d2"><div class="ref-logo">PM</div><div class="ref-name">PrimeModa</div><div class="ref-sect">Moda & E-Ticaret</div><span class="ref-tag">SEO + Web Tasarım</span></div>
-    <div class="ref-card rv d3"><div class="ref-logo">CB</div><div class="ref-name">Cafe Bosphorus</div><div class="ref-sect">Restoran & Kafe</div><span class="ref-tag">Sosyal Medya</span></div>
-    <div class="ref-card rv"><div class="ref-logo">TK</div><div class="ref-name">TechKare Yazılım</div><div class="ref-sect">Teknoloji</div><span class="ref-tag">Web + Yazılım</span></div>
-    <div class="ref-card rv d1"><div class="ref-logo">GS</div><div class="ref-name">Golden Spa & Wellness</div><div class="ref-sect">Güzellik & SPA</div><span class="ref-tag">360° Dijital</span></div>
-    <div class="ref-card rv d2"><div class="ref-logo">AS</div><div class="ref-name">Anadolu Store</div><div class="ref-sect">Perakende & E-Ticaret</div><span class="ref-tag">Google Ads + SEO</span></div>
-    <div class="ref-card rv d3"><div class="ref-logo">VB</div><div class="ref-name">Vita Beauty</div><div class="ref-sect">Güzellik Merkezi</div><span class="ref-tag">Instagram + TikTok</span></div>
-    <div class="ref-card rv"><div class="ref-logo">MK</div><div class="ref-name">Marka Kurumsal</div><div class="ref-sect">Kurumsal Hizmetler</div><span class="ref-tag">Web + SEO</span></div>
-    <div class="ref-card rv d1"><div class="ref-logo">NR</div><div class="ref-name">Natura Restoran</div><div class="ref-sect">Restoran Zinciri</div><span class="ref-tag">Reklam Yönetimi</span></div>
-    <div class="ref-card rv d2"><div class="ref-logo">YC</div><div class="ref-name">Yüz Clinic</div><div class="ref-sect">Estetik Klinik</div><span class="ref-tag">Sosyal Medya + Reklam</span></div>
-    <div class="ref-card rv d3" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.1);">
-      <div style="font-family:'Syne',sans-serif;font-size:48px;font-weight:800;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">280+</div>
-      <div style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)">Firma ve daha fazlası</div>
-    </div>
-  </div>
-</section>
-
-<!-- SÜREÇ -->
-<section id="surec">
-  <div class="eyebrow rv">Çalışma Sürecimiz</div>
-  <h2 class="stitle rv">NASIL<br><span class="grad-pc">ÇALIŞIYORUZ?</span></h2>
-  <div class="proc-grid">
-    <div class="proc-step rv"><div class="pnum">01</div><div class="ptitle">Analiz & Strateji</div><p class="ptext">Marka, hedef kitle ve rakip analizi. 15+ yıllık deneyimle özel dijital strateji.</p></div>
-    <div class="proc-step rv d1"><div class="pnum">02</div><div class="ptitle">Planlama</div><p class="ptext">Aylık içerik planı, reklam bütçesi ve hedefleri belirleme. Şeffaf raporlama sistemi.</p></div>
-    <div class="proc-step rv d2"><div class="pnum">03</div><div class="ptitle">Üretim</div><p class="ptext">Tasarım, içerik ve teknik altyapıyı hayata geçirme. Sektör uzmanlarıyla çalışma.</p></div>
-    <div class="proc-step rv d3"><div class="pnum">04</div><div class="ptitle">Yayın & Yönetim</div><p class="ptext">Kampanya aktivasyonu ve gerçek zamanlı optimizasyon. 7/24 performans izleme.</p></div>
-    <div class="proc-step rv d4"><div class="pnum">05</div><div class="ptitle">Raporlama</div><p class="ptext">Aylık detaylı performans raporları ile şeffaf veri. ROI analizi ve iyileştirme.</p></div>
-  </div>
-</section>
-
-<!-- NEDEN BİZ -->
-<section id="neden">
-  <div class="eyebrow rv">Neden Ganz Dijital?</div>
-  <h2 class="stitle rv">FARKINIZI<br><span class="grad-gc">YARATIYORUZ</span></h2>
-  <div class="why-grid">
-    <div class="why-card rv"><div class="wi">🎯</div><div class="wt">15+ Yıllık Deneyim</div><p class="wx">2009'dan beri dijital pazarlama sektöründeyiz. 15+ yıllık tecrübemizle binlerce kampanya yönettik.</p></div>
-    <div class="why-card rv d1"><div class="wi">🤝</div><div class="wt">280+ Firma Ağı</div><p class="wx">Türkiye genelinde 280'den fazla firmayla uzun soluklu ortaklıklar. Güvenin kanıtı.</p></div>
-    <div class="why-card rv d2"><div class="wi">⚡</div><div class="wt">7/24 Hızlı Yanıt</div><p class="wx">WhatsApp üzerinden 7/24 ulaşabilirsiniz. Acil durumlarda anında destek ekibimiz devreye girer.</p></div>
-    <div class="why-card rv"><div class="wi">📊</div><div class="wt">Şeffaf Raporlama</div><p class="wx">Her ay detaylı performans raporu. Neyin işe yarayıp yaramadığını birlikte görüyoruz.</p></div>
-    <div class="why-card rv d1"><div class="wi">🌟</div><div class="wt">Sektöre Özel Yaklaşım</div><p class="wx">Mobilya, güzellik, gastronomi, teknoloji, perakende — her sektörü bilen uzman kadro.</p></div>
-    <div class="why-card rv d2"><div class="wi">🔧</div><div class="wt">Tam Entegre Hizmet</div><p class="wx">Tek bir ajandan tüm dijital ihtiyaçlarınız. Reklam, SEO, web, sosyal medya, yazılım.</p></div>
-  </div>
-</section>
-
-<!-- CTA -->
 <div class="cta-sec">
   <div class="cta-in">
     <div>
