@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ganz Dijital | Dijital Pazarlama & Reklam Ajansı</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020408;--cyan:#00f5ff;--purple:#7b2fff;--pink:#ff006e;--green:#00ff88;--white:#e8f4ff;--dim:rgba(232,244,255,0.45);--border:rgba(0,245,255,0.12);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none;}
+#cursor{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
+#cursor-ring{width:40px;height:40px;border:1px solid rgba(0,245,255,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s;}
+body::before{content:'';position:fixed;inset:0;z-index:9997;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,255,0.012) 2px,rgba(0,245,255,0.012) 4px);}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);background-size:60px 60px;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(2,4,8,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:3px;text-decoration:none;color:var(--white);display:flex;align-items:center;gap:10px;}
+.nav-logo-bracket{color:var(--cyan);}
+.ndot{width:8px;height:8px;background:var(--cyan);border-radius:50%;animation:npulse 1.5s infinite;box-shadow:0 0 10px var(--cyan);}
+@keyframes npulse{0%,100%{opacity:1;box-shadow:0 0 10px var(--cyan)}50%{opacity:.4;box-shadow:0 0 4px var(--cyan)}}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;transition:color .2s;position:relative;padding-bottom:4px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);padding:10px 22px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:all .25s;position:relative;overflow:hidden;}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateX(-101%);transition:transform .3s;}
+.nav-cta:hover{color:var(--bg);}
+.nav-cta:hover::before{transform:translateX(0);}
+.nav-cta span{position:relative;z-index:1;}
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;}
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(80px);mix-blend-mode:screen;}
+.orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(123,47,255,.45) 0%,transparent 70%);top:-15%;right:-8%;animation:of1 14s ease-in-out infinite;}
+.orb2{width:550px;height:550px;background:radial-gradient(circle,rgba(0,245,255,.28) 0%,transparent 70%);bottom:-18%;left:-6%;animation:of1 17s ease-in-out infinite reverse;}
+.orb3{width:350px;height:350px;background:radial-gradient(circle,rgba(255,0,110,.32) 0%,transparent 70%);top:35%;left:38%;animation:of1 11s ease-in-out infinite 4s;}
+@keyframes of1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(35px,-50px) scale(1.06)}66%{transform:translate(-25px,25px) scale(.94)}}
+.hero-ticker{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(0,245,255,.3);padding:8px 16px;margin-bottom:40px;width:fit-content;background:rgba(0,245,255,.04);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--cyan);position:relative;z-index:1;}
+.tdot{width:6px;height:6px;background:#00ff88;border-radius:50%;box-shadow:0 0 8px #00ff88;animation:npulse 1.5s infinite;}
+.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(60px,9.5vw,152px);line-height:.88;letter-spacing:-3px;position:relative;z-index:1;margin-bottom:8px;}
+.hl-normal{color:var(--white);}
+.hl-stroke{color:transparent;-webkit-text-stroke:1px var(--cyan);display:block;position:relative;}
+.hl-stroke::before,.hl-stroke::after{content:attr(data-t);position:absolute;top:0;left:0;color:transparent;}
+.hl-stroke::before{-webkit-text-stroke:1px var(--cyan);animation:g1 3.5s infinite;}
+.hl-stroke::after{-webkit-text-stroke:1px var(--pink);animation:g2 3.5s infinite;}
+@keyframes g1{0%,88%,100%{transform:translate(0)}90%{transform:translate(-4px,1px)}93%{transform:translate(3px,-1px)}96%{transform:translate(-2px,0)}}
+@keyframes g2{0%,88%,100%{transform:translate(0)}89%{transform:translate(4px,-1px)}92%{transform:translate(-3px,2px)}95%{transform:translate(2px,0)}}
+.hl-grad{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;animation:gshift 5s ease infinite;}
+@keyframes gshift{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(25deg)}}
+.hero-sub{font-size:17px;line-height:1.8;color:var(--dim);max-width:520px;margin:32px 0;position:relative;z-index:1;}
+.hero-bottom{display:flex;align-items:center;gap:24px;position:relative;z-index:1;flex-wrap:wrap;}
+.btn-p{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:var(--bg);padding:16px 36px;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(0,245,255,.3);}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 0 55px rgba(0,245,255,.55);}
+.btn-g{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(232,244,255,.2);color:var(--white);padding:16px 36px;text-decoration:none;font-weight:500;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:all .25s;}
+.btn-g:hover{border-color:var(--purple);color:var(--purple);box-shadow:0 0 20px rgba(123,47,255,.25);}
+.hero-stats{display:flex;gap:40px;margin-left:auto;}
+.hs{text-align:right;}
+.hs-n{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hs-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-top:4px;}
+/* MARQUEE */
+.mwrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;overflow:hidden;white-space:nowrap;position:relative;z-index:5;background:linear-gradient(90deg,rgba(0,245,255,.04),rgba(123,47,255,.04),rgba(0,245,255,.04));}
+.mtrack{display:inline-flex;animation:marquee 18s linear infinite;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mitem{display:inline-flex;align-items:center;gap:20px;padding:0 28px;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;}
+.msep{color:var(--purple);font-size:16px;}
+/* SECTIONS */
+section{padding:120px 48px;position:relative;z-index:1;}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:20px;}
+.eyebrow::before{content:'//';opacity:.5;}
+.stitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(44px,6vw,96px);line-height:.92;letter-spacing:-1px;margin-bottom:24px;}
+.grad-cp{background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.grad-pp{background:linear-gradient(90deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.grad-gc{background:linear-gradient(90deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.grad-pc{background:linear-gradient(90deg,var(--purple),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+/* SERVICES */
+#hizmetler{background:rgba(0,0,0,.3);}
+.svc-hdr{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:60px;align-items:end;}
+.svc-desc{font-size:16px;line-height:1.8;color:var(--dim);}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.svc-card{background:var(--bg);padding:48px 36px;position:relative;overflow:hidden;transition:background .35s;cursor:pointer;}
+.svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,245,255,.05),rgba(123,47,255,.05));opacity:0;transition:opacity .35s;}
+.svc-card:hover::before{opacity:1;}
+.svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-num{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--purple);margin-bottom:28px;display:block;}
+.svc-icon{width:52px;height:52px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:24px;transition:all .3s;position:relative;z-index:1;background:rgba(255,255,255,.02);}
+.svc-card:hover .svc-icon{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,245,255,.2);}
+.svc-name{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;margin-bottom:16px;position:relative;z-index:1;transition:color .3s;}
+.svc-card:hover .svc-name{color:var(--cyan);}
+.svc-text{font-size:14px;line-height:1.75;color:var(--dim);position:relative;z-index:1;}
+.svc-link{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);opacity:0;transform:translateX(-10px);transition:all .3s;position:relative;z-index:1;}
+.svc-card:hover .svc-link{opacity:1;transform:translateX(0);}
+/* NUMBERS */
+#rakamlara{background:transparent;}
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:60px;}
+.num-block{background:var(--bg);padding:56px 36px;position:relative;overflow:hidden;}
+.num-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:shimmer 3s ease infinite;animation-delay:var(--d,0s);}
+@keyframes shimmer{0%,100%{opacity:.3}50%{opacity:1}}
+.num-corner{position:absolute;top:16px;right:16px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,245,255,.2);}
+.num-big{font-family:'Syne',sans-serif;font-size:76px;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
+.num-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);line-height:1.5;}
+/* BEAUTY */
+.beauty-sec{padding:100px 48px;background:linear-gradient(135deg,rgba(255,0,110,.06),rgba(123,47,255,.06));border-top:1px solid rgba(255,0,110,.15);border-bottom:1px solid rgba(255,0,110,.15);position:relative;z-index:1;}
+.beauty-in{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.btitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(44px,5vw,80px);line-height:.9;letter-spacing:-1px;}
+.btitle .bacc{background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.bnum-row{display:flex;align-items:center;gap:24px;margin-top:32px;}
+.bnum{font-family:'Syne',sans-serif;font-size:96px;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.bfeats{display:flex;flex-direction:column;gap:16px;margin-top:28px;}
+.bfeat{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--dim);}
+.fdot{width:6px;height:6px;background:var(--pink);border-radius:50%;box-shadow:0 0 8px var(--pink);flex-shrink:0;}
+/* REFS */
+#referanslar{background:rgba(0,0,0,.4);}
+.refs-hdr{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:60px;align-items:end;}
+.refs-note{font-size:16px;line-height:1.8;color:var(--dim);}
+.refs-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;}
+.rfbtn{padding:7px 18px;border:1px solid rgba(255,255,255,.1);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;color:var(--dim);background:transparent;transition:all .2s;font-family:'Space Grotesk',sans-serif;}
+.rfbtn.active,.rfbtn:hover{background:var(--cyan);color:var(--bg);border-color:var(--cyan);box-shadow:0 0 16px rgba(0,245,255,.3);}
+.refs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.ref-card{background:var(--bg);padding:32px 28px;position:relative;overflow:hidden;transition:background .3s;}
+.ref-card:hover{background:rgba(0,245,255,.03);}
+.ref-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,255,.2),transparent);opacity:0;transition:opacity .3s;}
+.ref-card:hover::after{opacity:1;}
+.ref-logo{width:52px;height:52px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--cyan);margin-bottom:16px;background:rgba(0,245,255,.04);transition:all .3s;}
+.ref-card:hover .ref-logo{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,245,255,.15);}
+.ref-name{font-weight:700;font-size:15px;margin-bottom:6px;}
+.ref-sect{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}
+.ref-tag{display:inline-block;padding:4px 10px;font-size:9px;letter-spacing:2px;text-transform:uppercase;background:rgba(123,47,255,.15);color:var(--purple);border:1px solid rgba(123,47,255,.2);}
+/* PROCESS */
+#surec{background:rgba(0,0,0,.2);}
+.proc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-top:60px;}
+.proc-step{background:var(--bg);padding:40px 28px;position:relative;overflow:hidden;transition:background .3s;}
+.proc-step:hover{background:rgba(0,245,255,.03);}
+.proc-step::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:linear-gradient(180deg,var(--cyan),var(--purple));transition:height .5s;}
+.proc-step:hover::before{height:100%;}
+.pnum{font-family:'Share Tech Mono',monospace;font-size:40px;color:rgba(0,245,255,.1);line-height:1;margin-bottom:20px;}
+.ptitle{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;}
+.ptext{font-size:13px;line-height:1.7;color:var(--dim);}
+/* WHY */
+#neden{background:var(--bg);}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;}
+.why-card{background:rgba(255,255,255,.02);padding:48px 36px;position:relative;overflow:hidden;transition:background .3s;}
+.why-card:hover{background:rgba(0,245,255,.04);}
+.why-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.why-card:hover::after{transform:scaleX(1);}
+.wi{font-size:32px;margin-bottom:24px;}
+.wt{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:14px;}
+.wx{font-size:14px;line-height:1.75;color:var(--dim);}
+/* CTA */
+.cta-sec{padding:100px 48px;position:relative;z-index:1;overflow:hidden;background:linear-gradient(135deg,rgba(0,245,255,.07),rgba(123,47,255,.1) 50%,rgba(255,0,110,.07));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cta-in{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;}
+.cta-t{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(48px,7vw,112px);line-height:.9;letter-spacing:-2px;}
+.cta-grad{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gshift 4s ease infinite;}
+.cta-dim{color:rgba(232,244,255,.15);}
+.cta-r{display:flex;flex-direction:column;gap:16px;align-items:flex-end;}
+.cta-lbl{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--dim);}
+.cta-ph{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--cyan);letter-spacing:-1px;}
+.wa-cta{display:inline-flex;align-items:center;gap:12px;background:#25D366;color:white;padding:16px 32px;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;transition:all .3s;box-shadow:0 0 30px rgba(37,211,102,.3);}
+.wa-cta:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(37,211,102,.5);}
+/* FOOTER */
+footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--border);position:relative;z-index:1;}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;}
+.fl{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:2px;margin-bottom:16px;}
+.fl span{color:var(--cyan);}
+.fd{font-size:14px;line-height:1.75;color:var(--dim);max-width:260px;}
+.fct{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:20px;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.fcol a{color:var(--dim);text-decoration:none;font-size:14px;transition:color .2s;}
+.fcol a:hover{color:var(--cyan);}
+.fb{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid rgba(255,255,255,.05);}
+.fcp{font-family:'Share Tech Mono',monospace;font-size:11px;color:rgba(255,255,255,.2);letter-spacing:1px;}
+.fsoc{display:flex;gap:12px;}
+.fsb{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:12px;color:var(--dim);font-family:'Share Tech Mono',monospace;transition:all .2s;}
+.fsb:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px rgba(0,245,255,.2);}
+/* WA FIXED */
+.waf{position:fixed;bottom:30px;right:30px;z-index:1000;width:62px;height:62px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;animation:wap 2.5s infinite;}
+@keyframes wap{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 20px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+.waf:hover{transform:scale(1.1);}
+.waf svg{width:30px;height:30px;fill:white;}
+.walbl{position:absolute;right:72px;top:50%;transform:translateY(-50%);background:rgba(2,4,8,.95);color:var(--white);border:1px solid var(--border);padding:8px 16px;white-space:nowrap;font-size:12px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s;}
+.waf:hover .walbl{opacity:1;}
+/* REVEAL */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.rv.up{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+/* MOBILE */
+@media(max-width:900px){nav{padding:16px 24px;}.nav-links{display:none;}section{padding:80px 24px;}.hero{padding:100px 24px 60px;}.svc-hdr,.refs-hdr,.beauty-in,.cta-in{grid-template-columns:1fr;gap:32px;}.svc-grid,.refs-grid{grid-template-columns:1fr;}.num-grid,.why-grid,.proc-grid{grid-template-columns:1fr 1fr;}.ft{grid-template-columns:1fr 1fr;}.hero-stats{display:none;}.cta-r{align-items:flex-start;}}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="ndot"></div>
+    <span class="nav-logo-bracket">[</span>GANZ DİJİTAL<span class="nav-logo-bracket">]</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hizmetler">Hizmetler</a></li>
+    <li><a href="#rakamlara">Rakamlar</a></li>
+    <li><a href="#referanslar">Referanslar</a></li>
+    <li><a href="#surec">Süreç</a></li>
+    <li><a href="#neden">Neden Biz</a></li>
+  </ul>
+  <a href="https://wa.me/905078805608" class="nav-cta" target="_blank"><span>Ücretsiz Teklif Al</span></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="hero-ticker rv">
+    <div class="tdot"></div>
+    <span id="ttext">TÜRKİYE GENELİ 280+ FİRMA ORTAKLIĞI</span>
+  </div>
+
+  <h1 class="hero-title">
+    <span class="hl-normal rv">DİJİTAL</span>
+    <span class="hl-stroke rv" data-t="DÖNÜŞÜM">DÖNÜŞÜM</span>
+    <span class="hl-grad rv">AJANSI</span>
+  </h1>
+
+  <p class="hero-sub rv">
+    Markanızı dijital dünyada <strong style="color:var(--cyan)">zirveye taşıyoruz.</strong> Reklam yönetiminden yazılıma, SEO'dan sosyal medyaya — tam entegre 360° çözümler.
+  </p>
+
+  <div class="hero-bottom">
+    <a href="#hizmetler" class="btn-p rv">Hizmetlerimiz →</a>
+    <a href="#referanslar" class="btn-g rv">Referanslarımız</a>
+    <div class="hero-stats">
+      <div class="hs rv"><div class="hs-n">280+</div><div class="hs-l">Firma Ortaklığı</div></div>
+      <div class="hs rv d1"><div class="hs-n">80+</div><div class="hs-l">Güzellik Merkezi</div></div>
+      <div class="hs rv d2"><div class="hs-n">%94</div><div class="hs-l">Memnuniyet</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mwrap">
+  <div class="mtrack">
+    <span class="mitem">Reklam Yönetimi<span class="msep">◆</span></span>
+    <span class="mitem">Web Tasarım<span class="msep">◆</span></span>
+    <span class="mitem">Google SEO<span class="msep">◆</span></span>
+    <span class="mitem">Sosyal Medya Yönetimi<span class="msep">◆</span></span>
+    <span class="mitem">Yazılım Çözümleri<span class="msep">◆</span></span>
+    <span class="mitem">Reklam Yönetimi<span class="msep">◆</span></span>
+    <span class="mitem">Web Tasarım<span class="msep">◆</span></span>
+    <span class="mitem">Google SEO<span class="msep">◆</span></span>
+    <span class="mitem">Sosyal Medya Yönetimi<span class="msep">◆</span></span>
+    <span class="mitem">Yazılım Çözümleri<span class="msep">◆</span></span>
+  </div>
+</div>
+
+<!-- HİZMETLER -->
+<section id="hizmetler">
+  <div class="svc-hdr">
+    <div>
+      <div class="eyebrow rv">Hizmetlerimiz</div>
+      <h2 class="stitle rv">MARKANA<br><span class="grad-cp">DEĞER KAT</span></h2>
+    </div>
+    <p class="svc-desc rv">Dijital dünyanın her katmanında uzman ekibimizle markanızı büyütüyoruz. Strateji, yaratıcılık ve teknolojiyi bir araya getirerek sonuç üretiyoruz.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card rv"><span class="svc-num">// 01</span><div class="svc-icon">📣</div><div class="svc-name">Reklam Yönetimi</div><p class="svc-text">Google Ads, Meta Ads ve tüm dijital platformlarda hedef kitlenize ulaşan, ROI odaklı kampanyalar.</p><div class="svc-link">Detayları Gör →</div></div>
+    <div class="svc-card rv d1"><span class="svc-num">// 02</span><div class="svc-icon">🖥️</div><div class="svc-name">Web Tasarım</div><p class="svc-text">Modern, hızlı ve dönüşüm odaklı web siteleri. UX/UI best practices ile kullanıcı deneyimi zirvede.</p><div class="svc-link">Detayları Gör →</div></div>
+    <div class="svc-card rv d2"><span class="svc-num">// 03</span><div class="svc-icon">🔍</div><div class="svc-name">Google SEO</div><p class="svc-text">Teknik SEO, içerik stratejisi ve backlink çalışmalarıyla Google'da kalıcı üst sıralar.</p><div class="svc-link">Detayları Gör →</div></div>
+    <div class="svc-card rv"><span class="svc-num">// 04</span><div class="svc-icon">📱</div><div class="svc-name">Sosyal Medya Yönetimi</div><p class="svc-text">Aylık içerik planı, tasarım, yayın ve topluluk yönetimiyle Instagram, TikTok ve LinkedIn'de öne çıkın.</p><div class="svc-link">Detayları Gör →</div></div>
+    <div class="svc-card rv d1"><span class="svc-num">// 05</span><div class="svc-icon">⚙️</div><div class="svc-name">Yazılım Çözümleri</div><p class="svc-text">CRM, e-ticaret, özel yazılım ve API entegrasyonları. İş süreçlerinizi dijitalleştiriyoruz.</p><div class="svc-link">Detayları Gör →</div></div>
+    <div class="svc-card rv d2" style="background:linear-gradient(135deg,rgba(0,245,255,.06),rgba(123,47,255,.06));border-top:2px solid var(--cyan);">
+      <span class="svc-num" style="color:var(--green)">// 360°</span>
+      <div class="svc-icon" style="border-color:var(--cyan);box-shadow:0 0 20px rgba(0,245,255,.2);">✦</div>
+      <div class="svc-name" style="color:var(--cyan)">Tam Entegre Dijital Strateji</div>
+      <p class="svc-text">Tüm hizmetleri tek strateji altında yönetiyoruz. Sinerji ile maksimum büyüme.</p>
+      <div class="svc-link" style="opacity:1;transform:translateX(0)">Paket Al →</div>
+    </div>
+  </div>
+</section>
+
+<!-- RAKAMLARA -->
+<section id="rakamlara">
+  <div class="eyebrow rv">Rakamlarla Ganz Dijital</div>
+  <h2 class="stitle rv">BAŞARININ<br><span class="grad-pp">KANITI</span></h2>
+  <div class="num-grid">
+    <div class="num-block rv" style="--d:0s"><div class="num-corner">STAT_01</div><div class="num-big">280+</div><div class="num-label">Türkiye Geneli<br>Firma Ortaklığı</div></div>
+    <div class="num-block rv d1" style="--d:.5s"><div class="num-corner">STAT_02</div><div class="num-big">80+</div><div class="num-label">Güzellik Merkezi<br>Partneri</div></div>
+    <div class="num-block rv d2" style="--d:1s"><div class="num-corner">STAT_03</div><div class="num-big">5+</div><div class="num-label">Yıllık Sektör<br>Deneyimi</div></div>
+    <div class="num-block rv d3" style="--d:1.5s"><div class="num-corner">STAT_04</div><div class="num-big">%94</div><div class="num-label">Müşteri Memnuniyet<br>Oranı</div></div>
+  </div>
+</section>
+
+<!-- BEAUTY -->
+<div class="beauty-sec">
+  <div class="beauty-in">
+    <div>
+      <div class="eyebrow rv" style="color:var(--pink)">Güzellik Sektörü</div>
+      <h2 class="btitle rv">GÜZELLİK<br><span class="bacc">MERKEZLERİNE</span><br>ÖZEL ÇÖZÜMLER</h2>
+      <div class="bnum-row rv"><div class="bnum">80</div><div style="font-size:14px;color:var(--dim);line-height:1.6;max-width:180px">güzellik merkezi ile büyüyen partnerlik ağımız</div></div>
+    </div>
+    <div>
+      <p class="rv" style="font-size:16px;line-height:1.8;color:var(--dim);margin-bottom:28px">Güzellik sektörünün dinamiklerini çok iyi bilen ekibimiz; randevu sistemleri, before-after içerikler, influencer iş birlikleri ve hedefli reklam kampanyalarıyla güzellik merkezlerini büyütüyor.</p>
+      <div class="bfeats">
+        <div class="bfeat rv"><div class="fdot"></div> Instagram & TikTok İçerik Üretimi</div>
+        <div class="bfeat rv d1"><div class="fdot"></div> Google İşletme Profili Optimizasyonu</div>
+        <div class="bfeat rv d2"><div class="fdot"></div> Online Randevu Sistemi Entegrasyonu</div>
+        <div class="bfeat rv d3"><div class="fdot"></div> Hedefli Dijital Reklam Kampanyaları</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REFERANSLAR -->
+<section id="referanslar">
+  <div class="refs-hdr">
+    <div>
+      <div class="eyebrow rv">Referanslarımız</div>
+      <h2 class="stitle rv">GÜVENEN<br><span class="grad-gc">MARKALAR</span></h2>
+    </div>
+    <p class="refs-note rv">Türkiye'nin dört bir yanından 280'den fazla firma ile çalışıyoruz. Küçük işletmeden kurumsal markalara geniş portföy.</p>
+  </div>
+  <div class="refs-filter">
+    <button class="rfbtn active">Tümü</button>
+    <button class="rfbtn">Güzellik & Sağlık</button>
+    <button class="rfbtn">E-Ticaret</button>
+    <button class="rfbtn">Restoran & Kafe</button>
+    <button class="rfbtn">Teknoloji</button>
+    <button class="rfbtn">Perakende</button>
+  </div>
+  <div class="refs-grid">
+    <div class="ref-card rv"><div class="ref-logo">LS</div><div class="ref-name">Luna Skin Clinic</div><div class="ref-sect">Güzellik & Estetik</div><span class="ref-tag">Sosyal Medya + Reklam</span></div>
+    <div class="ref-card rv d1"><div class="ref-logo">PM</div><div class="ref-name">PrimeModa</div><div class="ref-sect">Moda & E-Ticaret</div><span class="ref-tag">SEO + Web Tasarım</span></div>
+    <div class="ref-card rv d2"><div class="ref-logo">CB</div><div class="ref-name">Cafe Bosphorus</div><div class="ref-sect">Restoran & Kafe</div><span class="ref-tag">Sosyal Medya</span></div>
+    <div class="ref-card rv d3"><div class="ref-logo">TK</div><div class="ref-name">TechKare Yazılım</div><div class="ref-sect">Teknoloji</div><span class="ref-tag">Web + Yazılım</span></div>
+    <div class="ref-card rv"><div class="ref-logo">GS</div><div class="ref-name">Golden Spa & Wellness</div><div class="ref-sect">Güzellik & SPA</div><span class="ref-tag">360° Dijital</span></div>
+    <div class="ref-card rv d1"><div class="ref-logo">AS</div><div class="ref-name">Anadolu Store</div><div class="ref-sect">Perakende & E-Ticaret</div><span class="ref-tag">Google Ads + SEO</span></div>
+    <div class="ref-card rv d2"><div class="ref-logo">VB</div><div class="ref-name">Vita Beauty</div><div class="ref-sect">Güzellik Merkezi</div><span class="ref-tag">Instagram + TikTok</span></div>
+    <div class="ref-card rv d3"><div class="ref-logo">MK</div><div class="ref-name">Marka Kurumsal</div><div class="ref-sect">Kurumsal Hizmetler</div><span class="ref-tag">Web + SEO</span></div>
+    <div class="ref-card rv"><div class="ref-logo">NR</div><div class="ref-name">Natura Restoran</div><div class="ref-sect">Restoran Zinciri</div><span class="ref-tag">Reklam Yönetimi</span></div>
+    <div class="ref-card rv d1"><div class="ref-logo">YC</div><div class="ref-name">Yüz Clinic</div><div class="ref-sect">Estetik Klinik</div><span class="ref-tag">Sosyal Medya + Reklam</span></div>
+    <div class="ref-card rv d2"><div class="ref-logo">DP</div><div class="ref-name">DigitalPlus</div><div class="ref-sect">Teknoloji</div><span class="ref-tag">Yazılım Çözümleri</span></div>
+    <div class="ref-card rv d3" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.1);">
+      <div style="font-family:'Syne',sans-serif;font-size:48px;font-weight:800;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">280+</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)">Firma ve daha fazlası</div>
+    </div>
+  </div>
+</section>
+
+<!-- SÜREÇ -->
+<section id="surec">
+  <div class="eyebrow rv">Çalışma Sürecimiz</div>
+  <h2 class="stitle rv">NASIL<br><span class="grad-pc">ÇALIŞIYORUZ?</span></h2>
+  <div class="proc-grid">
+    <div class="proc-step rv"><div class="pnum">01</div><div class="ptitle">Analiz & Strateji</div><p class="ptext">Marka, hedef kitle ve rakip analizi. Özel dijital strateji.</p></div>
+    <div class="proc-step rv d1"><div class="pnum">02</div><div class="ptitle">Planlama</div><p class="ptext">Aylık içerik planı, reklam bütçesi ve hedefleri belirleme.</p></div>
+    <div class="proc-step rv d2"><div class="pnum">03</div><div class="ptitle">Üretim</div><p class="ptext">Tasarım, içerik ve teknik altyapıyı hayata geçirme.</p></div>
+    <div class="proc-step rv d3"><div class="pnum">04</div><div class="ptitle">Yayın & Yönetim</div><p class="ptext">Kampanya aktivasyonu ve gerçek zamanlı optimizasyon.</p></div>
+    <div class="proc-step rv d4"><div class="pnum">05</div><div class="ptitle">Raporlama</div><p class="ptext">Aylık detaylı performans raporları ile şeffaf veri.</p></div>
+  </div>
+</section>
+
+<!-- NEDEN BİZ -->
+<section id="neden">
+  <div class="eyebrow rv">Neden Ganz Dijital?</div>
+  <h2 class="stitle rv">FARKINIZI<br><span class="grad-gc">YARATIYORUZ</span></h2>
+  <div class="why-grid">
+    <div class="why-card rv"><div class="wi">🎯</div><div class="wt">Sonuç Odaklı</div><p class="wx">Görünürlük değil, dönüşüm hedefliyoruz. Her kampanya somut hedeflerle yönetilir.</p></div>
+    <div class="why-card rv d1"><div class="wi">🤝</div><div class="wt">280+ Firma Ağı</div><p class="wx">Türkiye genelinde 280'den fazla firmayla uzun soluklu ortaklıklar. Güvenin kanıtı.</p></div>
+    <div class="why-card rv d2"><div class="wi">⚡</div><div class="wt">7/24 Hızlı Yanıt</div><p class="wx">WhatsApp üzerinden 7/24 ulaşabilirsiniz. Acil durumlarda anında destek.</p></div>
+    <div class="why-card rv"><div class="wi">📊</div><div class="wt">Şeffaf Raporlama</div><p class="wx">Her ay detaylı performans raporu. Neyin işe yarayıp yaramadığını birlikte görüyoruz.</p></div>
+    <div class="why-card rv d1"><div class="wi">🌟</div><div class="wt">Sektöre Özel Yaklaşım</div><p class="wx">Güzellik, gastronomi, teknoloji, perakende — her sektörü bilen uzman kadro.</p></div>
+    <div class="why-card rv d2"><div class="wi">🔧</div><div class="wt">Tam Entegre Hizmet</div><p class="wx">Tek bir ajandan tüm dijital ihtiyaçlarınız. Reklam, SEO, web, sosyal medya, yazılım.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-sec">
+  <div class="cta-in">
+    <div>
+      <h2 class="cta-t rv"><span class="cta-grad">HAREKETE</span><br><span class="cta-dim">GEÇ &</span><br><span class="cta-grad">FARK YARAT</span></h2>
+    </div>
+    <div class="cta-r rv">
+      <div class="cta-lbl">// Hemen İletişime Geçin</div>
+      <div class="cta-ph">0507 880 56 08</div>
+      <a href="https://wa.me/905078805608?text=Merhaba,%20Ganz%20Dijital%20hizmetleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="wa-cta" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.47 2.02 7.77L0 32l8.43-2.01A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.13 22.27c-.34.96-1.67 1.76-2.75 1.99-.73.16-1.68.28-4.88-.99-4.1-1.61-6.74-5.77-6.95-6.04-.2-.27-1.66-2.2-1.66-4.2s1.05-2.98 1.43-3.39c.34-.37.9-.54 1.44-.54.17 0 .33.01.47.01.42.02.63.05.9.7.34.82 1.17 2.82 1.27 3.02.1.2.2.47.06.74-.13.28-.2.45-.4.69-.2.24-.39.42-.59.68-.18.23-.39.47-.16.87.23.4.98 1.61 2.1 2.61 1.44 1.27 2.65 1.67 3.04 1.85.39.18.62.15.85-.09.24-.24.96-1.12 1.22-1.5.25-.38.5-.32.85-.19.35.13 2.2 1.04 2.58 1.23.38.19.63.28.72.43.09.15.09.89-.25 1.85z"/></svg>
+        WhatsApp ile Yaz
+      </a>
+      <p style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:2px">// ÜCRETSİZ DANIŞMANLIK</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div><div class="fl">[GANZ <span>DİJİTAL</span>]</div><p class="fd">Türkiye genelinde 280+ firma ortaklığıyla büyüyen, sonuç odaklı dijital pazarlama ve reklam ajansı.</p></div>
+    <div class="fcol"><div class="fct">Hizmetler</div><ul><li><a href="#">Reklam Yönetimi</a></li><li><a href="#">Web Tasarım</a></li><li><a href="#">Google SEO</a></li><li><a href="#">Sosyal Medya</a></li><li><a href="#">Yazılım Çözümleri</a></li></ul></div>
+    <div class="fcol"><div class="fct">Sektörler</div><ul><li><a href="#">Güzellik Merkezleri</a></li><li><a href="#">Restoranlar</a></li><li><a href="#">E-Ticaret</a></li><li><a href="#">Teknoloji</a></li><li><a href="#">Perakende</a></li></ul></div>
+    <div class="fcol"><div class="fct">İletişim</div><ul><li><a href="tel:05078805608">0507 880 56 08</a></li><li><a href="https://wa.me/905078805608" target="_blank">WhatsApp</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+  </div>
+  <div class="fb">
+    <div class="fcp">© 2025 GANZ DİJİTAL — TÜM HAKLARI SAKLIDIR</div>
+    <div class="fsoc"><a href="#" class="fsb">in</a><a href="#" class="fsb">ig</a><a href="#" class="fsb">fb</a><a href="https://wa.me/905078805608" class="fsb" target="_blank">wa</a></div>
+  </div>
+</footer>
+
+<!-- WA FIXED -->
+<a href="https://wa.me/905078805608?text=Merhaba,%20Ganz%20Dijital%20hizmetleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="waf" target="_blank">
+  <div class="walbl">Hemen Yazın! 💬</div>
+  <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.47 2.02 7.77L0 32l8.43-2.01A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.13 22.27c-.34.96-1.67 1.76-2.75 1.99-.73.16-1.68.28-4.88-.99-4.1-1.61-6.74-5.77-6.95-6.04-.2-.27-1.66-2.2-1.66-4.2s1.05-2.98 1.43-3.39c.34-.37.9-.54 1.44-.54.17 0 .33.01.47.01.42.02.63.05.9.7.34.82 1.17 2.82 1.27 3.02.1.2.2.47.06.74-.13.28-.2.45-.4.69-.2.24-.39.42-.59.68-.18.23-.39.47-.16.87.23.4.98 1.61 2.1 2.61 1.44 1.27 2.65 1.67 3.04 1.85.39.18.62.15.85-.09.24-.24.96-1.12 1.22-1.5.25-.38.5-.32.85-.19.35.13 2.2 1.04 2.58 1.23.38.19.63.28.72.43.09.15.09.89-.25 1.85z"/></svg>
+</a>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.svc-card,.ref-card,.why-card,.num-block,.proc-step').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='64px';ring.style.height='64px';ring.style.borderColor='rgba(123,47,255,.7)';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='40px';ring.style.height='40px';ring.style.borderColor='rgba(0,245,255,.5)';});
+});
+
+// REVEAL
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('up');});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// REFS FILTER
+document.querySelectorAll('.rfbtn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.rfbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');});});
+
+// TICKER
+const tickers=['TÜRKİYE GENELİ 280+ FİRMA ORTAKLIĞI','80+ GÜZELLİK MERKEZİ PARTNERİ','GOOGLE ADS & META ADS UZMANI','360° DİJİTAL PAZARLAMA ÇÖZÜMÜ'];
+let ti=0;const tel=document.getElementById('ttext');
+setInterval(()=>{ti=(ti+1)%tickers.length;tel.style.opacity='0';setTimeout(()=>{tel.textContent=tickers[ti];tel.style.opacity='1';},300);},3200);
+tel.style.transition='opacity .3s';
+</script>
+</body>
+</html>
