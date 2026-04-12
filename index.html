@@ -595,17 +595,17 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
     <p class="svc-desc rv">15+ yıllık deneyimimizle dijital dünyanın her katmanında uzman ekibimizle markanızı büyütüyoruz. Strateji, yaratıcılık ve teknolojiyi bir araya getirerek sonuç üretiyoruz.</p>
   </div>
   <div class="svc-grid">
-    <div class="svc-card rv"><span class="svc-num">// 01</span><div class="svc-icon">📣</div><div class="svc-name">Reklam Yönetimi</div><p class="svc-text">Google Ads, Meta Ads ve tüm dijital platformlarda hedef kitlenize ulaşan, ROI odaklı kampanyalar. 15+ yıllık tecrübe ile maksimum dönüşüm.</p><div class="svc-link">Detayları Gör →</div></div>
-    <div class="svc-card rv d1"><span class="svc-num">// 02</span><div class="svc-icon">🖥️</div><div class="svc-name">Web Tasarım</div><p class="svc-text">Modern, hızlı ve dönüşüm odaklı web siteleri. UX/UI best practices ile kullanıcı deneyimi zirvede. Mobil öncelikli tasarım anlayışı.</p><div class="svc-link">Detayları Gör →</div></div>
-    <div class="svc-card rv d2"><span class="svc-num">// 03</span><div class="svc-icon">🔍</div><div class="svc-name">Google SEO</div><p class="svc-text">Teknik SEO, içerik stratejisi ve backlink çalışmalarıyla Google'da kalıcı üst sıralar. Yerel SEO uzmanlığı.</p><div class="svc-link">Detayları Gör →</div></div>
-    <div class="svc-card rv"><span class="svc-num">// 04</span><div class="svc-icon">📱</div><div class="svc-name">Sosyal Medya Yönetimi</div><p class="svc-text">Aylık içerik planı, tasarım, yayın ve topluluk yönetimiyle Instagram, TikTok ve LinkedIn'de öne çıkın. Etkileşim odaklı stratejiler.</p><div class="svc-link">Detayları Gör →</div></div>
-    <div class="svc-card rv d1"><span class="svc-num">// 05</span><div class="svc-icon">⚙️</div><div class="svc-name">Yazılım Çözümleri</div><p class="svc-text">CRM, e-ticaret, özel yazılım ve API entegrasyonları. İş süreçlerinizi dijitalleştiriyoruz. Randevu sistemleri ve otomasyon.</p><div class="svc-link">Detayları Gör →</div></div>
+    <div class="svc-card rv" data-service="reklam"><span class="svc-num">// 01</span><div class="svc-icon">📣</div><div class="svc-name">Reklam Yönetimi</div><p class="svc-text">Google Ads, Meta Ads ve tüm dijital platformlarda hedef kitlenize ulaşan, ROI odaklı kampanyalar. 15+ yıllık tecrübe ile maksimum dönüşüm.</p><div class="svc-link" onclick="openServicePopup('reklam')">Detayları Gör →</div></div>
+    <div class="svc-card rv d1" data-service="web"><span class="svc-num">// 02</span><div class="svc-icon">🖥️</div><div class="svc-name">Web Tasarım</div><p class="svc-text">Modern, hızlı ve dönüşüm odaklı web siteleri. UX/UI best practices ile kullanıcı deneyimi zirvede. Mobil öncelikli tasarım anlayışı.</p><div class="svc-link" onclick="openServicePopup('web')">Detayları Gör →</div></div>
+    <div class="svc-card rv d2" data-service="seo"><span class="svc-num">// 03</span><div class="svc-icon">🔍</div><div class="svc-name">Google SEO</div><p class="svc-text">Teknik SEO, içerik stratejisi ve backlink çalışmalarıyla Google'da kalıcı üst sıralar. Yerel SEO uzmanlığı.</p><div class="svc-link" onclick="openServicePopup('seo')">Detayları Gör →</div></div>
+    <div class="svc-card rv" data-service="sosyal"><span class="svc-num">// 04</span><div class="svc-icon">📱</div><div class="svc-name">Sosyal Medya Yönetimi</div><p class="svc-text">Aylık içerik planı, tasarım, yayın ve topluluk yönetimiyle Instagram, TikTok ve LinkedIn'de öne çıkın. Etkileşim odaklı stratejiler.</p><div class="svc-link" onclick="openServicePopup('sosyal')">Detayları Gör →</div></div>
+    <div class="svc-card rv d1" data-service="yazilim"><span class="svc-num">// 05</span><div class="svc-icon">⚙️</div><div class="svc-name">Yazılım Çözümleri</div><p class="svc-text">CRM, e-ticaret, özel yazılım ve API entegrasyonları. İş süreçlerinizi dijitalleştiriyoruz. Randevu sistemleri ve otomasyon.</p><div class="svc-link" onclick="openServicePopup('yazilim')">Detayları Gör →</div></div>
     <div class="svc-card rv d2" style="background:linear-gradient(135deg,rgba(0,245,255,.06),rgba(123,47,255,.06));border-top:2px solid var(--cyan);">
       <span class="svc-num" style="color:var(--green)">// 360°</span>
       <div class="svc-icon" style="border-color:var(--cyan);box-shadow:0 0 20px rgba(0,245,255,.2);">✦</div>
       <div class="svc-name" style="color:var(--cyan)">Tam Entegre Dijital Strateji</div>
       <p class="svc-text">15+ yıllık deneyimle tüm hizmetleri tek strateji altında yönetiyoruz. Sinerji ile maksimum büyüme.</p>
-      <div class="svc-link" style="opacity:1;transform:translateX(0)">Paket Al →</div>
+      <div class="svc-link" style="opacity:1;transform:translateX(0)" onclick="openServicePopup('paket')">Paket Al →</div>
     </div>
   </div>
 </section>
@@ -1427,6 +1427,138 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
     if(target)target.scrollIntoView({behavior:'smooth'});
   });
 });
+
+// ═══════ HİZMET POPUP ═══════
+const serviceData = {
+  reklam: {
+    icon: '📣',
+    eyebrow: '// 01 — REKLAM YÖNETİMİ',
+    title: 'Reklam Yönetimi',
+    desc: 'Google Ads ve Meta Ads platformlarında 15+ yıllık deneyimimizle markanıza en yüksek dönüşümü sağlayan kampanyalar kuruyoruz. Her lira bütçenizi maksimum verimle değerlendiriyoruz.',
+    features: [
+      'Google Arama, Alışveriş ve Display kampanyaları',
+      'Meta Ads (Facebook & Instagram) yönetimi',
+      'Hedef kitle analizi ve segmentasyon',
+      'A/B testi ve sürekli optimizasyon',
+      'Aylık detaylı performans raporlaması',
+      'Remarketing ve dönüşüm takip kurulumu'
+    ],
+    wa: 'Merhaba, Reklam Yönetimi hizmeti hakkında bilgi almak istiyorum.'
+  },
+  web: {
+    icon: '🖥️',
+    eyebrow: '// 02 — WEB TASARIM',
+    title: 'Web Tasarım',
+    desc: 'Hızlı, mobil uyumlu ve dönüşüm odaklı web siteleri tasarlıyoruz. Ziyaretçiyi müşteriye çeviren UX/UI anlayışıyla markanıza özel dijital vitrin.',
+    features: [
+      'Kurumsal web sitesi ve landing page tasarımı',
+      'E-ticaret sitesi (WooCommerce, Shopify)',
+      'Mobil öncelikli responsive tasarım',
+      'Sayfa hızı optimizasyonu (Core Web Vitals)',
+      'SEO uyumlu HTML/CSS yapısı',
+      'SSL, güvenlik ve bakım desteği'
+    ],
+    wa: 'Merhaba, Web Tasarım hizmeti hakkında bilgi almak istiyorum.'
+  },
+  seo: {
+    icon: '🔍',
+    eyebrow: '// 03 — GOOGLE SEO',
+    title: 'Google SEO',
+    desc: 'Teknik SEO, içerik stratejisi ve backlink çalışmalarıyla sitenizi Google'ın üst sıralarına taşıyoruz. Organik trafik = sürekli ücretsiz müşteri.',
+    features: [
+      'Teknik SEO denetimi ve düzeltme',
+      'Anahtar kelime araştırması ve strateji',
+      'Yerel SEO ve Google Haritalar optimizasyonu',
+      'İçerik üretimi ve optimizasyonu',
+      'Backlink profili ve otorite inşası',
+      'Aylık SEO raporu ve sıralama takibi'
+    ],
+    wa: 'Merhaba, Google SEO hizmeti hakkında bilgi almak istiyorum.'
+  },
+  sosyal: {
+    icon: '📱',
+    eyebrow: '// 04 — SOSYAL MEDYA',
+    title: 'Sosyal Medya Yönetimi',
+    desc: 'Instagram, TikTok, Facebook ve LinkedIn'de markanızı büyütüyoruz. İçerik üretiminden topluluk yönetimine, reklamdan analize kadar her şey bizden.',
+    features: [
+      'Aylık içerik takvimi planlaması',
+      'Profesyonel grafik tasarım ve video',
+      'Instagram, TikTok, Facebook, LinkedIn yönetimi',
+      'Topluluk yönetimi ve yorum takibi',
+      'Influencer iş birliği organizasyonu',
+      'Aylık performans raporu ve analiz'
+    ],
+    wa: 'Merhaba, Sosyal Medya Yönetimi hizmeti hakkında bilgi almak istiyorum.'
+  },
+  yazilim: {
+    icon: '⚙️',
+    eyebrow: '// 05 — YAZILIM ÇÖZÜMLERİ',
+    title: 'Yazılım Çözümleri',
+    desc: 'İş süreçlerinizi dijitalleştiren özel yazılım çözümleri geliştiriyoruz. CRM'den e-ticarete, randevu sisteminden otomasyon araçlarına kadar ihtiyacınıza özel.',
+    features: [
+      'Özel CRM ve müşteri yönetim sistemleri',
+      'E-ticaret altyapısı ve entegrasyonu',
+      'Online randevu ve rezervasyon sistemleri',
+      'API entegrasyonları ve otomasyon',
+      'Mobil uygulama geliştirme',
+      'Bakım, güncelleme ve teknik destek'
+    ],
+    wa: 'Merhaba, Yazılım Çözümleri hakkında bilgi almak istiyorum.'
+  },
+  paket: {
+    icon: '✦',
+    eyebrow: '// 360° — TAM ENTEGRE',
+    title: 'Tam Entegre Dijital Strateji',
+    desc: 'Reklam, SEO, sosyal medya, web ve yazılımı tek çatı altında yönetiyoruz. 15+ yıllık deneyimimizle markanız için en güçlü dijital stratejiyi kuruyoruz.',
+    features: [
+      'Tüm dijital kanalların entegre yönetimi',
+      'Özel atanmış hesap yöneticisi',
+      'Aylık strateji toplantıları',
+      'Öncelikli destek ve hızlı yanıt',
+      'Çapraz kanal sinerji optimizasyonu',
+      'Rakip analizi ve piyasa takibi'
+    ],
+    wa: 'Merhaba, 360° Dijital Strateji paketi hakkında bilgi almak istiyorum.'
+  }
+};
+
+function openServicePopup(key) {
+  const d = serviceData[key];
+  if (!d) return;
+  
+  document.getElementById('popupIcon').textContent = d.icon;
+  document.getElementById('popupEyebrow').textContent = d.eyebrow;
+  document.getElementById('popupTitle').textContent = d.title;
+  document.getElementById('popupDesc').textContent = d.desc;
+  
+  const ul = document.getElementById('popupFeatures');
+  ul.innerHTML = d.features.map(f => `<li>${f}</li>`).join('');
+  
+  const waMsg = encodeURIComponent(d.wa);
+  document.getElementById('popupWA').href = `https://wa.me/905078805608?text=${waMsg}`;
+  
+  const overlay = document.getElementById('svcPopupOverlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+  });
+}
+
+function closeServicePopup() {
+  const overlay = document.getElementById('svcPopupOverlay');
+  overlay.classList.remove('visible');
+  document.body.style.overflow = '';
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+}
+
+function closePopup(e) {
+  if (e.target === document.getElementById('svcPopupOverlay')) closeServicePopup();
+}
+
+// ESC tuşu ile kapat
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeServicePopup(); });
+
 </script>
 
 <!-- RESTORAN BLOG DETAY -->
@@ -2808,6 +2940,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
     </a>
   </div>
 </section>
+
+
+<!-- ═══════ HİZMET POPUP ═══════ -->
+<div id="svcPopupOverlay" onclick="closePopup(event)" style="display:none">
+  <div id="svcPopup">
+    <button class="popup-close" onclick="closeServicePopup()">✕</button>
+    <div class="popup-top">
+      <div class="popup-icon" id="popupIcon"></div>
+      <div>
+        <div class="popup-eyebrow" id="popupEyebrow"></div>
+        <h2 class="popup-title" id="popupTitle"></h2>
+      </div>
+    </div>
+    <p class="popup-desc" id="popupDesc"></p>
+    <ul class="popup-features" id="popupFeatures"></ul>
+    <div class="popup-divider"></div>
+    <p class="popup-cta-text">Daha fazla bilgi ve fiyat teklifi için WhatsApp üzerinden bize ulaşın — <strong>ücretsiz danışmanlık</strong> sunuyoruz.</p>
+    <div class="popup-actions">
+      <a id="popupWA" href="#" target="_blank" class="popup-wa-btn">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.47 2.02 7.77L0 32l8.43-2.01A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.13 22.27c-.34.96-1.67 1.76-2.75 1.99-.73.16-1.68.28-4.88-.99-4.1-1.61-6.74-5.77-6.95-6.04-.2-.27-1.66-2.2-1.66-4.2s1.05-2.98 1.43-3.39c.34-.37.9-.54 1.44-.54.17 0 .33.01.47.01.42.02.63.05.9.7.34.82 1.17 2.82 1.27 3.02.1.2.2.47.06.74-.13.28-.2.45-.4.69-.2.24-.39.42-.59.68-.18.23-.39.47-.16.87.23.4.98 1.61 2.1 2.61 1.44 1.27 2.65 1.67 3.04 1.85.39.18.62.15.85-.09.24-.24.96-1.12 1.22-1.5.25-.38.5-.32.85-.19.35.13 2.2 1.04 2.58 1.23.38.19.63.28.72.43.09.15.09.89-.25 1.85z"/></svg>
+        WhatsApp ile Yazın
+      </a>
+      <a href="tel:05078805608" class="popup-call-btn">📞 0507 880 56 08</a>
+    </div>
+    <div class="popup-badge">✦ Ücretsiz Danışmanlık · Hızlı Yanıt · 15+ Yıl Deneyim</div>
+  </div>
+</div>
 
 </body>
 </html>
