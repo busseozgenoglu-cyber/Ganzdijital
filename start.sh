@@ -1,9 +1,7 @@
 #!/bin/bash
+set -e
 
-# Start the static web server on port $PORT
-echo "Starting static web server on port $PORT..."
+export PORT=${PORT:-5000}
 
-# Your command to start the web server here, for example:
-# python -m http.server $PORT
-
-# Note: Make sure to replace the above command with your actual server startup command.
+# Serve the static HTML site
+exec python3 -m http.server $PORT --directory .
