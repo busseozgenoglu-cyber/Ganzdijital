@@ -1,13 +1,16 @@
-FROM python:3.11-slim
+FROM nginx:alpine
 
-WORKDIR /app
+# Remove default nginx page
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY requirements.txt .
+# Copy site files
+COPY ganz-dijital-FINAL.html /usr/share/nginx/html/index.html
+COPY styles.css /usr/share/nginx/html/styles.css
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy nginx config template
+COPY nginx.conf /etc/nginx/nginx.conf.template
 
-COPY . .
+EXPOSE 80
 
-EXPOSE 5000
-
-CMD gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 2 app.main:app
+# Use envsubst to substitute $PORT at runtime, then start nginx
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"

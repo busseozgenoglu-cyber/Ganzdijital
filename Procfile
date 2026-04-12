@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT app.main:app
+web: sh -c "envsubst '\$PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
