@@ -2,13 +2,18 @@ User-agent: *
 Allow: /
 Disallow: /private/
 
-Crawl-delay: 1
-
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
+
+User-agent: AhrefsBot
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Crawl-delay: 2
 
 Sitemap: https://ganzz.digital/sitemap.xml
