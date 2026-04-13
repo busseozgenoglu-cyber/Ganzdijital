@@ -1010,7 +1010,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   "itemListElement": [
     {"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://ganzz.digital/"},
     {"@type":"ListItem","position":2,"name":"Hizmetler","item":"https://ganzz.digital/#hizmetler"},
-    {"@type":"ListItem","position":3,"name":"Blog","item":"https://ganzz.digital/#blog"},
+    {"@type":"ListItem","position":3,"name":"Blog","item":"https://ganzz.digital/blog.html"},
     {"@type":"ListItem","position":4,"name":"Referanslar","item":"https://ganzz.digital/#referanslar"},
     {"@type":"ListItem","position":5,"name":"Fiyatlar","item":"https://ganzz.digital/#fiyatlar"}
   ]
@@ -1031,7 +1031,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   </a>
   <ul class="nav-links">
     <li><a href="#hizmetler">Hizmetler</a></li>
-    <li><a href="#blog">Blog</a></li>
+    <li><a href="/blog.html">Blog</a></li>
     <li><a href="#rakamlara">Rakamlar</a></li>
     <li><a href="#referanslar">Referanslar</a></li>
     <li><a href="#fiyatlar">Fiyatlar</a></li>
@@ -1082,7 +1082,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 
   <div class="hero-bottom">
     <a href="#hizmetler" class="btn-p" title="Dijital Pazarlama Hizmetlerimiz">Hizmetlerimiz →</a>
-    <a href="#blog" class="btn-g">Sektörel Blog</a>
+    <a href="/blog.html" class="btn-g">Sektörel Blog</a>
     <div class="hero-stats">
       <div class="hs"><div class="hs-n">15+</div><div class="hs-l">Yıllık Deneyim</div></div>
       <div class="hs"><div class="hs-n">280+</div><div class="hs-l">Firma Ortaklığı</div></div>
@@ -2405,6 +2405,30 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
       <div class="blog-btn">Devamını Oku →</div>
     </a>
 
+    <a href="blog/meta-ads-seo-uyumlu-performans-2026.html" class="blog-card rv" data-category="diger">
+      <span class="sector-tag" style="background:rgba(0,245,255,.1);color:var(--cyan);border-color:rgba(0,245,255,.2)">META + SEO</span>
+      <h3 class="blog-title">Meta Ads ve SEO Uyumlu Performans Pazarlama 2026</h3>
+      <p class="blog-excerpt">Mesaj uyumu, açılış sayfası hızı, UTM disiplini ve içerik taksonomisi. Reklam ve arama motoru optimizasyonunu birlikte güçlendirin.</p>
+      <div class="blog-meta"><span>18 dk okuma</span><span class="blog-dot"></span><span>Eğitim</span></div>
+      <div class="blog-btn">Devamını Oku →</div>
+    </a>
+
+    <a href="blog/instagram-reklam-stratejisi-egitim-2026.html" class="blog-card rv d1" data-category="diger">
+      <span class="sector-tag" style="background:rgba(255,0,110,.1);color:var(--pink);border-color:rgba(255,0,110,.2)">INSTAGRAM ADS</span>
+      <h3 class="blog-title">Instagram Reklam Stratejisi: Eğitim ve Kampanya Çerçevesi</h3>
+      <p class="blog-excerpt">Hedef seçimi, huni, Reels ve Hikâye, katalog satışları, yaratıcı test matrisi ve bütçe. Meta Ads eğitim rehberi.</p>
+      <div class="blog-meta"><span>20 dk okuma</span><span class="blog-dot"></span><span>Strateji</span></div>
+      <div class="blog-btn">Devamını Oku →</div>
+    </a>
+
+    <a href="blog/meta-pixel-capi-veri-katmani-egitim-2026.html" class="blog-card rv d2" data-category="diger">
+      <span class="sector-tag" style="background:rgba(0,255,136,.12);color:var(--green);border-color:rgba(0,255,136,.25)">ÖLÇÜM</span>
+      <h3 class="blog-title">Meta Pixel, CAPI ve Veri Katmanı Eğitimi 2026</h3>
+      <p class="blog-excerpt">Pixel ve sunucu tarafı ölçüm, event_id ile deduplication, veri katmanı ve güvenilir dönüşüm raporlama.</p>
+      <div class="blog-meta"><span>17 dk okuma</span><span class="blog-dot"></span><span>Teknik</span></div>
+      <div class="blog-btn">Devamını Oku →</div>
+    </a>
+
     <a href="blog/sosyal-medya-yonetimi-fiyatlari-2026.html" class="blog-card rv" data-category="guzellik">
       <span class="sector-tag" style="background:rgba(255,0,110,.1);color:var(--pink);border-color:rgba(255,0,110,.2)">SOSYAL MEDYA</span>
       <h3 class="blog-title">Sosyal Medya Yönetimi Fiyatları 2026</h3>
@@ -2756,6 +2780,7 @@ document.querySelectorAll('.rfbtn').forEach(b=>{b.addEventListener('click',()=>{
 // BLOG FILTER
 function inferBlogCategoryFromHref(href){
   const slug = (href || '').toLowerCase();
+  if (/(meta-ads|meta-pixel|instagram-reklam-stratejisi-egitim)/.test(slug)) return 'diger';
   if (/(mobilya|peyzaj|dekor)/.test(slug)) return 'mobilya';
   if (/(guzellik|kuafor|berber|epilasyon|estetik)/.test(slug)) return 'guzellik';
   if (/(restoran|kafe|firin|pastane)/.test(slug)) return 'restoran';
