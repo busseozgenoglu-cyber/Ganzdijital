@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /private/
+Disallow: /app/
+Disallow: /ganz-dijital-FINAL.html
 
 User-agent: Googlebot
 Allow: /

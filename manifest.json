@@ -1,18 +1,27 @@
 {
-  "name": "Ganz Dijital",
-  "short_name": "Ganz",
-  "description": "Türkiye'nin dijital pazarlama ajansı — Google Ads, SEO, Sosyal Medya",
+  "name": "Ganz Dijital — Dijital Pazarlama Ajansı",
+  "short_name": "Ganz Dijital",
+  "description": "Türkiye'nin dijital pazarlama ajansı — Google Ads, SEO, Sosyal Medya Yönetimi, Web Tasarım",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#020408",
   "theme_color": "#00f5ff",
   "lang": "tr",
+  "dir": "ltr",
+  "categories": ["business", "marketing"],
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ]
 }

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#020408"/>
+      <stop offset="50%" style="stop-color:#0a0f1a"/>
+      <stop offset="100%" style="stop-color:#020408"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00f5ff"/>
+      <stop offset="100%" style="stop-color:#7b2fff"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#7b2fff;stop-opacity:0.08"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="800" cy="200" rx="400" ry="300" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1200" height="3" fill="url(#accent)"/>
+  <rect x="0" y="627" width="1200" height="3" fill="url(#accent)"/>
+  <circle cx="100" cy="315" r="12" fill="#00f5ff" opacity="0.8"/>
+  <text x="130" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="800" letter-spacing="4" fill="#f0f6ff">GANZ</text>
+  <text x="130" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="800" letter-spacing="4" fill="url(#accent)">D0J0TAL</text>
+  <line x1="130" y1="400" x2="560" y2="400" stroke="url(#accent)" stroke-width="2" opacity="0.5"/>
+  <text x="130" y="445" font-family="system-ui, sans-serif" font-size="24" fill="#f0f6ff" opacity="0.8" letter-spacing="6">D0J0TAL PAZARLAMA AJANSI</text>
+  <text x="130" y="500" font-family="monospace" font-size="16" fill="#00f5ff" opacity="0.6" letter-spacing="3">GOOGLE ADS · SEO · SOSYAL MEDYA · WEB TASARIM</text>
+  <text x="130" y="560" font-family="monospace" font-size="14" fill="#f0f6ff" opacity="0.3" letter-spacing="2">ganzz.digital  15+ YIL DENEY0M  280+ F0RMA ORTAKLII</text>
+</svg>
