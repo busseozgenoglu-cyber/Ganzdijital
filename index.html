@@ -213,9 +213,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .mitem{display:inline-flex;align-items:center;gap:20px;padding:0 28px;font-family:'DM Sans',sans-serif;font-size:13px;letter-spacing:2px;font-weight:600;color:var(--cyan);text-transform:uppercase;}
 .msep{color:var(--purple);font-size:16px;}
 section{padding:120px 48px;position:relative;z-index:1;}
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;color:var(--cyan);text-transform:uppercase;margin-bottom:20px;font-weight:500;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;font-weight:500;opacity:0.85;}
 .eyebrow::before{content:'//';opacity:.5;}
-.stitle{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(32px,5.5vw,88px);line-height:1.0;letter-spacing:-0.5px;margin-bottom:28px;}
+.stitle{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(26px,3.8vw,56px);line-height:1.15;letter-spacing:-0.3px;margin-bottom:24px;word-break:normal;overflow-wrap:break-word;}
 .grad-cp{background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .grad-pp{background:linear-gradient(90deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .grad-gc{background:linear-gradient(90deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -232,7 +232,7 @@ section{padding:120px 48px;position:relative;z-index:1;}
 .svc-num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--purple);margin-bottom:28px;display:block;}
 .svc-icon{width:52px;height:52px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:24px;transition:all .3s;position:relative;z-index:1;background:rgba(255,255,255,.02);}
 .svc-card:hover .svc-icon{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,245,255,.2);}
-.svc-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:14px;position:relative;z-index:1;transition:color .3s;letter-spacing:-0.2px;}
+.svc-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;position:relative;z-index:1;transition:color .3s;letter-spacing:-0.1px;}
 .svc-card:hover .svc-name{color:var(--cyan);}
 .svc-text{font-size:15px;line-height:1.8;color:rgba(232,244,255,0.82);position:relative;z-index:1;font-weight:400;}
 .svc-link{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);opacity:0;transform:translateX(-10px);transition:all .3s;position:relative;z-index:1;}
@@ -243,11 +243,11 @@ section{padding:120px 48px;position:relative;z-index:1;}
 .num-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:shimmer 3s ease infinite;animation-delay:var(--d,0s);}
 @keyframes shimmer{0%,100%{opacity:.3}50%{opacity:1}}
 .num-corner{position:absolute;top:16px;right:16px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,245,255,.2);}
-.num-big{font-family:'Syne',sans-serif;font-size:clamp(40px,5vw,72px);font-weight:800;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;word-break:break-word;}
+.num-big{font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;word-break:break-word;}
 .num-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);line-height:1.5;}
 .beauty-sec{padding:100px 48px;background:linear-gradient(135deg,rgba(255,0,110,.06),rgba(123,47,255,.06));border-top:1px solid rgba(255,0,110,.15);border-bottom:1px solid rgba(255,0,110,.15);position:relative;z-index:1;}
 .beauty-in{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.btitle{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,4.5vw,80px);line-height:.95;letter-spacing:-1px;word-break:break-word;overflow-wrap:break-word;}
+.btitle{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(24px,3.5vw,48px);line-height:1.2;letter-spacing:-0.2px;word-break:normal;overflow-wrap:break-word;}
 .btitle .bacc{background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .bnum-row{display:flex;align-items:center;gap:24px;margin-top:32px;}
 .bnum{font-family:'Syne',sans-serif;font-size:clamp(56px,8vw,96px);font-weight:800;line-height:1;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -347,7 +347,7 @@ section{padding:120px 48px;position:relative;z-index:1;}
 .proc-step::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:linear-gradient(180deg,var(--cyan),var(--purple));transition:height .5s;}
 .proc-step:hover::before{height:100%;}
 .pnum{font-family:'JetBrains Mono',monospace;font-size:40px;color:rgba(0,245,255,.1);line-height:1;margin-bottom:20px;}
-.ptitle{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;letter-spacing:-0.1px;}
+.ptitle{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:8px;}
 .ptext{font-size:14px;line-height:1.8;color:rgba(232,244,255,0.78);}
 #neden{background:var(--bg);}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;}
@@ -356,11 +356,11 @@ section{padding:120px 48px;position:relative;z-index:1;}
 .why-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
 .why-card:hover::after{transform:scaleX(1);}
 .wi{font-size:32px;margin-bottom:24px;}
-.wt{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:12px;letter-spacing:-0.2px;}
+.wt{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
 .wx{font-size:15px;line-height:1.82;color:rgba(232,244,255,0.8);font-weight:400;}
 .cta-sec{padding:100px 48px;position:relative;z-index:1;overflow:hidden;background:linear-gradient(135deg,rgba(0,245,255,.07),rgba(123,47,255,.1) 50%,rgba(255,0,110,.07));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .cta-in{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;}
-.cta-t{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,6vw,112px);line-height:.92;letter-spacing:-1px;}
+.cta-t{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(28px,4vw,64px);line-height:1.05;letter-spacing:-0.5px;}
 .cta-grad{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gshift 4s ease infinite;}
 .cta-dim{color:rgba(232,244,255,.15);}
 .cta-r{display:flex;flex-direction:column;gap:16px;align-items:flex-end;}
@@ -479,7 +479,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   .cta-t{font-size:clamp(32px,8vw,56px)!important;}
 
   /* Güzellik bölümü */
-  .btitle{font-size:clamp(28px,7vw,48px)!important;word-break:break-word;}
+  .btitle{font-size:clamp(20px,5.5vw,32px)!important;line-height:1.25!important;}
   .bnum{font-size:clamp(48px,12vw,72px)!important;}
   .beauty-in{grid-template-columns:1fr;gap:28px;}
 
@@ -525,7 +525,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 .price-card.featured{background:linear-gradient(160deg,#080e1a,#06080f);}
 .price-badge{position:absolute;top:20px;right:20px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:var(--bg);font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;}
 .price-budget{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
-.price-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--white);margin-bottom:8px;}
+.price-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;}
 .price-amount{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px;}
 .price-num{font-family:'Syne',sans-serif;font-size:clamp(36px,3.5vw,52px);font-weight:800;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .price-unit{font-size:14px;color:rgba(232,244,255,0.5);margin-bottom:6px;font-weight:500;}
@@ -683,7 +683,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 .led-text{color:rgba(232,244,255,0.7);}
 .led-sep{color:var(--purple);font-size:8px;}
 /* HERO NEON */
-.hero-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(0,245,255,0.5);margin-bottom:12px;}
+.hero-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(0,245,255,0.6);margin-bottom:10px;}
 .hero-neon-line{display:flex;align-items:baseline;gap:16px;margin-bottom:16px;flex-wrap:wrap;}
 .neon-word{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(44px,8vw,96px);line-height:1;letter-spacing:-2px;}
 .n1{color:#fff;text-shadow:0 0 20px rgba(0,245,255,0.5),0 0 40px rgba(0,245,255,0.2);animation:neonA 2s ease-in-out infinite;}
@@ -908,7 +908,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   <div class="svc-hdr">
     <div>
       <div class="eyebrow rv">Hizmetlerimiz</div>
-      <h2 class="stitle rv">DİJİTAL PAZARLAMA<br><span class="grad-cp">& REKLAM HİZMETLERİ</span></h2>
+      <h2 class="stitle rv">HİZMETLERİMİZ<br><span class="grad-cp">Dijital Pazarlama Çözümleri</span></h2>
     </div>
     <p class="svc-desc rv">15+ yıllık deneyimimizle dijital dünyanın her katmanında uzman ekibimizle markanızı büyütüyoruz. Strateji, yaratıcılık ve teknolojiyi bir araya getirerek sonuç üretiyoruz.</p>
   </div>
@@ -1118,7 +1118,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 <!-- RAKAMLARA -->
 <section id="rakamlara">
   <div class="eyebrow rv">Rakamlarla Ganz Dijital</div>
-  <h2 class="stitle rv">BAŞARININ<br><span class="grad-pp">KANITI</span></h2>
+  <h2 class="stitle rv">RAKAMLARLA<br><span class="grad-pp">Ganz Dijital</span></h2>
   <div class="num-grid">
     <div class="num-block rv" style="--d:0s"><div class="num-corner">STAT_01</div><div class="num-big">15+</div><div class="num-label">Yıllık Sektör<br>Deneyimi</div></div>
     <div class="num-block rv d1" style="--d:.5s"><div class="num-corner">STAT_02</div><div class="num-big">280+</div><div class="num-label">Türkiye Geneli<br>Firma Ortaklığı</div></div>
@@ -1132,7 +1132,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   <div class="beauty-in">
     <div>
       <div class="eyebrow rv" style="color:var(--pink)">Güzellik Sektörü</div>
-      <h2 class="btitle rv">GÜZELLİK<br><span class="bacc">MERKEZLERİNE</span><br>ÖZEL ÇÖZÜMLER</h2>
+      <h2 class="btitle rv"><span class="bacc">Güzellik Sektörüne</span><br>Özel Dijital Çözümler</h2>
       <div class="bnum-row rv"><div class="bnum">80</div><div style="font-size:14px;color:var(--dim);line-height:1.6;max-width:180px">güzellik merkezi ile büyüyen partnerlik ağımız</div></div>
     </div>
     <div>
@@ -1152,7 +1152,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   <div class="refs-hdr">
     <div>
       <div class="eyebrow rv">Referanslarımız</div>
-      <h2 class="stitle rv">280+ GÜVENEN<br><span class="grad-gc">REFERANS MARKA</span></h2>
+      <h2 class="stitle rv">REFERANSLARIMIZ<br><span class="grad-gc">280+ Güvenen Marka</span></h2>
     </div>
     <p class="refs-note rv">15+ yıllık deneyimimizle Türkiye genelinde 280'den fazla firmaya hizmet verdik. İşte birlikte büyüdüğümüz markalardan bazıları.</p>
   </div>
@@ -1318,7 +1318,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 <!-- ═══════ FİYATLANDIRMA ═══════ -->
 <section id="fiyatlar" aria-label="Dijital Pazarlama Hizmet Fiyatları">
   <div class="eyebrow rv">Fiyatlandırma</div>
-  <h2 class="stitle rv">ŞEFFAF<br><span class="grad-cp">FİYATLAR</span></h2>
+  <h2 class="stitle rv">FİYATLANDIRMA<br><span class="grad-cp">Şeffaf Paketler</span></h2>
   <p class="svc-desc rv" style="max-width:580px;margin-bottom:48px">
     15 yıllık deneyimimizle her bütçeye uygun paketler sunuyoruz. Tüm paketlerde <strong style="color:var(--cyan)">ücretsiz danışmanlık</strong> ve <strong style="color:var(--cyan)">şeffaf raporlama</strong> dahildir.
   </p>
@@ -1637,7 +1637,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 
 <section id="surec">
   <div class="eyebrow rv">Çalışma Sürecimiz</div>
-  <h2 class="stitle rv">NASIL<br><span class="grad-pc">ÇALIŞIYORUZ?</span></h2>
+  <h2 class="stitle rv">ÇALIŞMA SÜRECİMİZ<br><span class="grad-pc">Nasıl İlerliyoruz?</span></h2>
   <div class="proc-grid">
     <div class="proc-step rv"><div class="pnum">01</div><div class="ptitle">Analiz & Strateji</div><p class="ptext">Marka, hedef kitle ve rakip analizi. 15+ yıllık deneyimle özel dijital strateji.</p></div>
     <div class="proc-step rv d1"><div class="pnum">02</div><div class="ptitle">Planlama</div><p class="ptext">Aylık içerik planı, reklam bütçesi ve hedefleri belirleme. Şeffaf raporlama sistemi.</p></div>
@@ -1650,7 +1650,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 <!-- NEDEN BİZ -->
 <section id="neden" aria-label="Neden Ganz Dijital Reklam Ajansı">
   <div class="eyebrow rv">Neden Ganz Dijital?</div>
-  <h2 class="stitle rv">NEDEN GANZ DİJİTAL<br><span class="grad-gc">REKLAM AJANSI?</span></h2>
+  <h2 class="stitle rv">NEDEN GANZ DİJİTAL?<br><span class="grad-gc">Farkımız Ne?</span></h2>
   <div class="why-grid">
     <div class="why-card rv"><div class="wi">🎯</div><div class="wt">15+ Yıllık Deneyim</div><p class="wx">2009'dan beri dijital pazarlama sektöründeyiz. 15+ yıllık tecrübemizle binlerce kampanya yönettik.</p></div>
     <div class="why-card rv d1"><div class="wi">🤝</div><div class="wt">280+ Firma Ağı</div><p class="wx">Türkiye genelinde 280'den fazla firmayla uzun soluklu ortaklıklar. Güvenin kanıtı.</p></div>
@@ -1957,7 +1957,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 <div class="cta-sec">
   <div class="cta-in">
     <div>
-      <h2 class="cta-t rv"><span class="cta-grad">HAREKETE</span><br><span class="cta-dim">GEÇ &</span><br><span class="cta-grad">FARK YARAT</span></h2>
+      <h2 class="cta-t rv"><span class="cta-grad">Hemen</span><br><span class="cta-dim">Harekete</span><br><span class="cta-grad">Geçin</span></h2>
     </div>
     <div class="cta-r rv">
       <div class="cta-lbl">// Hemen İletişime Geçin</div>
