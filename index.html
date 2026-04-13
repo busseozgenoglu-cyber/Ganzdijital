@@ -697,6 +697,131 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 .led-blink2{animation:tblink 1.8s ease-in-out infinite .9s;}
 @keyframes tblink{0%,100%{border-color:rgba(0,245,255,0.5);color:var(--cyan);box-shadow:0 0 8px rgba(0,245,255,0.2);}50%{border-color:rgba(123,47,255,0.4);color:var(--purple);box-shadow:0 0 8px rgba(123,47,255,0.15);}}
 @media(max-width:900px){.neon-word{font-size:clamp(36px,10vw,64px)!important;letter-spacing:-1px!important;}.sub-tag-item{font-size:10px!important;padding:3px 10px!important;}.hero-label{font-size:9px!important;}}
+
+/* ═══════ YENİ HİZMET DAİRELERİ ═══════ */
+.svc-circle-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:24px 16px;
+  margin:48px 0 40px;
+  justify-items:center;
+}
+.svc-circle-card{
+  display:flex;flex-direction:column;align-items:center;
+  gap:12px;text-decoration:none;cursor:pointer;
+  width:100%;
+}
+.svc-circle-ring{
+  width:120px;height:120px;
+  border-radius:50%;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.02);
+  /* LED border animasyonu */
+  border:2px solid transparent;
+  background-clip:padding-box;
+  transition:transform .3s;
+}
+/* LED şerit — pseudo element ile */
+.svc-circle-ring::before{
+  content:'';
+  position:absolute;inset:-2px;
+  border-radius:50%;
+  background:conic-gradient(
+    var(--led,#00f5ff) 0deg,
+    transparent 60deg,
+    var(--led,#00f5ff) 120deg,
+    transparent 180deg,
+    var(--led,#00f5ff) 240deg,
+    transparent 300deg,
+    var(--led,#00f5ff) 360deg
+  );
+  animation:ledSpin 3s linear infinite;
+  opacity:.7;
+}
+.svc-circle-ring::after{
+  content:'';
+  position:absolute;inset:3px;
+  border-radius:50%;
+  background:var(--bg);
+}
+@keyframes ledSpin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+.svc-circle-card:hover .svc-circle-ring{
+  transform:scale(1.08) translateY(-4px);
+}
+.svc-circle-card:hover .svc-circle-ring::before{
+  opacity:1;
+  animation-duration:1.2s;
+}
+.svc-circle-inner{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;
+  gap:6px;text-align:center;
+}
+.svc-circle-icon{
+  font-size:28px;line-height:1;
+}
+.svc-circle-name{
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  color:var(--white);line-height:1.2;
+  text-align:center;
+}
+.svc-circle-glow{
+  position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at center,
+    color-mix(in srgb,var(--led,#00f5ff) 15%,transparent),
+    transparent 70%);
+  z-index:1;pointer-events:none;
+  opacity:0;transition:opacity .3s;
+}
+.svc-circle-card:hover .svc-circle-glow{opacity:1;}
+.svc-circle-desc{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1px;
+  color:rgba(232,244,255,0.5);
+  text-align:center;text-transform:uppercase;
+  transition:color .3s;
+}
+.svc-circle-card:hover .svc-circle-desc{color:var(--led,var(--cyan));}
+/* Featured (360°) */
+.svc-circle-featured .svc-circle-ring::before{
+  background:conic-gradient(
+    #c9a84c 0deg,transparent 30deg,
+    #e8c96a 90deg,transparent 120deg,
+    #c9a84c 180deg,transparent 210deg,
+    #e8c96a 270deg,transparent 300deg,
+    #c9a84c 360deg
+  );
+  animation-duration:2s;
+}
+.svc-circle-featured .svc-circle-name{color:#e8c96a;}
+/* Alt CTA */
+.svc-bottom-cta{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  gap:24px;flex-wrap:wrap;
+  border-top:1px solid var(--border);
+  padding-top:32px;
+  font-size:15px;color:rgba(232,244,255,0.7);
+}
+/* Mobil */
+@media(max-width:900px){
+  .svc-circle-grid{grid-template-columns:repeat(3,1fr);gap:20px 12px;}
+  .svc-circle-ring{width:96px;height:96px;}
+  .svc-circle-icon{font-size:22px;}
+  .svc-circle-name{font-size:11px;}
+  .svc-circle-desc{font-size:9px;}
+  .svc-bottom-cta{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:480px){
+  .svc-circle-grid{grid-template-columns:repeat(3,1fr);gap:16px 8px;}
+  .svc-circle-ring{width:84px;height:84px;}
+  .svc-circle-icon{font-size:20px;}
+}
 </style>
 
 <script type="application/ld+json">
@@ -908,27 +1033,89 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   <div class="svc-hdr">
     <div>
       <div class="eyebrow rv">Hizmetlerimiz</div>
-      <h2 class="stitle rv">HİZMETLERİMİZ<br><span class="grad-cp">Dijital Pazarlama Çözümleri</span></h2>
+      <h2 class="stitle rv">DİJİTAL PAZARLAMA<br><span class="grad-cp">Hizmetlerimiz</span></h2>
     </div>
-    <p class="svc-desc rv">15+ yıllık deneyimimizle dijital dünyanın her katmanında uzman ekibimizle markanızı büyütüyoruz. Strateji, yaratıcılık ve teknolojiyi bir araya getirerek sonuç üretiyoruz.</p>
+    <p class="svc-desc rv">15+ yıllık deneyim, 280+ firma ortaklığı. Her hizmet doğrudan sonuç odaklı ve ölçülebilir.</p>
   </div>
-  <div class="svc-grid">
-    <div class="svc-card rv" data-service="reklam" aria-label="Google Ads ve Meta Ads Reklam Yönetimi Hizmeti"><span class="svc-num">// 01</span><div class="svc-icon">📣</div><div class="svc-name">Reklam Yönetimi</div><p class="svc-text">Google Ads yönetimi ve Meta Ads (Facebook & Instagram) reklamları ile hedef kitlenize ulaşın. ROI odaklı dijital reklam kampanyaları. 15+ yıllık tecrübe.</p><div class="svc-link" onclick="openServicePopup('reklam')">Detayları Gör →</div></div>
-    <div class="svc-card rv d1" data-service="web" aria-label="Profesyonel Web Tasarım Hizmeti"><span class="svc-num">// 02</span><div class="svc-icon">🖥️</div><div class="svc-name">Web Tasarım</div><p class="svc-text">Modern, hızlı ve dönüşüm odaklı web siteleri. UX/UI best practices ile kullanıcı deneyimi zirvede. Mobil öncelikli tasarım anlayışı.</p><div class="svc-link" onclick="openServicePopup('web')">Detayları Gör →</div></div>
-    <div class="svc-card rv d2" data-service="seo" aria-label="Google SEO ve Arama Motoru Optimizasyonu Hizmeti"><span class="svc-num">// 03</span><div class="svc-icon">🔍</div><div class="svc-name">Google SEO</div><p class="svc-text">Teknik SEO, anahtar kelime optimizasyonu ve backlink çalışmalarıyla Google'da üst sıralara çıkın. Yerel SEO ve kurumsal SEO hizmetleri.</p><div class="svc-link" onclick="openServicePopup('seo')">Detayları Gör →</div></div>
-    <div class="svc-card rv" data-service="sosyal"><span class="svc-num">// 04</span><div class="svc-icon">📱</div><div class="svc-name">Sosyal Medya Yönetimi</div><p class="svc-text">Instagram, TikTok, Facebook ve LinkedIn sosyal medya yönetimi. Aylık içerik planı, tasarım, yayınlama ve topluluk yönetimi.</p><div class="svc-link" onclick="openServicePopup('sosyal')">Detayları Gör →</div></div>
-    <div class="svc-card rv d1" data-service="yazilim"><span class="svc-num">// 05</span><div class="svc-icon">⚙️</div><div class="svc-name">Yazılım Çözümleri</div><p class="svc-text">CRM, e-ticaret yazılımı ve özel yazılım çözümleri. Online randevu sistemi, API entegrasyonları ve iş süreçleri otomasyonu.</p><div class="svc-link" onclick="openServicePopup('yazilim')">Detayları Gör →</div></div>
-    <div class="svc-card rv d2" style="background:linear-gradient(135deg,rgba(0,245,255,.06),rgba(123,47,255,.06));border-top:2px solid var(--cyan);">
-      <span class="svc-num" style="color:var(--green)">// 360°</span>
-      <div class="svc-icon" style="border-color:var(--cyan);box-shadow:0 0 20px rgba(0,245,255,.2);">✦</div>
-      <div class="svc-name" style="color:var(--cyan)">Tam Entegre Dijital Strateji</div>
-      <p class="svc-text">15+ yıllık deneyimle tüm hizmetleri tek strateji altında yönetiyoruz. Sinerji ile maksimum büyüme.</p>
-      <div class="svc-link" style="opacity:1;transform:translateX(0)" onclick="openServicePopup('paket')">Paket Al →</div>
-    </div>
-  </div>
-</section>
 
-<!-- BLOG -->
+  <!-- YENİ YUVARLAK LED HİZMET GRID -->
+  <div class="svc-circle-grid">
+
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Reklam%20Y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#00f5ff">
+      <div class="svc-circle-ring">
+        <div class="svc-circle-inner">
+          <div class="svc-circle-icon">📣</div>
+          <div class="svc-circle-name">Reklam<br>Yönetimi</div>
+        </div>
+        <div class="svc-circle-glow"></div>
+      </div>
+      <div class="svc-circle-desc">Google Ads & Meta Ads</div>
+    </a>
+
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Web%20Tasarım%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#7b2fff">
+      <div class="svc-circle-ring">
+        <div class="svc-circle-inner">
+          <div class="svc-circle-icon">🖥️</div>
+          <div class="svc-circle-name">Web<br>Tasarım</div>
+        </div>
+        <div class="svc-circle-glow"></div>
+      </div>
+      <div class="svc-circle-desc">Mobil Uyumlu & Hızlı</div>
+    </a>
+
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Google%20SEO%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#00ff88">
+      <div class="svc-circle-ring">
+        <div class="svc-circle-inner">
+          <div class="svc-circle-icon">🔍</div>
+          <div class="svc-circle-name">Google<br>SEO</div>
+        </div>
+        <div class="svc-circle-glow"></div>
+      </div>
+      <div class="svc-circle-desc">Organik Trafik Artışı</div>
+    </a>
+
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Sosyal%20Medya%20Y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#ff006e">
+      <div class="svc-circle-ring">
+        <div class="svc-circle-inner">
+          <div class="svc-circle-icon">📱</div>
+          <div class="svc-circle-name">Sosyal<br>Medya</div>
+        </div>
+        <div class="svc-circle-glow"></div>
+      </div>
+      <div class="svc-circle-desc">Instagram · TikTok · LinkedIn</div>
+    </a>
+
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Yazılım%20Çözümleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#00f5ff">
+      <div class="svc-circle-ring">
+        <div class="svc-circle-inner">
+          <div class="svc-circle-icon">⚙️</div>
+          <div class="svc-circle-name">Yazılım<br>Çözümleri</div>
+        </div>
+        <div class="svc-circle-glow"></div>
+      </div>
+      <div class="svc-circle-desc">CRM · E-ticaret · Otomasyon</div>
+    </a>
+
+    <a href="https://wa.me/905078805608?text=Merhaba,%20360°%20Dijital%20Strateji%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-circle-featured" target="_blank" style="--led:#c9a84c">
+      <div class="svc-circle-ring">
+        <div class="svc-circle-inner">
+          <div class="svc-circle-icon">✦</div>
+          <div class="svc-circle-name">360°<br>Strateji</div>
+        </div>
+        <div class="svc-circle-glow"></div>
+      </div>
+      <div class="svc-circle-desc">Tam Entegre Paket</div>
+    </a>
+
+  </div>
+
+  <!-- ALT CTA -->
+  <div class="svc-bottom-cta rv">
+    <p>Hangi hizmete ihtiyacınız var? <strong style="color:var(--cyan)">Ücretsiz danışmanlık</strong> için hemen yazın.</p>
+    <a href="https://wa.me/905078805608?text=Merhaba,%20dijital%20pazarlama%20hizmetleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="btn-p" target="_blank" style="width:fit-content">WhatsApp ile Yazın →</a>
+  </div>
+
+</section>
 
 <section id="blog-mobilya-1" class="blog-detail" style="display:none;">
   <div class="blog-header">
