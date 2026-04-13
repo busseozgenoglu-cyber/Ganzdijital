@@ -275,7 +275,7 @@ section{padding:120px 48px;position:relative;z-index:1;}
   display:flex;align-items:center;justify-content:center;
   position:relative;
   transition:transform .3s, box-shadow .3s;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 10%,transparent),color-mix(in srgb,var(--c2) 10%,transparent));
+  background:linear-gradient(135deg,rgba(0,245,255,0.08),rgba(123,47,255,0.08));
   outline:2px solid;
   outline-color:color-mix(in srgb,var(--c1) 40%,transparent);
   outline-offset:-2px;
@@ -728,13 +728,13 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   position:absolute;inset:-2px;
   border-radius:50%;
   background:conic-gradient(
-    var(--led,#00f5ff) 0deg,
+    #00f5ff 0deg,
     transparent 60deg,
-    var(--led,#00f5ff) 120deg,
+    #00f5ff 120deg,
     transparent 180deg,
-    var(--led,#00f5ff) 240deg,
+    #00f5ff 240deg,
     transparent 300deg,
-    var(--led,#00f5ff) 360deg
+    #00f5ff 360deg
   );
   animation:ledSpin 3s linear infinite;
   opacity:.7;
@@ -772,9 +772,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 }
 .svc-circle-glow{
   position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(circle at center,
-    color-mix(in srgb,var(--led,#00f5ff) 15%,transparent),
-    transparent 70%);
+  background:radial-gradient(circle at center, rgba(0,245,255,0.15), transparent 70%);
   z-index:1;pointer-events:none;
   opacity:0;transition:opacity .3s;
 }
@@ -822,6 +820,23 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   .svc-circle-ring{width:84px;height:84px;}
   .svc-circle-icon{font-size:20px;}
 }
+
+/* LED renk class'ları - Safari uyumlu */
+.svc-led-cyan .svc-circle-ring::before{background:conic-gradient(#00f5ff 0deg,transparent 60deg,#00f5ff 120deg,transparent 180deg,#00f5ff 240deg,transparent 300deg,#00f5ff 360deg);}
+.svc-led-cyan:hover .svc-circle-desc{color:#00f5ff;}
+.svc-led-cyan .svc-circle-glow{background:radial-gradient(circle, rgba(0,245,255,0.15), transparent 70%);}
+
+.svc-led-purple .svc-circle-ring::before{background:conic-gradient(#7b2fff 0deg,transparent 60deg,#7b2fff 120deg,transparent 180deg,#7b2fff 240deg,transparent 300deg,#7b2fff 360deg);}
+.svc-led-purple:hover .svc-circle-desc{color:#7b2fff;}
+.svc-led-purple .svc-circle-glow{background:radial-gradient(circle, rgba(123,47,255,0.15), transparent 70%);}
+
+.svc-led-green .svc-circle-ring::before{background:conic-gradient(#00ff88 0deg,transparent 60deg,#00ff88 120deg,transparent 180deg,#00ff88 240deg,transparent 300deg,#00ff88 360deg);}
+.svc-led-green:hover .svc-circle-desc{color:#00ff88;}
+.svc-led-green .svc-circle-glow{background:radial-gradient(circle, rgba(0,255,136,0.15), transparent 70%);}
+
+.svc-led-pink .svc-circle-ring::before{background:conic-gradient(#ff006e 0deg,transparent 60deg,#ff006e 120deg,transparent 180deg,#ff006e 240deg,transparent 300deg,#ff006e 360deg);}
+.svc-led-pink:hover .svc-circle-desc{color:#ff006e;}
+.svc-led-pink .svc-circle-glow{background:radial-gradient(circle, rgba(255,0,110,0.15), transparent 70%);}
 </style>
 
 <script type="application/ld+json">
@@ -1041,7 +1056,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   <!-- YENİ YUVARLAK LED HİZMET GRID -->
   <div class="svc-circle-grid">
 
-    <a href="https://wa.me/905078805608?text=Merhaba,%20Reklam%20Y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#00f5ff">
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Reklam%20Y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-led-cyan" target="_blank">
       <div class="svc-circle-ring">
         <div class="svc-circle-inner">
           <div class="svc-circle-icon">📣</div>
@@ -1052,7 +1067,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
       <div class="svc-circle-desc">Google Ads & Meta Ads</div>
     </a>
 
-    <a href="https://wa.me/905078805608?text=Merhaba,%20Web%20Tasarım%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#7b2fff">
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Web%20Tasarım%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-led-purple" target="_blank">
       <div class="svc-circle-ring">
         <div class="svc-circle-inner">
           <div class="svc-circle-icon">🖥️</div>
@@ -1063,7 +1078,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
       <div class="svc-circle-desc">Mobil Uyumlu & Hızlı</div>
     </a>
 
-    <a href="https://wa.me/905078805608?text=Merhaba,%20Google%20SEO%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#00ff88">
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Google%20SEO%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-led-green" target="_blank">
       <div class="svc-circle-ring">
         <div class="svc-circle-inner">
           <div class="svc-circle-icon">🔍</div>
@@ -1074,7 +1089,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
       <div class="svc-circle-desc">Organik Trafik Artışı</div>
     </a>
 
-    <a href="https://wa.me/905078805608?text=Merhaba,%20Sosyal%20Medya%20Y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#ff006e">
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Sosyal%20Medya%20Y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-led-pink" target="_blank">
       <div class="svc-circle-ring">
         <div class="svc-circle-inner">
           <div class="svc-circle-icon">📱</div>
@@ -1085,7 +1100,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
       <div class="svc-circle-desc">Instagram · TikTok · LinkedIn</div>
     </a>
 
-    <a href="https://wa.me/905078805608?text=Merhaba,%20Yazılım%20Çözümleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card" target="_blank" style="--led:#00f5ff">
+    <a href="https://wa.me/905078805608?text=Merhaba,%20Yazılım%20Çözümleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-led-cyan" target="_blank">
       <div class="svc-circle-ring">
         <div class="svc-circle-inner">
           <div class="svc-circle-icon">⚙️</div>
@@ -1096,7 +1111,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
       <div class="svc-circle-desc">CRM · E-ticaret · Otomasyon</div>
     </a>
 
-    <a href="https://wa.me/905078805608?text=Merhaba,%20360°%20Dijital%20Strateji%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-circle-featured" target="_blank" style="--led:#c9a84c">
+    <a href="https://wa.me/905078805608?text=Merhaba,%20360°%20Dijital%20Strateji%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="svc-circle-card svc-circle-featured" target="_blank">
       <div class="svc-circle-ring">
         <div class="svc-circle-inner">
           <div class="svc-circle-icon">✦</div>
