@@ -2754,6 +2754,26 @@ document.querySelectorAll('.rv').forEach(el=>el.classList.add('up'));
 document.querySelectorAll('.rfbtn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.rfbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');});});
 
 // BLOG FILTER
+function inferBlogCategoryFromHref(href){
+  const slug = (href || '').toLowerCase();
+  if (/(mobilya|peyzaj|dekor)/.test(slug)) return 'mobilya';
+  if (/(guzellik|kuafor|berber|epilasyon|estetik)/.test(slug)) return 'guzellik';
+  if (/(restoran|kafe|firin|pastane)/.test(slug)) return 'restoran';
+  if (/(e-ticaret|e-ihracat|eihracat|cro)/.test(slug)) return 'eticaret';
+  if (/(oto-|otomotiv|arac|galeri)/.test(slug)) return 'otomotiv';
+  if (/(emlak|insaat|gayrimenkul)/.test(slug)) return 'emlak';
+  if (/(egitim|cocuk-egi|gunduz-okulu|dershane|kurs)/.test(slug)) return 'egitim';
+  if (/(saglik|hastane|dis-klinigi|eczane|veteriner|psikolog)/.test(slug)) return 'saglik';
+  return 'diger';
+}
+
+document.querySelectorAll('.blog-card').forEach(card=>{
+  const href = card.getAttribute('href') || '';
+  if (href.startsWith('blog/')) {
+    card.setAttribute('data-category', inferBlogCategoryFromHref(href));
+  }
+});
+
 document.querySelectorAll('.blog-fbtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.blog-fbtn').forEach(b=>b.classList.remove('active'));
