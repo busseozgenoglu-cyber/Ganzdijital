@@ -187,7 +187,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .hero{min-height:100svh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:160px 48px 80px;z-index:1;background:radial-gradient(ellipse 70% 50% at 65% 20%,rgba(123,47,255,0.2) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 15% 75%,rgba(0,245,255,0.12) 0%,transparent 55%),#020408;}
 .hero-ticker{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(0,245,255,.3);padding:6px 14px;margin-bottom:24px;width:fit-content;background:rgba(0,245,255,.04);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--cyan);}
 .tdot{width:6px;height:6px;background:#00ff88;border-radius:50%;box-shadow:0 0 8px #00ff88;animation:npulse 1.5s infinite;}
-.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(42px,9.5vw,152px);line-height:.92;letter-spacing:-1px;position:relative;z-index:1;margin-bottom:8px;}
+.hero-title{position:relative;z-index:1;margin-bottom:8px;}
 .hl-normal{color:var(--white);}
 .hl-stroke{color:var(--cyan);display:block;}
 
@@ -674,6 +674,29 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
   nav{padding:12px 16px !important;}
 }
 
+
+/* LED TICKER */
+.led-ticker-wrap{display:inline-flex;align-items:center;border:1px solid rgba(0,245,255,0.25);background:rgba(0,245,255,0.03);padding:6px 14px;margin-bottom:28px;width:fit-content;}
+.led-ticker-inner{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;white-space:nowrap;}
+.led-dot{width:6px;height:6px;border-radius:50%;background:#00ff88;flex-shrink:0;box-shadow:0 0 6px #00ff88,0 0 12px #00ff88;animation:ledpulse .6s ease-in-out infinite;}
+@keyframes ledpulse{0%,100%{opacity:1;box-shadow:0 0 6px #00ff88,0 0 14px #00ff88}50%{opacity:.3;box-shadow:0 0 2px #00ff88}}
+.led-text{color:rgba(232,244,255,0.7);}
+.led-sep{color:var(--purple);font-size:8px;}
+/* HERO NEON */
+.hero-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(0,245,255,0.5);margin-bottom:12px;}
+.hero-neon-line{display:flex;align-items:baseline;gap:16px;margin-bottom:16px;flex-wrap:wrap;}
+.neon-word{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(44px,8vw,96px);line-height:1;letter-spacing:-2px;}
+.n1{color:#fff;text-shadow:0 0 20px rgba(0,245,255,0.5),0 0 40px rgba(0,245,255,0.2);animation:neonA 2s ease-in-out infinite;}
+.n2{color:transparent;-webkit-text-stroke:2px var(--cyan);filter:drop-shadow(0 0 8px var(--cyan));animation:neonB 2s ease-in-out infinite .3s;}
+@keyframes neonA{0%,100%{text-shadow:0 0 20px rgba(0,245,255,0.7),0 0 40px rgba(0,245,255,0.3)}50%{text-shadow:0 0 8px rgba(0,245,255,0.2)}}
+@keyframes neonB{0%,100%{filter:drop-shadow(0 0 10px var(--cyan)) drop-shadow(0 0 20px var(--cyan));opacity:1}50%{filter:drop-shadow(0 0 2px var(--cyan));opacity:.6}}
+.hero-sub-tag{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+.sub-tag-item{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;font-weight:600;padding:4px 12px;border:1px solid rgba(0,245,255,0.3);color:var(--cyan);background:rgba(0,245,255,0.04);}
+.sub-tag-sep{color:rgba(232,244,255,0.2);font-size:12px;}
+.led-blink{animation:tblink 1.8s ease-in-out infinite;}
+.led-blink2{animation:tblink 1.8s ease-in-out infinite .9s;}
+@keyframes tblink{0%,100%{border-color:rgba(0,245,255,0.5);color:var(--cyan);box-shadow:0 0 8px rgba(0,245,255,0.2);}50%{border-color:rgba(123,47,255,0.4);color:var(--purple);box-shadow:0 0 8px rgba(123,47,255,0.15);}}
+@media(max-width:900px){.neon-word{font-size:clamp(36px,10vw,64px)!important;letter-spacing:-1px!important;}.sub-tag-item{font-size:10px!important;padding:3px 10px!important;}.hero-label{font-size:9px!important;}}
 </style>
 
 <script type="application/ld+json">
@@ -814,19 +837,40 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-ticker">
-    <div class="tdot"></div>
-    <span id="ttext">15+ YILLIK DENEYİM | 280+ FİRMA ORTAKLIĞI</span>
+  <!-- LED TICKER -->
+  <div class="led-ticker-wrap">
+    <div class="led-ticker-inner">
+      <span class="led-dot"></span>
+      <span class="led-text" id="ttext">15+ YILLIK DENEYİM</span>
+      <span class="led-sep">◆</span>
+      <span class="led-text">280+ FİRMA ORTAKLIĞI</span>
+      <span class="led-sep">◆</span>
+      <span class="led-text">GOOGLE ADS UZMANI</span>
+      <span class="led-sep">◆</span>
+      <span class="led-text">SEO & SOSYAL MEDYA</span>
+    </div>
   </div>
 
+  <!-- HERO BAŞLIK — küçük, estetik, neon LED -->
   <h1 class="hero-title" itemscope itemtype="https://schema.org/Organization">
-    <span class="hl-normal">DİJİTAL PAZARLAMA</span>
-    <span class="hl-stroke" data-t="AJANS">AJANS</span>
-    <span class="hl-grad">& REKLAM</span>
+    <div class="hero-label">DİJİTAL PAZARLAMA AJANSI</div>
+    <div class="hero-neon-line">
+      <span class="neon-word n1">GANZ</span>
+      <span class="neon-word n2">DİJİTAL</span>
+    </div>
+    <div class="hero-sub-tag">
+      <span class="sub-tag-item led-blink">Google Ads</span>
+      <span class="sub-tag-sep">·</span>
+      <span class="sub-tag-item led-blink2">SEO</span>
+      <span class="sub-tag-sep">·</span>
+      <span class="sub-tag-item led-blink">Sosyal Medya</span>
+      <span class="sub-tag-sep">·</span>
+      <span class="sub-tag-item led-blink2">Web Tasarım</span>
+    </div>
   </h1>
 
   <p class="hero-sub">
-    Türkiye genelinde <strong style="color:var(--cyan)">280+ firma</strong> ile çalışan dijital pazarlama ajansı. <strong>Google Ads</strong>, <strong>Meta Ads</strong>, <strong>SEO</strong>, <strong>sosyal medya yönetimi</strong> ve web tasarım hizmetleri. 15 yıllık deneyim.
+    Türkiye genelinde <strong style="color:var(--cyan)">280+ firma</strong> ile çalışan dijital pazarlama ajansı. 15 yıllık deneyim ile markanızı dijitalde büyütüyoruz.
   </p>
 
   <div class="hero-bottom">
@@ -1315,7 +1359,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
     <div class="price-card featured rv d1">
       <div class="price-badge">Popüler</div>
       <div class="price-name">Standart</div>
-      <div class="price-amount"><span class="price-num">10.500</span><span class="price-unit">₺</span></div>
+      <div class="price-amount"><span class="price-num">13.000</span><span class="price-unit">₺</span></div>
       <div class="price-period">/ aylık · KDV dahil değildir</div>
       <ul class="price-features">
         <li><span class="pf-icon">✓</span>12 Gönderi + 12 Hikaye (Reels & Post)</li>
@@ -1335,7 +1379,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
 
     <div class="price-card rv d2">
       <div class="price-name">Gelişim</div>
-      <div class="price-amount"><span class="price-num">14.000</span><span class="price-unit">₺</span></div>
+      <div class="price-amount"><span class="price-num">17.000</span><span class="price-unit">₺</span></div>
       <div class="price-period">/ aylık · KDV dahil değildir</div>
       <ul class="price-features">
         <li><span class="pf-icon">✓</span>20 Gönderi + 20 Hikaye (Reels & Post)</li>
@@ -1357,7 +1401,7 @@ footer{background:#010305;padding:80px 48px 36px;border-top:1px solid var(--bord
     <div class="price-card rv d3">
       <div class="price-badge" style="background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#080808">Gold</div>
       <div class="price-name">Gold</div>
-      <div class="price-amount"><span class="price-num">18.000</span><span class="price-unit">₺</span></div>
+      <div class="price-amount"><span class="price-num">24.000</span><span class="price-unit">₺</span></div>
       <div class="price-period">/ aylık · KDV dahil değildir</div>
       <ul class="price-features">
         <li><span class="pf-icon">✓</span>30 Gönderi + 30 Hikaye (Reels & Post)</li>
