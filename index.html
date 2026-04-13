@@ -2,6 +2,10 @@
 <html lang="tr-TR" prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dijital Pazarlama Ajansı | Google Ads, SEO, Sosyal Medya Yönetimi | Ganz Dijital</title>
 <meta name="description" content="Google Ads yönetimi, SEO, sosyal medya ve web tasarım hizmetleri. 15 yıllık deneyim, 280+ firma ortağı. Türkiye geneli hizmet. Ücretsiz danışmanlık alın!">
@@ -25,12 +29,15 @@
 <meta property="og:image" content="https://ganzz.digital/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ganz Dijital — Dijital Pazarlama Ajansı">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ganzdijital">
 <meta name="twitter:title" content="Ganz Dijital | Dijital Pazarlama & Reklam Ajansı">
 <meta name="twitter:description" content="280+ firma ortaklığı, 15 yıllık deneyim. Google Ads, SEO, sosyal medya yönetimi.">
 <meta name="twitter:image" content="https://ganzz.digital/og-image.jpg">
+<meta name="twitter:image:alt" content="Ganz Dijital — Dijital Pazarlama Ajansı">
 
 <!-- Schema.org - Organization -->
 <script type="application/ld+json">
@@ -158,7 +165,10 @@
   "url": "https://ganzz.digital",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://ganzz.digital/blog/{search_term_string}",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://ganzz.digital/blog/{search_term_string}.html"
+    },
     "query-input": "required name=search_term_string"
   }
 }

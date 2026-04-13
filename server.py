@@ -1,12 +1,37 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
-import os, argparse, mimetypes, gzip
+import os, argparse, mimetypes, gzip, urllib.parse
+
+# Redirect map: old Turkish-char URLs → new ASCII-safe URLs
+REDIRECTS = {
+    "/blog/tar%C4%B1m-ciftlik-dijital-pazarlama.html": "/blog/tarim-ciftlik-dijital-pazarlama.html",
+    "/blog/tarım-ciftlik-dijital-pazarlama.html": "/blog/tarim-ciftlik-dijital-pazarlama.html",
+    "/blog/danismanlik-ko%C3%A7luk-dijital-pazarlama.html": "/blog/danismanlik-kocluk-dijital-pazarlama.html",
+    "/blog/danismanlik-koçluk-dijital-pazarlama.html": "/blog/danismanlik-kocluk-dijital-pazarlama.html",
+}
 
 class GanzHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
     def do_GET(self):
-        path = self.path.split("?")[0].split("#")[0]
+        raw_path = self.path.split("?")[0].split("#")[0]
+
+        # Check permanent redirects first
+        if raw_path in REDIRECTS:
+            self.send_response(301)
+            self.send_header("Location", REDIRECTS[raw_path])
+            self.send_header("Cache-Control", "public, max-age=31536000")
+            self.end_headers()
+            return
+
+        path = urllib.parse.unquote(raw_path)
+        if path in REDIRECTS:
+            self.send_response(301)
+            self.send_header("Location", REDIRECTS[path])
+            self.send_header("Cache-Control", "public, max-age=31536000")
+            self.end_headers()
+            return
+
         if path in ("/", ""):
             self.serve_file("index.html")
             return
@@ -43,7 +68,7 @@ class GanzHandler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "public, max-age=3600, stale-while-revalidate=86400")
         elif file_path.endswith((".css", ".js")):
             self.send_header("Cache-Control", "public, max-age=604800")
-        elif file_path.endswith((".xml", ".txt")):
+        elif file_path.endswith((".xml", ".txt", ".json")):
             self.send_header("Cache-Control", "public, max-age=3600")
         elif file_path.endswith((".jpg", ".jpeg", ".png", ".webp", ".svg", ".ico")):
             self.send_header("Cache-Control", "public, max-age=2592000")
@@ -52,6 +77,18 @@ class GanzHandler(BaseHTTPRequestHandler):
         self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
         self.send_header("X-XSS-Protection", "1; mode=block")
         self.send_header("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+        self.send_header("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
+        self.send_header(
+            "Content-Security-Policy",
+            "default-src 'self'; "
+            "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+            "font-src https://fonts.gstatic.com; "
+            "img-src 'self' data: https:; "
+            "connect-src 'self' https://www.google-analytics.com; "
+            "frame-ancestors 'none'"
+        )
+        self.send_header("X-DNS-Prefetch-Control", "on")
         if use_gzip:
             data = gzip.compress(data, compresslevel=9)
             self.send_header("Content-Encoding", "gzip")
