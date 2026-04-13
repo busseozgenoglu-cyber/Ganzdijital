@@ -1,0 +1,5 @@
+# ASCII-safe canonical URLs (Turkish-character paths from old links or bookmarks)
+/blog/tarım-ciftlik-dijital-pazarlama.html   /blog/tarim-ciftlik-dijital-pazarlama.html   301
+/blog/tar%C4%B1m-ciftlik-dijital-pazarlama.html   /blog/tarim-ciftlik-dijital-pazarlama.html   301
+/blog/danismanlik-koçluk-dijital-pazarlama.html   /blog/danismanlik-kocluk-dijital-pazarlama.html   301
+/blog/danismanlik-ko%C3%A7luk-dijital-pazarlama.html   /blog/danismanlik-kocluk-dijital-pazarlama.html   301

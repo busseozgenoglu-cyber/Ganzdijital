@@ -42,6 +42,12 @@ class GanzHandler(BaseHTTPRequestHandler):
         if os.path.isfile(file_path + ".html"):
             self.serve_file(file_path + ".html")
             return
+        dir_path = file_path.rstrip("/")
+        if os.path.isdir(dir_path):
+            index_html = os.path.join(dir_path, "index.html")
+            if os.path.isfile(index_html):
+                self.serve_file(index_html)
+                return
         # 404
         if os.path.isfile("404.html"):
             self.serve_file_with_status("404.html", 404)
