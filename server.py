@@ -17,17 +17,19 @@ class GanzHandler(BaseHTTPRequestHandler):
         if os.path.isfile(file_path + ".html"):
             self.serve_file(file_path + ".html")
             return
-        # SEO: 404 page
-        self.send_response(404)
-        self.send_header("Content-Type", "text/html; charset=utf-8")
-        self.end_headers()
-        self.wfile.write(b"""<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>404 | Ganz Dijital</title>
-<meta name="robots" content="noindex,follow">
-<style>body{background:#020408;color:#e8f4ff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:20px;text-align:center}
-h1{font-size:80px;margin:0;color:#00f5ff}a{color:#00f5ff;border:1px solid #00f5ff;padding:12px 28px;text-decoration:none}</style>
-</head><body><h1>404</h1><p>Sayfa bulunamadi</p><a href="/">Ana Sayfaya Don</a></body></html>""")
+        # 404
+        if os.path.isfile("404.html"):
+            self.serve_file_with_status("404.html", 404)
+        else:
+            self.send_response(404)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(b"<h1>404 Not Found</h1>")
 
-    def serve_file(self, file_path):
+    def serve_file(self, file_path, status=200):
+        self.serve_file_with_status(file_path, status)
+
+    def serve_file_with_status(self, file_path, status=200):
         mime, _ = mimetypes.guess_type(file_path)
         if not mime:
             mime = "text/html"
@@ -35,9 +37,8 @@ h1{font-size:80px;margin:0;color:#00f5ff}a{color:#00f5ff;border:1px solid #00f5f
             data = f.read()
         accept_encoding = self.headers.get("Accept-Encoding", "")
         use_gzip = "gzip" in accept_encoding and "text" in mime
-        self.send_response(200)
+        self.send_response(status)
         self.send_header("Content-Type", mime + ("; charset=utf-8" if "text" in mime else ""))
-        # Cache — HTML kısa, statik uzun
         if file_path.endswith(".html"):
             self.send_header("Cache-Control", "public, max-age=3600, stale-while-revalidate=86400")
         elif file_path.endswith((".css", ".js")):
@@ -46,13 +47,11 @@ h1{font-size:80px;margin:0;color:#00f5ff}a{color:#00f5ff;border:1px solid #00f5f
             self.send_header("Cache-Control", "public, max-age=3600")
         elif file_path.endswith((".jpg", ".jpeg", ".png", ".webp", ".svg", ".ico")):
             self.send_header("Cache-Control", "public, max-age=2592000")
-        # Güvenlik + SEO headers
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "SAMEORIGIN")
         self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
         self.send_header("X-XSS-Protection", "1; mode=block")
         self.send_header("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
-        # Gzip
         if use_gzip:
             data = gzip.compress(data, compresslevel=9)
             self.send_header("Content-Encoding", "gzip")
