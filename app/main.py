@@ -1,10 +1,10 @@
-from flask import Flask, render_template_string
+from flask import Flask
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    with open('../ganz-dijital-FINAL.html', 'r', encoding='utf-8') as f:
+    with open('../index.html', 'r', encoding='utf-8') as f:
         html_content = f.read()
     return html_content
 

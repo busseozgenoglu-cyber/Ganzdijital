@@ -1,636 +1,605 @@
 #!/usr/bin/env python3
-"""
-Comprehensive SEO fix script for Ganz Dijital website.
-Fixes all SEO issues across all HTML pages.
-"""
+"""SEO maintenance and repair utility for the Ganz Dijital site."""
+
+from __future__ import annotations
+
+import argparse
 import os
 import re
-import glob
-import json
-import shutil
+import struct
+import zlib
+from datetime import UTC, datetime
+from pathlib import Path
 
 BASE_URL = "https://ganzz.digital"
-FONT_PRECONNECT = """\
-<link rel="dns-prefetch" href="//fonts.googleapis.com">
-<link rel="dns-prefetch" href="//fonts.gstatic.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">"""
+ROOT = Path(__file__).resolve().parent
+BLOG_DIR = ROOT / "blog"
+OG_IMAGE_NAME = "og-image.png"
+OG_IMAGE_URL = f"{BASE_URL}/{OG_IMAGE_NAME}"
+BROKEN_ARTICLE_MARKER = "</html<!-- BLOG HERO -->"
 
-FAVICON_LINKS = """\
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
-<link rel="manifest" href="/manifest.json">"""
+DUPLICATE_SLUGS = {
+    "tarım-ciftlik-dijital-pazarlama.html": "tarim-ciftlik-dijital-pazarlama.html",
+    "danismanlik-koçluk-dijital-pazarlama.html": "danismanlik-kocluk-dijital-pazarlama.html",
+}
 
-def fix_blog_file(filepath):
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
+TITLE_SUFFIXES = (
+    " | Türkiye | Ganz Dijital - Dijital Pazarlama Ajansı",
+    " | Ganz Dijital - Dijital Pazarlama Ajansı",
+    " | Ganz Dijital Blog",
+    " | Ganz Dijital",
+)
 
-    original = content
-    filename = os.path.basename(filepath)
-    slug = filename  # e.g. seo-nedir-rehber.html
-    page_url = f"{BASE_URL}/blog/{slug}"
 
-    # Extract page title and description from existing correct meta
-    title_m = re.search(r'<title>([^<]+)</title>', content)
-    desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]+)"', content)
-    page_title = title_m.group(1).strip() if title_m else ""
-    page_desc = desc_m.group(1).strip() if desc_m else ""
+def read_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
 
-    # Build clean og:title (without " | Türkiye | Ganz Dijital - Dijital Pazarlama Ajansı" suffix)
-    og_title = page_title
-    for suffix in [
-        " | Türkiye | Ganz Dijital - Dijital Pazarlama Ajansı",
-        " | Ganz Dijital",
-    ]:
-        if og_title.endswith(suffix):
-            og_title = og_title[:-len(suffix)]
-            break
-    og_title = og_title.strip()
 
-    # Build correct keywords from title words (topic-specific)
-    keywords_m = re.search(r'<meta\s+name="keywords"\s+content="([^"]+)"', content)
-    existing_kw = keywords_m.group(1) if keywords_m else ""
-    # Only fix if it's the generic "Güzellik & Estetik" one
-    if "Güzellik & Estetik" in existing_kw and "güzellik" not in page_title.lower() and "kuaför" not in page_title.lower() and "estetik" not in page_title.lower():
-        # Build topic-relevant keywords from page title
-        new_kw = f"dijital pazarlama, {og_title}, Google Ads, SEO, sosyal medya yönetimi, Ganz Dijital"
+def write_text(path: Path, content: str) -> bool:
+    if not content.endswith("\n"):
+        content += "\n"
+    current = path.read_text(encoding="utf-8") if path.exists() else None
+    if current == content:
+        return False
+    path.write_text(content, encoding="utf-8")
+    return True
+
+
+def replace_og_refs(content: str) -> str:
+    content = content.replace("og-image.jpg", OG_IMAGE_NAME)
+    content = content.replace(f"{BASE_URL}/og-image.jpg", OG_IMAGE_URL)
+    if 'property="og:image"' in content and 'property="og:image:type"' not in content:
         content = content.replace(
-            f'content="{existing_kw}"',
-            f'content="{new_kw}"',
-            1  # only first occurrence = keywords
+            '<meta property="og:image:height" content="630">',
+            '<meta property="og:image:height" content="630">\n<meta property="og:image:type" content="image/png">',
+            1,
         )
+    return content
 
-    # Step 1: Remove duplicate early OG tags (before <style>) 
-    # Pattern: the 3 early meta tags og:title, og:description, og:type before <style>
-    style_pos = content.find('<style>')
-    if style_pos != -1:
-        before_style = content[:style_pos]
-        after_style = content[style_pos:]
-        # Remove ALL early og: meta tags (before style, they're duplicates/wrong)
-        before_style = re.sub(
-            r'\n?<meta\s+property="og:[^"]+"\s+content="[^"]*">\n?',
-            '\n',
-            before_style
-        )
-        # Also fix 2024 → 2026 in title within before_style
-        before_style = before_style.replace('2024', '2026')
-        content = before_style + after_style
 
-    # Step 2: Fix wrong guzellik og: block in after-style section (if still present)
-    # Replace the broken OG block with correct one
-    wrong_og_pattern = re.compile(
-        r'(<!-- Open Graph -->)\s*'
-        r'<meta property="og:type" content="article">\s*'
-        r'<meta property="og:locale" content="tr_TR">\s*'
-        r'<meta property="og:title" content="Güzellik Merkezi[^"]*">\s*'
-        r'<meta property="og:description" content="Güzellik merkezi[^"]*">\s*'
-        r'<meta property="og:url" content="https://ganzz\.digital/blog/guzellik-merkezi-reklam\.html">\s*'
-        r'<meta property="og:site_name" content="Ganz Dijital">\s*'
-        r'<meta property="og:image" content="https://ganzz\.digital/og-image\.jpg">',
-        re.DOTALL
+def remove_jsonld_block(content: str, type_name: str) -> str:
+    pattern = re.compile(
+        rf'<script type="application/ld\+json">\s*\{{.*?"@type":\s*"{re.escape(type_name)}".*?</script>\s*',
+        re.DOTALL,
     )
-    correct_og = (
-        f'<!-- Open Graph -->\n'
-        f'<meta property="og:type" content="article">\n'
-        f'<meta property="og:locale" content="tr_TR">\n'
-        f'<meta property="og:title" content="{og_title} | Ganz Dijital">\n'
-        f'<meta property="og:description" content="{page_desc}">\n'
-        f'<meta property="og:url" content="{page_url}">\n'
-        f'<meta property="og:site_name" content="Ganz Dijital">\n'
-        f'<meta property="og:image" content="{BASE_URL}/og-image.jpg">\n'
-        f'<meta property="og:image:width" content="1200">\n'
-        f'<meta property="og:image:height" content="630">\n'
-        f'<meta property="og:image:alt" content="{og_title} — Ganz Dijital">'
+    return pattern.sub("", content, count=1)
+
+
+def replace_jsonld_block(content: str, type_name: str, new_block: str) -> str:
+    pattern = re.compile(
+        rf'<script type="application/ld\+json">\s*\{{.*?"@type":\s*"{re.escape(type_name)}".*?</script>\s*',
+        re.DOTALL,
     )
-    content = wrong_og_pattern.sub(correct_og, content)
+    if pattern.search(content):
+        return pattern.sub(new_block + "\n", content, count=1)
+    return content
 
-    # Step 3: Add og:image dimensions/alt where missing (correct OG blocks)
-    # For pages that already have correct og: but lack og:image:width
-    if 'og:image:width' not in content:
-        # Insert after og:image line
-        content = re.sub(
-            r'(<meta property="og:image" content="[^"]+">)',
-            r'\1\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
-            + f'<meta property="og:image:alt" content="{og_title} — Ganz Dijital">',
-            content,
-            count=1
-        )
 
-    # Step 4: Fix wrong twitter block (guzellik template)
-    wrong_tw_pattern = re.compile(
-        r'(<!-- Twitter -->)\s*'
-        r'<meta name="twitter:card" content="summary_large_image">\s*'
-        r'<meta name="twitter:title" content="Güzellik Merkezi[^"]*">\s*'
-        r'<meta name="twitter:description" content="Güzellik merkezi[^"]*">\s*'
-        r'<meta name="twitter:image" content="https://ganzz\.digital/og-image\.jpg">',
-        re.DOTALL
+def replace_first_jsonld_field(content: str, type_name: str, field_name: str, value: str) -> str:
+    pattern = re.compile(
+        rf'(<script type="application/ld\+json">\s*\{{.*?"@type":\s*"{re.escape(type_name)}".*?"{re.escape(field_name)}":\s*")[^"]*(")',
+        re.DOTALL,
     )
-    correct_tw = (
-        f'<!-- Twitter Card -->\n'
-        f'<meta name="twitter:card" content="summary_large_image">\n'
-        f'<meta name="twitter:site" content="@ganzdijital">\n'
-        f'<meta name="twitter:title" content="{og_title} | Ganz Dijital">\n'
-        f'<meta name="twitter:description" content="{page_desc}">\n'
-        f'<meta name="twitter:image" content="{BASE_URL}/og-image.jpg">\n'
-        f'<meta name="twitter:image:alt" content="{og_title} — Ganz Dijital">'
+    return pattern.sub(lambda match: match.group(1) + value + match.group(2), content, count=1)
+
+
+def extract(pattern: str, content: str) -> str | None:
+    match = re.search(pattern, content, re.DOTALL)
+    return match.group(1).strip() if match else None
+
+
+def clean_title(raw_title: str) -> str:
+    title = raw_title.strip()
+    for suffix in TITLE_SUFFIXES:
+        if title.endswith(suffix):
+            return title[: -len(suffix)].strip()
+    return title
+
+
+def extract_blog_footer() -> str:
+    marker = '<a href="https://wa.me/905078805608" class="waf" target="_blank">'
+    for path in sorted(BLOG_DIR.glob("*.html")):
+        content = read_text(path)
+        if marker in content and "</body>" in content and "</html>" in content:
+            start = content.index(marker)
+            return content[start:].strip()
+    return (
+        '<a href="https://wa.me/905078805608" class="waf" target="_blank">\n'
+        '  <svg viewBox="0 0 32 32" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.735 5.47 2.02 7.77L0 32l8.43-2.01A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.13 22.27c-.34.96-1.67 1.76-2.75 1.99-.73.16-1.68.28-4.88-.99-4.1-1.61-6.74-5.77-6.95-6.04-.2-.27-1.66-2.2-1.66-4.2s1.05-2.98 1.43-3.39c.34-.37.9-.54 1.44-.54.17 0 .33.01.47.01.42.02.63.05.9.7.34.82 1.17 2.82 1.27 3.02.1.2.2.47.06.74-.13.28-.2.45-.4.69-.2.24-.39.42-.59.68-.18.23-.39.47-.16.87.23.4.98 1.61 2.1 2.61 1.44 1.27 2.65 1.67 3.04 1.85.39.18.62.15.85-.09.24-.24.96-1.12 1.22-1.5.25-.38.5-.32.85-.19.35.13 2.2 1.04 2.58 1.23.38.19.63.28.72.43.09.15.09.89-.25 1.85z"/></svg>\n'
+        '</a>\n\n'
+        '<script>\n'
+        'function toggleFaq(i) {\n'
+        "  const el = document.getElementById('faq-'+i);\n"
+        "  if (el) {\n"
+        "    el.classList.toggle('open');\n"
+        "  }\n"
+        '}\n'
+        '</script>\n'
+        '</body>\n'
+        '</html>'
     )
-    content = wrong_tw_pattern.sub(correct_tw, content)
 
-    # Step 4b: Fix wrong JSON-LD schemas (Article and BlogPosting with guzellik data)
-    wrong_article_url = "https://ganzz.digital/blog/guzellik-merkezi-reklam.html"
-    if wrong_article_url in content:
-        # Replace wrong Article schema
-        wrong_article_schema = re.compile(
-            r'<script type="application/ld\+json">\s*\{[^}]*"@type":\s*"Article"[^<]*?"url":\s*"https://ganzz\.digital/blog/guzellik-merkezi-reklam\.html".*?</script>',
-            re.DOTALL
-        )
-        correct_article_schema = (
-            f'<script type="application/ld+json">\n'
-            f'{{\n'
-            f'  "@context": "https://schema.org",\n'
-            f'  "@type": "Article",\n'
-            f'  "headline": "{og_title}",\n'
-            f'  "description": "{page_desc}",\n'
-            f'  "url": "{page_url}",\n'
-            f'  "author": {{"@type": "Organization", "name": "Ganz Dijital", "url": "https://ganzz.digital"}},\n'
-            f'  "publisher": {{\n'
-            f'    "@type": "Organization",\n'
-            f'    "name": "Ganz Dijital",\n'
-            f'    "logo": {{"@type": "ImageObject", "url": "https://ganzz.digital/og-image.jpg"}}\n'
-            f'  }},\n'
-            f'  "dateModified": "2026-04-13",\n'
-            f'  "datePublished": "2026-01-01",\n'
-            f'  "mainEntityOfPage": {{"@type": "WebPage", "@id": "{page_url}"}}\n'
-            f'}}\n'
-            f'</script>'
-        )
-        content = wrong_article_schema.sub(correct_article_schema, content)
 
-        # Replace wrong BreadcrumbList schema
-        wrong_breadcrumb = re.compile(
-            r'<script type="application/ld\+json">\s*\{[^}]*"@type":\s*"BreadcrumbList".*?"item":\s*"https://ganzz\.digital/blog/guzellik-merkezi-reklam\.html".*?</script>',
-            re.DOTALL
-        )
-        # Extract title for breadcrumb from og_title
-        bc_title = og_title
-        correct_breadcrumb = (
-            f'<script type="application/ld+json">\n'
-            f'{{\n'
-            f'  "@context": "https://schema.org",\n'
-            f'  "@type": "BreadcrumbList",\n'
-            f'  "itemListElement": [\n'
-            f'    {{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://ganzz.digital/"}},\n'
-            f'    {{"@type":"ListItem","position":2,"name":"Blog","item":"https://ganzz.digital/#blog"}},\n'
-            f'    {{"@type":"ListItem","position":3,"name":"{bc_title}","item":"{page_url}"}}\n'
-            f'  ]\n'
-            f'}}\n'
-            f'</script>'
-        )
-        content = wrong_breadcrumb.sub(correct_breadcrumb, content)
+def ensure_complete_blog_document(content: str, footer: str) -> str:
+    content = re.sub(r"\n>\s*$", "\n", content)
+    if "</article>" not in content:
+        content = content.rstrip() + "\n</article>\n\n"
+    if '<a href="https://wa.me/905078805608" class="waf" target="_blank">' not in content:
+        content = content.rstrip() + "\n" + footer.strip() + "\n"
+    elif "</body>" not in content or "</html>" not in content:
+        head, _, _ = content.partition('<a href="https://wa.me/905078805608" class="waf" target="_blank">')
+        content = head.rstrip() + "\n" + footer.strip() + "\n"
+    return content
 
-        # Replace wrong BlogPosting schema
-        wrong_blogposting = re.compile(
-            r'<script type="application/ld\+json">\s*\{[^}]*"@type":\s*"BlogPosting".*?"@id":\s*"https://ganzz\.digital/blog/guzellik-merkezi-reklam\.html".*?</script>',
-            re.DOTALL
-        )
-        correct_blogposting = (
-            f'<script type="application/ld+json">\n'
-            f'{{\n'
-            f'  "@context": "https://schema.org",\n'
-            f'  "@type": "BlogPosting",\n'
-            f'  "headline": "{og_title}",\n'
-            f'  "description": "{page_desc}",\n'
-            f'  "url": "{page_url}",\n'
-            f'  "datePublished": "2026-01-01",\n'
-            f'  "dateModified": "2026-04-13",\n'
-            f'  "author": {{\n'
-            f'    "@type": "Organization",\n'
-            f'    "name": "Ganz Dijital",\n'
-            f'    "url": "https://ganzz.digital"\n'
-            f'  }},\n'
-            f'  "publisher": {{\n'
-            f'    "@type": "Organization",\n'
-            f'    "name": "Ganz Dijital",\n'
-            f'    "url": "https://ganzz.digital",\n'
-            f'    "logo": {{"@type":"ImageObject","url":"https://ganzz.digital/og-image.jpg"}}\n'
-            f'  }},\n'
-            f'  "mainEntityOfPage": {{\n'
-            f'    "@type": "WebPage",\n'
-            f'    "@id": "{page_url}"\n'
-            f'  }}\n'
-            f'}}\n'
-            f'</script>'
-        )
-        content = wrong_blogposting.sub(correct_blogposting, content)
 
-    # Step 5: Add twitter:site and twitter:image:alt to pages with existing correct twitter block
-    if 'twitter:site' not in content and 'twitter:card' in content:
-        content = content.replace(
-            '<meta name="twitter:card" content="summary_large_image">',
-            '<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@ganzdijital">'
-        )
-    if 'twitter:image:alt' not in content and 'twitter:image' in content:
-        content = re.sub(
-            r'(<meta name="twitter:image" content="[^"]+">)',
-            r'\1\n' + f'<meta name="twitter:image:alt" content="{og_title} — Ganz Dijital">',
-            content,
-            count=1
+def create_og_image() -> bool:
+    path = ROOT / OG_IMAGE_NAME
+    width = 1200
+    height = 630
+
+    bg_top = (2, 4, 8)
+    bg_bottom = (10, 17, 34)
+    cyan = (0, 245, 255)
+    purple = (123, 47, 255)
+    pink = (255, 0, 110)
+    white = (240, 246, 255)
+
+    pixels = [[list(bg_top) for _ in range(width)] for _ in range(height)]
+
+    def blend(base: tuple[int, int, int], overlay: tuple[int, int, int], alpha: float) -> tuple[int, int, int]:
+        return tuple(
+            max(0, min(255, int(base[i] * (1 - alpha) + overlay[i] * alpha))) for i in range(3)
         )
 
-    # Step 6: Replace CSS @import with <link> for font (performance)
-    import_pattern = re.compile(
-        r"@import\s+url\('https://fonts\.googleapis\.com/css2[^']+'\);\s*"
+    for y in range(height):
+        vertical_alpha = y / (height - 1)
+        row_color = blend(bg_top, bg_bottom, vertical_alpha)
+        for x in range(width):
+            horizontal_glow = 0.08 * (x / (width - 1))
+            pixels[y][x] = list(blend(row_color, purple, horizontal_glow))
+
+    def add_glow(center_x: int, center_y: int, radius: int, color: tuple[int, int, int], strength: float) -> None:
+        radius_sq = radius * radius
+        y_start = max(0, center_y - radius)
+        y_end = min(height, center_y + radius)
+        x_start = max(0, center_x - radius)
+        x_end = min(width, center_x + radius)
+        for y in range(y_start, y_end):
+            for x in range(x_start, x_end):
+                dx = x - center_x
+                dy = y - center_y
+                dist_sq = dx * dx + dy * dy
+                if dist_sq >= radius_sq:
+                    continue
+                intensity = (1 - (dist_sq / radius_sq)) * strength
+                pixels[y][x] = list(blend(tuple(pixels[y][x]), color, intensity))
+
+    add_glow(950, 120, 260, purple, 0.30)
+    add_glow(250, 510, 220, cyan, 0.22)
+    add_glow(760, 320, 180, pink, 0.18)
+
+    for y in range(70, 560):
+        for x in range(72, 74):
+            pixels[y][x] = list(cyan)
+
+    for y in range(500, 504):
+        for x in range(72, 1128):
+            pixels[y][x] = list(blend(tuple(pixels[y][x]), cyan, 0.55))
+
+    font = {
+        "A": ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+        "D": ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
+        "E": ["11111", "10000", "10000", "11110", "10000", "10000", "11111"],
+        "G": ["01110", "10001", "10000", "10111", "10001", "10001", "01110"],
+        "I": ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+        "J": ["00111", "00010", "00010", "00010", "10010", "10010", "01100"],
+        "L": ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
+        "N": ["10001", "11001", "10101", "10011", "10001", "10001", "10001"],
+        "O": ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+        "S": ["01111", "10000", "10000", "01110", "00001", "00001", "11110"],
+        "T": ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
+        "Z": ["11111", "00001", "00010", "00100", "01000", "10000", "11111"],
+        " ": ["00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+    }
+
+    def draw_char(char: str, origin_x: int, origin_y: int, scale: int, color: tuple[int, int, int]) -> int:
+        pattern = font[char]
+        for row_index, row in enumerate(pattern):
+            for col_index, pixel in enumerate(row):
+                if pixel != "1":
+                    continue
+                for dy in range(scale):
+                    py = origin_y + row_index * scale + dy
+                    if py >= height:
+                        continue
+                    for dx in range(scale):
+                        px = origin_x + col_index * scale + dx
+                        if px < width:
+                            pixels[py][px] = list(color)
+        return len(pattern[0]) * scale
+
+    def draw_text(text: str, origin_x: int, origin_y: int, scale: int, color: tuple[int, int, int], spacing: int) -> None:
+        cursor_x = origin_x
+        for char in text:
+            cursor_x += draw_char(char, cursor_x, origin_y, scale, color) + spacing
+
+    draw_text("GANZ", 90, 138, 20, white, 16)
+    draw_text("DIJITAL", 90, 296, 20, cyan, 16)
+    draw_text("GOOGLE ADS", 92, 430, 9, white, 8)
+    draw_text("SEO", 520, 430, 9, purple, 8)
+
+    for y in range(height):
+        for x in range(width):
+            if (x + y) % 62 == 0:
+                pixels[y][x] = list(blend(tuple(pixels[y][x]), cyan, 0.18))
+
+    raw = bytearray()
+    for row in pixels:
+        raw.append(0)
+        for r, g, b in row:
+            raw.extend((r, g, b))
+
+    def chunk(chunk_type: bytes, data: bytes) -> bytes:
+        return (
+            struct.pack(">I", len(data))
+            + chunk_type
+            + data
+            + struct.pack(">I", zlib.crc32(chunk_type + data) & 0xFFFFFFFF)
+        )
+
+    png = bytearray(b"\x89PNG\r\n\x1a\n")
+    png.extend(
+        chunk(
+            b"IHDR",
+            struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0),
+        )
     )
-    if import_pattern.search(content):
-        content = import_pattern.sub('', content)
-        # Add preconnect + link tag right after </style>
-        content = content.replace(
-            '</style>',
-            f'</style>\n{FONT_PRECONNECT}',
-            1
-        )
+    png.extend(chunk(b"IDAT", zlib.compress(bytes(raw), level=9)))
+    png.extend(chunk(b"IEND", b""))
 
-    # Step 7: Add favicon links (after <meta charset>)
-    if 'rel="icon"' not in content and 'rel="manifest"' not in content:
-        content = content.replace(
-            '<meta charset="UTF-8">',
-            f'<meta charset="UTF-8">\n{FAVICON_LINKS}'
-        )
-
-    # Step 8: Fix 2024 → 2026 in title and description meta
-    # (do targeted replacement in the head section only to avoid content body)
-    head_end = content.find('</head>')
-    if head_end != -1:
-        head = content[:head_end]
-        body = content[head_end:]
-        # Replace 2024 with 2026 in title and meta tags only
-        head = re.sub(
-            r'(<(?:title|meta)[^>]+)2024([^>]*>)',
-            r'\g<1>2026\2',
-            head
-        )
-        content = head + body
-
-    if content != original:
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
-        return True
-    return False
+    existing = path.read_bytes() if path.exists() else None
+    if existing == bytes(png):
+        return False
+    path.write_bytes(bytes(png))
+    return True
 
 
-def fix_index_html():
-    filepath = 'index.html'
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
+def fix_index_html() -> bool:
+    path = ROOT / "index.html"
+    content = read_text(path)
     original = content
 
-    # Add favicon links after charset
-    if 'rel="icon"' not in content:
-        content = content.replace(
-            '<meta charset="UTF-8">',
-            f'<meta charset="UTF-8">\n{FAVICON_LINKS}'
-        )
+    content = replace_og_refs(content)
+    content = content.replace("<!-- Schema.org - WebSite + SearchAction -->\n", "", 1)
+    organization_block = """<!-- Schema.org - Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MarketingAgency",
+  "@id": "https://ganzz.digital/#organization",
+  "name": "Ganz Dijital",
+  "alternateName": "Ganz Dijital Reklam Ajansı",
+  "url": "https://ganzz.digital/",
+  "logo": "https://ganzz.digital/favicon.svg",
+  "description": "Türkiye genelinde Google Ads, SEO, sosyal medya yönetimi ve web tasarım hizmetleri sunan dijital pazarlama ajansı.",
+  "foundingDate": "2009",
+  "telephone": "+905078805608",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+905078805608",
+    "contactType": "sales",
+    "availableLanguage": ["Turkish"]
+  },
+  "sameAs": [
+    "https://wa.me/905078805608"
+  ],
+  "areaServed": {
+    "@type": "Country",
+    "name": "Turkey"
+  }
+}
+</script>"""
+    if '"@type": "MarketingAgency"' not in content:
+        content = content.replace("<!-- Schema.org - Organization -->", organization_block, 1)
+    content = content.replace(
+        '<a href="#" class="nav-logo">',
+        '<a href="/" class="nav-logo" aria-label="Ganz Dijital ana sayfa">',
+        1,
+    )
+    content = content.replace(
+        '    "availableLanguage": "Turkish",\n    "contactOption": "TollFree"',
+        '    "availableLanguage": ["Turkish"]',
+        1,
+    )
+    content = content.replace(
+        '"logo": "https://ganzz.digital/og-image.png"',
+        '"logo": "https://ganzz.digital/favicon.svg"',
+        1,
+    )
+    content = content.replace('  "hasMap": "https://ganzz.digital",\n', "", 1)
 
-    # Add og:image:width/height/alt if missing
-    if 'og:image:width' not in content:
-        content = re.sub(
-            r'(<meta property="og:image" content="[^"]+">)',
-            r'\1\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="Ganz Dijital — Dijital Pazarlama Ajansı">',
-            content,
-            count=1
-        )
-    
-    # Add twitter:site if missing
-    if 'twitter:site' not in content:
-        content = content.replace(
-            '<meta name="twitter:card" content="summary_large_image">',
-            '<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@ganzdijital">'
-        )
+    content = re.sub(
+        r'\n<link rel="dns-prefetch" href="//www\.googletagmanager\.com">\n<link rel="preconnect" href="https://www\.googletagmanager\.com">',
+        "",
+        content,
+        count=1,
+    )
+    content = re.sub(
+        r'<!-- Google Analytics 4 -->\s*<script async src="https://www\.googletagmanager\.com/gtag/js\?id=[^"]+"></script>\s*<script>.*?</script>\s*',
+        "",
+        content,
+        flags=re.DOTALL,
+    )
 
-    # Add twitter:image:alt if missing
-    if 'twitter:image:alt' not in content:
-        content = re.sub(
-            r'(<meta name="twitter:image" content="[^"]+">)',
-            r'\1\n<meta name="twitter:image:alt" content="Ganz Dijital — Dijital Pazarlama Ajansı">',
-            content,
-            count=1
-        )
+    content = remove_jsonld_block(content, "LocalBusiness")
 
-    # Fix SearchAction schema - improve to be valid
-    old_search = '''"potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://ganzz.digital/blog/{search_term_string}",
-    "query-input": "required name=search_term_string"
-  }'''
-    new_search = '''"potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://ganzz.digital/blog/{search_term_string}.html"
-    },
-    "query-input": "required name=search_term_string"
-  }'''
-    content = content.replace(old_search, new_search)
+    website_block = """<!-- Schema.org - WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://ganzz.digital/#website",
+  "name": "Ganz Dijital",
+  "url": "https://ganzz.digital/"
+}
+</script>"""
+    content = replace_jsonld_block(content, "WebSite", website_block)
 
-    if content != original:
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
-        return True
-    return False
+    return write_text(path, content) if content != original else False
 
 
-def fix_hakkimizda_html():
-    filepath = 'hakkimizda.html'
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
+def fix_hakkimizda_html() -> bool:
+    path = ROOT / "hakkimizda.html"
+    content = read_text(path)
+    updated = replace_og_refs(content)
+    return write_text(path, updated) if updated != content else False
+
+
+def fix_legacy_homepage() -> bool:
+    path = ROOT / "ganz-dijital-FINAL.html"
+    content = read_text(path)
     original = content
-
-    # Add favicon links
-    if 'rel="icon"' not in content:
-        content = content.replace(
-            '<meta charset="UTF-8">',
-            f'<meta charset="UTF-8">\n{FAVICON_LINKS}'
-        )
-
-    # Add robots meta if missing
+    content = replace_og_refs(content)
     if 'name="robots"' not in content:
         content = content.replace(
-            '<link rel="canonical"',
-            '<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">\n<link rel="canonical"'
+            '<meta name="description" content="Türkiye\'nin 15+ yıllık deneyimli dijital pazarlama ajansı. 280+ firma ortaklığı, 80+ güzellik merkezi. Google Ads, SEO, sosyal medya, web tasarım.">',
+            '<meta name="description" content="Türkiye\'nin 15+ yıllık deneyimli dijital pazarlama ajansı. 280+ firma ortaklığı, 80+ güzellik merkezi. Google Ads, SEO, sosyal medya, web tasarım.">\n<meta name="robots" content="noindex, follow">\n<link rel="canonical" href="https://ganzz.digital/">',
+            1,
         )
+    return write_text(path, content) if content != original else False
 
-    # Add author meta if missing
-    if 'name="author"' not in content:
-        content = content.replace(
-            '<link rel="canonical"',
-            '<meta name="author" content="Ganz Dijital">\n<link rel="canonical"'
+
+def repair_broken_blog_pages() -> int:
+    repaired = 0
+    footer = extract_blog_footer()
+    for path in sorted(BLOG_DIR.glob("*.html")):
+        content = read_text(path)
+        if BROKEN_ARTICLE_MARKER not in content:
+            continue
+        prefix = content.split("<article>", 1)[0]
+        suffix = content.split(BROKEN_ARTICLE_MARKER, 1)[1].lstrip()
+        if not suffix.startswith("<article"):
+            suffix = "<article>\n" + suffix
+        updated = ensure_complete_blog_document(replace_og_refs(prefix + suffix), footer)
+        if write_text(path, updated):
+            repaired += 1
+    return repaired
+
+
+def normalize_blog_pages() -> int:
+    updated_count = 0
+    footer = extract_blog_footer()
+    for path in sorted(BLOG_DIR.glob("*.html")):
+        content = read_text(path)
+        original = content
+        content = replace_og_refs(content)
+        content = ensure_complete_blog_document(content, footer)
+
+        if 'twitter:site' not in content and 'twitter:card' in content:
+            content = content.replace(
+                '<meta name="twitter:card" content="summary_large_image">',
+                '<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:site" content="@ganzdijital">',
+                1,
+            )
+
+        article_headline = extract(r'"@type":\s*"Article".*?"headline":\s*"([^"]+)"', content)
+        meta_description = extract(r'<meta name="description" content="([^"]+)"', content)
+        page_title = extract(r"<title>([^<]+)</title>", content)
+
+        clean_headline = article_headline or clean_title(page_title or "")
+        if clean_headline:
+            content = replace_first_jsonld_field(content, "BlogPosting", "headline", clean_headline)
+
+        if meta_description:
+            content = replace_first_jsonld_field(content, "BlogPosting", "description", meta_description)
+
+        if path.name in DUPLICATE_SLUGS:
+            canonical_slug = DUPLICATE_SLUGS[path.name]
+            old_url = f"{BASE_URL}/blog/{path.name}"
+            new_url = f"{BASE_URL}/blog/{canonical_slug}"
+            content = re.sub(
+                r'<meta name="robots" content="[^"]+">',
+                '<meta name="robots" content="noindex, follow">',
+                content,
+                count=1,
+            )
+            content = content.replace(old_url, new_url)
+
+        if content != original and write_text(path, content):
+            updated_count += 1
+    return updated_count
+
+
+def update_entrypoints() -> int:
+    updates = 0
+
+    staticfile_path = ROOT / "Staticfile"
+    staticfile = read_text(staticfile_path)
+    staticfile_updated = staticfile.replace(
+        '      index: "ganz-dijital-FINAL.html"',
+        '      index: "index.html"',
+    )
+    if staticfile_updated != staticfile and write_text(staticfile_path, staticfile_updated):
+        updates += 1
+
+    app_path = ROOT / "app" / "main.py"
+    app_content = read_text(app_path)
+    app_updated = app_content.replace(
+        "from flask import Flask, render_template_string",
+        "from flask import Flask",
+    ).replace("../ganz-dijital-FINAL.html", "../index.html")
+    if app_updated != app_content and write_text(app_path, app_updated):
+        updates += 1
+
+    return updates
+
+
+def url_for(path: Path) -> str:
+    relative = path.relative_to(ROOT).as_posix()
+    if relative == "index.html":
+        return f"{BASE_URL}/"
+    return f"{BASE_URL}/{relative}"
+
+
+def build_sitemap() -> bool:
+    entries: list[tuple[Path, str, str, str]] = [
+        (ROOT / "index.html", "weekly", "1.00", url_for(ROOT / "index.html")),
+        (ROOT / "hakkimizda.html", "monthly", "0.80", url_for(ROOT / "hakkimizda.html")),
+    ]
+
+    for path in sorted(BLOG_DIR.glob("*.html")):
+        if any(ord(char) > 127 for char in path.name):
+            continue
+        entries.append((path, "monthly", "0.75", url_for(path)))
+
+    parts = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for path, changefreq, priority, loc in entries:
+        lastmod = datetime.fromtimestamp(path.stat().st_mtime, UTC).strftime("%Y-%m-%d")
+        parts.extend(
+            [
+                "  <url>",
+                f"    <loc>{loc}</loc>",
+                f"    <lastmod>{lastmod}</lastmod>",
+                f"    <changefreq>{changefreq}</changefreq>",
+                f"    <priority>{priority}</priority>",
+                "  </url>",
+            ]
         )
+    parts.append("</urlset>")
 
-    # Add google-site-verification
-    if 'google-site-verification' not in content:
-        content = content.replace(
-            '<link rel="canonical"',
-            '<meta name="google-site-verification" content="481c9008f61997cd">\n<link rel="canonical"'
-        )
-
-    # Add OG/Twitter if missing
-    if 'og:title' not in content:
-        og_block = """\
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:locale" content="tr_TR">
-<meta property="og:title" content="Hakkımızda — Ganz Dijital | 15+ Yıllık Dijital Pazarlama Ajansı">
-<meta property="og:description" content="Ganz Dijital, 2009'dan bu yana Türkiye genelinde 280+ firmaya dijital pazarlama hizmetleri sunan uzman ekip. Google Ads, SEO, sosyal medya yönetimi.">
-<meta property="og:url" content="https://ganzz.digital/hakkimizda.html">
-<meta property="og:site_name" content="Ganz Dijital">
-<meta property="og:image" content="https://ganzz.digital/og-image.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Ganz Dijital — Dijital Pazarlama Ajansı">
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@ganzdijital">
-<meta name="twitter:title" content="Hakkımızda — Ganz Dijital | 15+ Yıllık Dijital Pazarlama Ajansı">
-<meta name="twitter:description" content="Ganz Dijital, 2009'dan bu yana Türkiye genelinde 280+ firmaya dijital pazarlama hizmetleri sunan uzman ekip.">
-<meta name="twitter:image" content="https://ganzz.digital/og-image.jpg">
-<meta name="twitter:image:alt" content="Ganz Dijital — Dijital Pazarlama Ajansı">"""
-        # Insert before </head>
-        content = content.replace('</head>', f'{og_block}\n</head>', 1)
-
-    # Add font preconnect+link if missing
-    if 'preconnect' not in content:
-        content = content.replace(
-            '<link href="https://fonts.googleapis.com/',
-            f'<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/'
-        )
-
-    if content != original:
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
-        return True
-    return False
+    return write_text(ROOT / "sitemap.xml", "\n".join(parts))
 
 
-def fix_404_html():
-    filepath = '404.html'
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
-    original = content
-
-    # Add favicon links
-    if 'rel="icon"' not in content:
-        content = content.replace(
-            '<meta charset="UTF-8">',
-            f'<meta charset="UTF-8">\n{FAVICON_LINKS}'
-        )
-
-    if content != original:
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(content)
-        return True
-    return False
-
-
-def create_favicon():
-    """Create a simple SVG favicon matching the brand colors."""
-    favicon_svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#020408"/>
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
-        font-family="monospace" font-size="52" font-weight="bold" fill="#00f5ff">[G]</text>
-</svg>"""
-    with open('favicon.svg', 'w', encoding='utf-8') as f:
-        f.write(favicon_svg)
-    print("Created favicon.svg")
-
-
-def create_manifest():
-    """Create web app manifest."""
-    manifest = {
-        "name": "Ganz Dijital",
-        "short_name": "Ganz",
-        "description": "Türkiye'nin dijital pazarlama ajansı — Google Ads, SEO, Sosyal Medya",
-        "start_url": "/",
-        "display": "standalone",
-        "background_color": "#020408",
-        "theme_color": "#00f5ff",
-        "lang": "tr",
-        "icons": [
-            {
-                "src": "/favicon.svg",
-                "sizes": "any",
-                "type": "image/svg+xml",
-                "purpose": "any maskable"
-            }
+def write_robots() -> bool:
+    robots = "\n".join(
+        [
+            "User-agent: *",
+            "Allow: /",
+            "Disallow: /private/",
+            "",
+            f"Sitemap: {BASE_URL}/sitemap.xml",
         ]
-    }
-    with open('manifest.json', 'w', encoding='utf-8') as f:
-        json.dump(manifest, f, ensure_ascii=False, indent=2)
-    print("Created manifest.json")
+    )
+    return write_text(ROOT / "robots.txt", robots)
 
 
-def fix_server_py():
-    """Add improved security headers and HSTS to server."""
-    with open('server.py', 'r') as f:
-        content = f.read()
-    original = content
+def audit() -> list[str]:
+    issues: list[str] = []
 
-    old_headers = """        self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("X-Frame-Options", "SAMEORIGIN")
-        self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
-        self.send_header("X-XSS-Protection", "1; mode=block")
-        self.send_header("Permissions-Policy", "camera=(), microphone=(), geolocation=()")"""
+    if not (ROOT / OG_IMAGE_NAME).exists():
+        issues.append("og-image.png bulunamadi")
 
-    new_headers = """        self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("X-Frame-Options", "SAMEORIGIN")
-        self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
-        self.send_header("X-XSS-Protection", "1; mode=block")
-        self.send_header("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
-        self.send_header("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
-        self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'")
-        self.send_header("X-DNS-Prefetch-Control", "on")"""
+    html_files = [ROOT / "index.html", ROOT / "hakkimizda.html", ROOT / "ganz-dijital-FINAL.html"]
+    html_files.extend(sorted(BLOG_DIR.glob("*.html")))
+    for path in html_files:
+        content = read_text(path)
+        if "og-image.jpg" in content:
+            issues.append(f"{path.relative_to(ROOT)} halen og-image.jpg kullaniyor")
+        if BROKEN_ARTICLE_MARKER in content:
+            issues.append(f"{path.relative_to(ROOT)} halen bozuk blog birlesimi iceriyor")
+        if path.parent == BLOG_DIR and ("</body>" not in content or "</html>" not in content):
+            issues.append(f"{path.relative_to(ROOT)} eksik kapanis etiketleri iceriyor")
+        if path.parent == BLOG_DIR and re.search(r"\n>\s*$", content):
+            issues.append(f"{path.relative_to(ROOT)} sonda gecersiz karakter birakiyor")
 
-    if old_headers in content:
-        content = content.replace(old_headers, new_headers)
+    index_html = read_text(ROOT / "index.html")
+    if "G-XXXXXXXXXX" in index_html:
+        issues.append("index.html halen sahte GA olcum kimligi iceriyor")
+    if '"@type": "LocalBusiness"' in index_html:
+        issues.append("index.html halen LocalBusiness schema iceriyor")
+    if '"@type": "SearchAction"' in index_html:
+        issues.append("index.html halen SearchAction schema iceriyor")
+    if "WebSite + SearchAction" in index_html:
+        issues.append("index.html halen eski SearchAction yorumu iceriyor")
 
-    if content != original:
-        with open('server.py', 'w') as f:
-            f.write(content)
-        print("Fixed server.py")
-        return True
-    return False
+    for duplicate_slug, canonical_slug in DUPLICATE_SLUGS.items():
+        content = read_text(BLOG_DIR / duplicate_slug)
+        if 'content="noindex, follow"' not in content:
+            issues.append(f"{duplicate_slug} noindex degil")
+        if f"{BASE_URL}/blog/{canonical_slug}" not in content:
+            issues.append(f"{duplicate_slug} canonical ASCII slug'a yonlenmemis")
 
+    sitemap = read_text(ROOT / "sitemap.xml")
+    for duplicate_slug in DUPLICATE_SLUGS:
+        if duplicate_slug in sitemap:
+            issues.append(f"sitemap duplicate slug iceriyor: {duplicate_slug}")
 
-def rename_turkish_char_files():
-    """Rename files with Turkish characters to ASCII equivalents."""
-    renames = {
-        'blog/tarım-ciftlik-dijital-pazarlama.html': 'blog/tarim-ciftlik-dijital-pazarlama.html',
-        'blog/danismanlik-koçluk-dijital-pazarlama.html': 'blog/danismanlik-kocluk-dijital-pazarlama.html',
-    }
-    for old, new in renames.items():
-        if os.path.exists(old) and not os.path.exists(new):
-            shutil.copy2(old, new)
-            # Fix canonical and og:url in the new file
-            with open(new, 'r', encoding='utf-8') as f:
-                c = f.read()
-            old_basename = os.path.basename(old)
-            new_basename = os.path.basename(new)
-            c = c.replace(f'/{old_basename}', f'/{new_basename}')
-            with open(new, 'w', encoding='utf-8') as f:
-                f.write(c)
-            print(f"Created {new} (ASCII-safe copy of {old})")
-    return renames
+    return issues
 
 
-def fix_sitemap(renames):
-    """Update sitemap to use ASCII-safe URLs and add missing pages."""
-    with open('sitemap.xml', 'r', encoding='utf-8') as f:
-        content = f.read()
-    original = content
+def run_apply() -> None:
+    og_changed = create_og_image()
+    index_changed = fix_index_html()
+    about_changed = fix_hakkimizda_html()
+    legacy_changed = fix_legacy_homepage()
+    repaired = repair_broken_blog_pages()
+    normalized = normalize_blog_pages()
+    entrypoint_updates = update_entrypoints()
+    sitemap_changed = build_sitemap()
+    robots_changed = write_robots()
 
-    # Replace Turkish-char URLs with ASCII versions
-    for old_path, new_path in renames.items():
-        old_basename = os.path.basename(old_path)
-        new_basename = os.path.basename(new_path)
-        # Sitemap has URL-encoded version
-        import urllib.parse
-        old_encoded = urllib.parse.quote(old_basename, safe='-.')
-        new_clean = new_basename
-        content = content.replace(
-            f'{BASE_URL}/blog/{old_encoded}',
-            f'{BASE_URL}/blog/{new_clean}'
-        )
-        # Also try unencoded
-        content = content.replace(
-            f'{BASE_URL}/blog/{old_basename}',
-            f'{BASE_URL}/blog/{new_clean}'
-        )
+    print("=== Ganz Dijital SEO Maintenance ===")
+    print(f"og-image.png: {'UPDATED' if og_changed else 'OK'}")
+    print(f"index.html: {'UPDATED' if index_changed else 'OK'}")
+    print(f"hakkimizda.html: {'UPDATED' if about_changed else 'OK'}")
+    print(f"ganz-dijital-FINAL.html: {'UPDATED' if legacy_changed else 'OK'}")
+    print(f"broken blog pages repaired: {repaired}")
+    print(f"blog pages normalized: {normalized}")
+    print(f"entrypoints updated: {entrypoint_updates}")
+    print(f"sitemap.xml: {'UPDATED' if sitemap_changed else 'OK'}")
+    print(f"robots.txt: {'UPDATED' if robots_changed else 'OK'}")
 
-    if content != original:
-        with open('sitemap.xml', 'w', encoding='utf-8') as f:
-            f.write(content)
-        print("Fixed sitemap.xml")
+    issues = audit()
+    if issues:
+        print("\nAUDIT FAILED:")
+        for issue in issues:
+            print(f"- {issue}")
+        raise SystemExit(1)
 
-
-def fix_robots_txt():
-    """Improve robots.txt."""
-    with open('robots.txt', 'r', encoding='utf-8') as f:
-        content = f.read()
-    original = content
-
-    # Add sitemap index hint for image and video if not there
-    # Add additional bot allowances
-    new_content = """User-agent: *
-Allow: /
-Disallow: /private/
-
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: AhrefsBot
-Crawl-delay: 2
-
-User-agent: SemrushBot
-Crawl-delay: 2
-
-Sitemap: https://ganzz.digital/sitemap.xml
-"""
-    if content != new_content:
-        with open('robots.txt', 'w', encoding='utf-8') as f:
-            f.write(new_content)
-        print("Fixed robots.txt")
+    print("\nAudit passed.")
 
 
-def main():
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Maintain Ganz Dijital SEO assets.")
+    parser.add_argument("--audit", action="store_true", help="Only run audit checks.")
+    args = parser.parse_args()
 
-    print("=== Ganz Dijital SEO Fix Script ===\n")
+    os.chdir(ROOT)
 
-    # 1. Create favicon and manifest
-    create_favicon()
-    create_manifest()
+    if args.audit:
+        issues = audit()
+        if issues:
+            for issue in issues:
+                print(f"- {issue}")
+            raise SystemExit(1)
+        print("Audit passed.")
+        return
 
-    # 2. Rename Turkish-char files
-    renames = rename_turkish_char_files()
-
-    # 3. Fix sitemap
-    fix_sitemap(renames)
-
-    # 4. Fix robots.txt
-    fix_robots_txt()
-
-    # 5. Fix server.py
-    fix_server_py()
-
-    # 6. Fix index.html
-    changed = fix_index_html()
-    print(f"index.html: {'FIXED' if changed else 'OK'}")
-
-    # 7. Fix hakkimizda.html
-    changed = fix_hakkimizda_html()
-    print(f"hakkimizda.html: {'FIXED' if changed else 'OK'}")
-
-    # 8. Fix 404.html
-    changed = fix_404_html()
-    print(f"404.html: {'FIXED' if changed else 'OK'}")
-
-    # 9. Fix all blog files
-    blog_files = glob.glob('blog/*.html')
-    fixed = 0
-    for bf in sorted(blog_files):
-        changed = fix_blog_file(bf)
-        if changed:
-            fixed += 1
-    print(f"\nBlog files fixed: {fixed}/{len(blog_files)}")
-
-    print("\n=== SEO Fix Complete ===")
+    run_apply()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
